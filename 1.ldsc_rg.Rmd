@@ -1,0 +1,698 @@
+---
+title: "LDSC"
+author: "Abi ter Kuile, Sang Hyuck Lee and Helena Davies"
+date: '2022-09-02'
+output: rmdformats::material
+link-citations: yes
+description: "LDSC"
+---
+
+Decisions re. panel: Nothing seems to be fundamentally wrong with Johan’s panel, and there are good reasons to work with Johan’s panel (broader, uses more info) so we have decided to include Johan’s panel – limiting to hm3 SNPs because more stable – in all analyses in the paper. Using Johan’s panel will still be more informative because it covers a lot more SNPs in the LD scores & is updated + contains recent sequencing info. (NB: h2 higher when restricting to hm3 SNPs *may* be because adding in additional SNPs adds in more variance from SNPs from low LD bins and that is pulling the signal up in those bins which in turn flattens the line and reduces the heritability, i.e., sampling from a different distribution)  
+
+Phenotypes to include: jackknife with all even if BE broad and BE narrow not sig diff?
+
+*NOTES*
+Reference script: https://github.com/tnggroup/anx_meta_glad_agds_ukb/blob/main/genetic/analyses/ldsc_ukb.Rmd
+
+Note: We have not excluded MHC region as decided by the PGC (rationale = that it would not make much of a difference. It is easier not to exclude anything and the datasets are of low power)
+
+Summary statistics have been munged with hapmap3 (with MAF>0.01 and INFO>0.6):
+
+*PROCESS*
+STEP 1: In order to install the Python dependencies, you will need the [Anaconda]
+(https://store.continuum.io/cshop/anaconda/) Python distribution and package manager. 
+
+STEP 2: After installing Anaconda, run the following commands to create an environment with LDSC's dependencies:
+conda create -n ldsc_env
+conda activate ldsc_env
+conda install -c bioconda ldsc
+
+STEP 3: gitclone the repository from ldsc website as well (to get the scripts and data) - the ldsc environment is mostly to get the older version of python (I think)
+git clone https://github.com/bulik/ldsc.git
+cd /scratch/users/k19047584/ldsc
+
+STEP 4: You will also need LD scores:
+By chromosome: /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr
+One file: /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023
+
+# 1. Preprocessing
+## Create list with all traits in folder
+```{bash}
+vim /scratch/users/k19047584/ldsc/external_rg/munged_list_220923.txt
+
+ADHD06
+SMOK10
+ALCD03
+ALCU01
+ALCU02
+ALCU03
+ALZH01
+ANOR02
+ANOR03
+ANXI03
+ASTH01
+AUTI07
+BALD01
+BFPC03
+BIPO03
+BIPO04
+BIPO05
+BLOO01
+BLOO02
+BLOO03
+BLOO04
+BLOO05
+BLOO06
+BLOO07
+BLOO08
+BLOO09
+BLOO10
+BLOO11
+BLOO12
+BLOO13
+BLOO14
+BLOO15
+BLOO16
+BLOO17
+BLOO18
+BLOO19
+BLOO20
+BLOO21
+BLOO22
+BLOO23
+BLOO24
+BLOO25
+BLOO26
+BLOO27
+BLOO28
+BLOO29
+BLOO30
+BLOO31
+BLOO32
+BLOO33
+BLOO34
+BLOO35
+BLOO36
+BODY02
+BODY04
+BODY07
+CANU02
+CANU03
+CAUD01
+CELI01
+CHOL21
+CHOL22
+CHOL27
+CHRO01
+CHRO02
+CHRO06
+SMOK09
+CIRR01
+COAD03
+COLL01
+CROH01
+CROS01
+DEPR02
+DEPR05
+DIAB02
+ALCO04
+EDUC02
+EDUC06
+EDUC05
+EXTR01
+FATM02
+FATM02B
+FATM02F
+FATM02M
+FATM03
+FATM03B
+FATM03F
+FATM03M
+FATM04
+FATM04B
+FATM04F
+FATM04M
+FATM05B
+GLYC02
+GLYC04
+GLYC05
+GLYC07
+GLYC08
+GLYC13
+GLYC14
+GLYC16
+GLYC22
+GROW01
+GROW01F
+GROW03
+HEAD01
+HEAL01
+HEAR01
+HEIG01
+HEIG02
+HEIG07
+HEIG08
+HIPC01
+HIPC01F
+HIPC01M
+HIPC03
+HIPC03F
+HIPC03M
+INCO01
+INCO03
+INFB01
+INSO02
+INTE01
+INTE03
+LEAN02
+LEAN03
+LEAN04
+LEAN04B
+LEAN04F
+LEAN04M
+LEAN05
+LEAN05B
+LEAN05F
+LEAN05M
+LEAN06
+LEAN06B
+LEAN06F
+LEAN06M
+LEAN07B
+LONG01
+LONG02
+LONG03
+LONG04
+LONG05
+LONG06
+LONG07
+LUNG01
+LUNG02
+LUNG03
+LUNG05
+LUPU01
+MEMO01
+MENA03F
+MENO01F
+MIGR01
+NEUR02B
+OBES01
+OBES02
+OBES03
+OBES05
+OBES07
+OCDI01
+OSTE01
+OSTE03
+OSTE04
+OSTE05
+OVER01
+ANXI05
+PHYS01
+PRCA01
+PUTA01
+REAC01
+REAS01
+REPR01
+REPR01F
+REPR01M
+REPR02
+REPR02F
+REPR02M
+RHEU02
+RISK01
+RISK02
+RISK03
+SCBP01
+SCBP02
+SCHI05
+SMOK05
+SMOK08
+SMOK07
+SUBJ01
+THIN01
+TIRE01
+TOUR01
+TRGL04
+URAT01
+URIN08
+URIN11
+VITD01
+WAIS01F
+WAIS01M
+WAIS03
+WAIS03F
+WAIS03M
+WEIG01
+WEIG04F
+WEIG04M
+WEIG05F
+WHIP01
+WHIP03
+WHIP03F
+WHIP03M
+WHIP05
+WHIP05F
+WHIP05M
+BODY04F
+BODY04M
+EDUC03
+HEIG09
+CROS01
+PSOR01
+SMOK11
+INSO03
+ADHD06
+SMOK10
+BIPO03
+BIPO04
+BIPO05
+CANU02
+CANU03
+SMOK09
+ALCO04
+SMOK08
+SMOK07
+ANXI05
+TOUR01
+LONE04
+BODY15
+GLYC47
+GLYC48
+GLYC49
+GLYC48F
+GLYC48M
+GLYC50
+GLYC51
+GLYC50F
+GLYC50M
+GLYC52
+GLYC53
+REPR04
+REPR03
+```
+# AUTI09 - cleaned file has no SNP info
+# GLYC47 error with rg: 'WARNING: One of the h2's was out of bounds. This usually indicates a data-munging error or that h2 or N is low.'
+
+# To check log files of below!
+# SMOK11
+# TOUR01
+
+
+Separate script for MVP sumstats (plus DEPR11 - not MVP but unsure about access permission)
+(in different folder)
+```{r}
+vim /scratch/users/k19047584/ldsc/external_rg/munged_list_MVP_220923.txt
+
+OPIO01
+PTSD07
+PTSD06
+DEPR11
+```
+# ANXI04 - all NAs when cleaned with supermunge
+
+# Genetic correlations
+Two separate scripts: 1) rg between two traits, 2) run for all traits.
+
+NB: delete values, i.e., re-sampling method in which each time within 200 blocks of the genome, a section of the genome is left out = need this for jackknife
+
+NB: gawk 'c&&c--;/^p1.*p2.*gcov_int_se$/{c=1}' ${output}.log = A naming system, "pheno1_pheno2.log" (find where p1 is, find where p2 is)
+
+## 1. Setting the structure for rg between two traits
+This script tells you the structure of what you want to do, i.e., do this between two traits.
+```{bash}
+cd /scratch/users/k19047584/ldsc/external_rg/scripts/
+rm /scratch/users/k19047584/ldsc/external_rg/scripts/correlFromFile.sh
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/external_rg/scripts/correlFromFile.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=rg_ldsc_correl_file
+#SBATCH --output=/scratch/users/k19047584/ldsc/external_rg/output/rg_from_list%j.out
+
+ldscdir=/scratch/users/k19047584/ldsc/
+input1=$1
+input2=$2
+output=$3
+
+python ${ldscdir}ldsc.py \
+--n-blocks 200 \
+--print-delete-vals \
+--rg ${input2},${input1} \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--out ${output}
+
+gawk 'c&&c--;/^p1.*p2.*gcov_int_se$/{c=1}' ${output}.log
+
+
+EOT
+```
+
+## 2. Running script 1 for *all* traits
+NB: countvarid = count and extract the name of each trait from this list
+
+NB: sh ${workdir}scripts/correlFromFile.sh \
+${gwassumstatsprj}munged/${name1}.sumstats.gz \
+${workdir}ldsc/results/${name2}.gz_formunging_munged_hm3.sumstats.gz \
+${workdir}ldsc/results/external_rg/${name1}_${name2}
+
+This part is the specification of input1, input2, and output3 that is asked for in the script above: inputs are specified at end of ldsc.correlations.sh after correlFromFile.sh is called in, where $1 is the munged sumstats repo file for each trait (e.g., ${workdir}scripts/munged_list_TEST_110723.txt), $2 specific single trait, $3 file path of output for each rg log (${workdir}meta/ldsc/results/external_rg/)
+
+```{bash}
+cd /scratch/users/k19047584/ldsc/external_rg/scripts/
+rm /scratch/users/k19047584/ldsc/external_rg/scripts/ldsc.correlations.sh
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/external_rg/scripts/ldsc.correlations.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=rg_ldsc_list
+#SBATCH --output=/scratch/users/k19047584/ldsc/external_rg/output/rg_list_all%j.out
+
+workdir=/scratch/users/k19047584/ldsc/external_rg/
+ldscdir=/scratch/users/k19047584/ldsc/
+gwassumstatsprj=/scratch/prj/gwas_sumstats/munged/
+PGCEDtraitsdir=/scratch/users/k19047584/PGCED3_rg/
+
+#name1 and 2 specified in command line when job submitted)
+#name1: munged and cleaned trait from list
+#name2: munged and cleaned trait of choice that will run rg with all traits from list (AN, BE broad, BE narrow)
+
+name2=$2
+
+varid=$1
+pathvarid="${workdir}/${varid}"
+countvarid=$(wc -l ${pathvarid}|awk '{printf $1}')
+
+for i in `seq 1 ${countvarid}`
+do name1=$(gawk -v myvar=$i 'NR==myvar{printf $1}' ${pathvarid})
+
+sh ${workdir}scripts/correlFromFile.sh \
+${gwassumstatsprj}${name1}.sumstats.gz \
+${PGCEDtraitsdir}${name2}_hm3.sumstats.gz \
+${ldscdir}results/${name1}_${name2}
+
+done
+
+EOT
+```
+
+## Submit script 2
+NB: WHICH WILL ALSO SUBMIT SCRIPT 1 USING SH (this will run X times [X = number of traits])
+$1 = list of all sumstats, $2 = AN
+```{bash}
+cd /scratch/users/k19047584/ldsc/external_rg/
+conda activate ldsc_env
+
+# AN 9686831
+sbatch -p cpu /scratch/users/k19047584/ldsc/external_rg/scripts/ldsc.correlations.sh munged_list_220923.txt daner_AN.meta_munged 
+
+# ANR 9686832
+sbatch -p cpu /scratch/users/k19047584/ldsc/external_rg/scripts/ldsc.correlations.sh munged_list_220923.txt daner_ANR.meta_munged 
+
+# ANBP 9686833
+sbatch -p cpu /scratch/users/k19047584/ldsc/external_rg/scripts/ldsc.correlations.sh munged_list_220923.txt daner_ANBP.meta_munged 
+
+# BE broad 9686834
+sbatch -p cpu /scratch/users/k19047584/ldsc/external_rg/scripts/ldsc.correlations.sh munged_list_220923.txt daner_BEBROAD.meta_munged 
+
+# BE narrow 9686835
+sbatch -p cpu /scratch/users/k19047584/ldsc/external_rg/scripts/ldsc.correlations.sh munged_list_220923.txt daner_BENARROW.meta_munged 
+```
+
+## Download log files
+```{bash}
+rsync create:/scratch/users/k19047584/ldsc/external_rg/output/rg_list_all9644655.out /Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/log_files_rg/AN_log_rg.txt
+
+rsync create:/scratch/users/k19047584/ldsc/external_rg/output/rg_list_all7738690.out /Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/log_files_rg/ANR_log_rg.txt
+
+rsync create:/scratch/users/k19047584/ldsc/external_rg/output/rg_list_all7738691.out /Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/log_files_rg/ANBP_log_rg.txt
+
+rsync create:/scratch/users/k19047584/ldsc/external_rg/output/rg_list_all7738689.out /Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/log_files_rg/BEBROAD_log_rg.txt
+
+rsync create:/scratch/users/k19047584/ldsc/external_rg/output/rg_list_all7738692.out /Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/log_files_rg/BENARROW_log_rg.txt
+```
+
+## 1. MVP 0 Setting the structure for rg between two traits
+This script tells you the structure of what you want to do, i.e., do this between two traits.
+```{bash mvp script 1}
+cd /scratch/users/k19047584/ldsc/external_rg/scripts/
+rm /scratch/users/k19047584/ldsc/external_rg/scripts/correlFromFile_MVP.sh
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/external_rg/scripts/correlFromFile_MVP.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=rg_ldsc_correl_file_MVP
+#SBATCH --output=/scratch/users/k19047584/ldsc/external_rg/output/rg_from_list_MVP%j.out
+
+ldscdir=/scratch/users/k19047584/ldsc/
+input1=$1
+input2=$2
+output=$3
+
+python ${ldscdir}ldsc.py \
+--n-blocks 200 \
+--print-delete-vals \
+--rg ${input2},${input1} \
+--chisq-max 80 \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--out ${output}
+
+gawk 'c&&c--;/^p1.*p2.*gcov_int_se$/{c=1}' ${output}.log
+
+
+EOT
+```
+
+## MVP version of script 2
+```{bash mvp script 2}
+cd /scratch/users/k19047584/ldsc/external_rg/scripts/
+rm /scratch/users/k19047584/ldsc/external_rg/scripts/ldsc.correlations.sh
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/external_rg/scripts/ldsc.correlations.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=rg_ldsc_list_MVP
+#SBATCH --output=/scratch/users/k19047584/ldsc/external_rg/output/rg_list_all_MVP%j.out
+
+workdir=/scratch/users/k19047584/ldsc/external_rg/
+ldscdir=/scratch/users/k19047584/ldsc/
+gwassumstatsprj=/scratch/users/k19047584/MVP_sumstats/munged/
+PGCEDtraitsdir=/scratch/users/k19047584/PGCED3_rg/
+
+#name1 and 2 specified in command line when job submitted)
+#name1: munged and cleaned trait from list
+#name2: munged and cleaned trait of choice that will run rg with all traits from list (AN, BE broad, BE narrow)
+
+name2=$2
+
+varid=$1
+pathvarid="${workdir}/${varid}"
+countvarid=$(wc -l ${pathvarid}|awk '{printf $1}')
+
+for i in `seq 1 ${countvarid}`
+do name1=$(gawk -v myvar=$i 'NR==myvar{printf $1}' ${pathvarid})
+
+sh ${workdir}scripts/correlFromFile_MVP.sh \
+${gwassumstatsprj}${name1}.sumstats.gz \
+${PGCEDtraitsdir}${name2}_hm3.sumstats.gz \
+${ldscdir}results/${name1}_${name2}
+
+done
+
+EOT
+```
+
+## Submit MVP script 2
+NB: WHICH WILL ALSO SUBMIT SCRIPT 1 USING SH (this will run X times [X = number of traits])
+$1 = list of all sumstats, $2 = AN
+```{bash MVP script 2}
+cd /scratch/users/k19047584/ldsc/external_rg/
+conda activate ldsc_env
+
+# AN 9686988
+sbatch -p cpu /scratch/users/k19047584/ldsc/external_rg/scripts/ldsc.correlations.sh munged_list_MVP_220923.txt daner_AN.meta_munged 
+
+# ANR 9686989
+sbatch -p cpu /scratch/users/k19047584/ldsc/external_rg/scripts/ldsc.correlations.sh munged_list_MVP_220923.txt daner_ANR.meta_munged 
+
+# ANBP 9686990
+sbatch -p cpu /scratch/users/k19047584/ldsc/external_rg/scripts/ldsc.correlations.sh munged_list_MVP_220923.txt daner_ANBP.meta_munged 
+
+# BE broad 9686991
+sbatch -p cpu /scratch/users/k19047584/ldsc/external_rg/scripts/ldsc.correlations.sh munged_list_MVP_220923.txt daner_BEBROAD.meta_munged 
+
+# BE narrow 9686992
+sbatch -p cpu /scratch/users/k19047584/ldsc/external_rg/scripts/ldsc.correlations.sh munged_list_MVP_220923.txt daner_BENARROW.meta_munged 
+```
+
+# Internal rg
+```{bash internal rg PGCED3 traits}
+cd /scratch/users/k19047584/ldsc/internal_rg_h2/scripts/
+rm /scratch/users/k19047584/ldsc/internal_rg_h2/scripts/internal_PGCED3_ldsc_rg.sh
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/internal_rg_h2/scripts/internal_PGCED3_ldsc_rg.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=rg_ldsc_list
+#SBATCH --output=/scratch/users/k19047584/ldsc/internal_rg_h2/output/rg_internal%j.out
+
+PGCED3_traits=/scratch/users/k19047584/PGCED3_rg/
+
+python /scratch/users/k19047584/ldsc/ldsc.py \
+--rg ${PGCED3_traits}daner_AN.meta_munged_hm3.sumstats.gz,${PGCED3_traits}daner_ANR.meta_munged_hm3.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--out /scratch/users/k19047584/ldsc/internal_rg_h2/AN_ANR_rg
+
+python /scratch/users/k19047584/ldsc/ldsc.py \
+--rg ${PGCED3_traits}daner_AN.meta_munged_hm3.sumstats.gz,${PGCED3_traits}daner_ANBP.meta_munged_hm3.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--out /scratch/users/k19047584/ldsc/internal_rg_h2/AN_ANBP_rg
+
+python /scratch/users/k19047584/ldsc/ldsc.py \
+--rg ${PGCED3_traits}daner_AN.meta_munged_hm3.sumstats.gz,${PGCED3_traits}daner_BEBROAD.meta_munged_hm3.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--out /scratch/users/k19047584/ldsc/internal_rg_h2/AN_BEBROAD_rg
+
+python /scratch/users/k19047584/ldsc/ldsc.py \
+--rg ${PGCED3_traits}daner_AN.meta_munged_hm3.sumstats.gz,${PGCED3_traits}daner_BENARROW.meta_munged_hm3.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--out /scratch/users/k19047584/ldsc/internal_rg_h2/AN_BENARROW_rg
+
+python /scratch/users/k19047584/ldsc/ldsc.py \
+--rg ${PGCED3_traits}daner_ANR.meta_munged_hm3.sumstats.gz,${PGCED3_traits}daner_ANBP.meta_munged_hm3.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--out /scratch/users/k19047584/ldsc/internal_rg_h2/ANR_ANBP_rg
+
+python /scratch/users/k19047584/ldsc/ldsc.py \
+--rg ${PGCED3_traits}daner_ANR.meta_munged_hm3.sumstats.gz,${PGCED3_traits}daner_BEBROAD.meta_munged_hm3.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--out /scratch/users/k19047584/ldsc/internal_rg_h2/ANR_BEBROAD_rg
+
+python /scratch/users/k19047584/ldsc/ldsc.py \
+--rg ${PGCED3_traits}daner_ANR.meta_munged_hm3.sumstats.gz,${PGCED3_traits}daner_BENARROW.meta_munged_hm3.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--out /scratch/users/k19047584/ldsc/internal_rg_h2/ANR_BENARROW_rg
+
+python /scratch/users/k19047584/ldsc/ldsc.py \
+--rg ${PGCED3_traits}daner_ANBP.meta_munged_hm3.sumstats.gz,${PGCED3_traits}daner_BEBROAD.meta_munged_hm3.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--out /scratch/users/k19047584/ldsc/internal_rg_h2/ANBP_BEBROAD_rg
+
+python /scratch/users/k19047584/ldsc/ldsc.py \
+--rg ${PGCED3_traits}daner_ANBP.meta_munged_hm3.sumstats.gz,${PGCED3_traits}daner_BENARROW.meta_munged_hm3.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--out /scratch/users/k19047584/ldsc/internal_rg_h2/ANBP_BENARROW_rg
+
+python /scratch/users/k19047584/ldsc/ldsc.py \
+--rg ${PGCED3_traits}daner_BEBROAD.meta_munged_hm3.sumstats.gz,${PGCED3_traits}daner_BENARROW.meta_munged_hm3.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--out /scratch/users/k19047584/ldsc/internal_rg_h2/BEBROAD_BENARROW_rg
+
+EOT
+
+# 9692546
+sbatch -p cpu /scratch/users/k19047584/ldsc/internal_rg_h2/scripts/internal_PGCED3_ldsc_rg.sh
+```
+
+```{bash}
+rsync create:/scratch/users/k19047584/ldsc/internal_rg_h2/output/rg_internal9692546.out /Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/log_files_rg/ldsc_rg_PGCED3_traits2.txt
+```
+
+# Test of effective n 
+Is there a difference in rg? # 1
+```{bash test neff}
+cd /scratch/users/k19047584/ldsc/neff_test/
+rm /scratch/users/k19047584/ldsc/neff_test/ldsc_rg_neff_test.sh
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/neff_test/ldsc_rg_neff_test.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=rg_ldsc_neff_test
+#SBATCH --output=/scratch/users/k19047584/ldsc/neff_test/rg_neff_test_%j.out
+
+python /scratch/users/k19047584/ldsc/ldsc.py \
+--rg /scratch/users/k19047584/PGCED3_rg/daner_AN.meta_munged_hm3.sumstats.gz,/scratch/users/k19047584/sumstats_PGCED_new/munged/SMOK08_neff.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--samp-prev 0.019,0.5 \
+--pop-prev 0.015,0.1 \
+--out /scratch/users/k19047584/ldsc/neff_test/AN_SMOK08_neff_rg
+
+python /scratch/users/k19047584/ldsc/ldsc.py \
+--rg /scratch/users/k19047584/PGCED3_rg/daner_AN.meta_munged_hm3.sumstats.gz,/scratch/users/k19047584/sumstats_PGCED_new/munged/SMOK08.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--samp-prev 0.019,0.5 \
+--pop-prev 0.015,0.1 \
+--out /scratch/users/k19047584/ldsc/neff_test/AN_SMOK08_n_rg
+
+EOT
+
+sbatch -p cpu /scratch/users/k19047584/ldsc/neff_test/ldsc_rg_neff_test.sh
+```
+
+```{bash}
+rsync create:/scratch/users/k19047584/ldsc/neff_test/rg_neff_test_9334257.out /Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/log_files_rg/neff_test.txt
+```
+
+Is there a difference in rg? # 2
+```{bash test neff}
+cd /scratch/users/k19047584/ldsc/neff_test/
+rm /scratch/users/k19047584/ldsc/neff_test/ldsc_rg_neff_test2.sh
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/neff_test/ldsc_rg_neff_test2.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=rg_ldsc_neff_test2
+#SBATCH --output=/scratch/users/k19047584/ldsc/neff_test/rg_neff_test2_%j.out
+
+python /scratch/users/k19047584/ldsc/ldsc.py \
+--rg /scratch/users/k19047584/PGCED3_rg/daner_AN.meta_munged_hm3.sumstats.gz,/scratch/users/k19047584/sumstats_PGCED_new/munged/BIPO03_neff.gz.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--samp-prev 0.019,0.5 \
+--pop-prev 0.015,0.02 \
+--out /scratch/users/k19047584/ldsc/neff_test/AN_BIPO03_neff_rg
+
+python /scratch/users/k19047584/ldsc/ldsc.py \
+--rg /scratch/users/k19047584/PGCED3_rg/daner_AN.meta_munged_hm3.sumstats.gz,/scratch/users/k19047584/sumstats_PGCED_new/cleaned/BIPO03_HLD.gz.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--samp-prev 0.019,0.1 \
+--pop-prev 0.015,0.02 \
+--out /scratch/users/k19047584/ldsc/neff_test/AN_BIPO03_n_rg
+
+EOT
+
+sbatch -p cpu /scratch/users/k19047584/ldsc/neff_test/ldsc_rg_neff_test2.sh
+```
+
+```{bash}
+rsync create:/scratch/users/k19047584/ldsc/neff_test/rg_neff_test2_9500652.out /Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/log_files_rg/neff_test2.txt
+```

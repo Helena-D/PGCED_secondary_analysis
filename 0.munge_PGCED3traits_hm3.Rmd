@@ -1,0 +1,183 @@
+---
+title: "Munge PGCED3 traits"
+author: "Helena Davies"
+date: "2023-07-13"
+output: html_document
+--
+
+LDSC needs:
+A unique identifier (e.g., the rs number)
+Allele 1 (effect allele)
+Allele 2 (non-effect allele)
+Sample size (which often varies from SNP to SNP)
+A P-value
+A signed summary statistic (beta, OR, log odds, Z-score, etc)
+
+
+# Copy to own project folder
+```{bash}
+cp /scratch/prj/gwas_sumstats/original/PGCED_f3/daner_AN.meta.gz /scratch/users/k19047584/PGCED3_rg/
+cp /scratch/prj/gwas_sumstats/original/PGCED_f3/daner_BEBROAD.meta.gz /scratch/users/k19047584/PGCED3_rg/
+cp /scratch/prj/gwas_sumstats/original/PGCED_f3/daner_BENARROW.meta.gz /scratch/users/k19047584/PGCED3_rg/
+cp /scratch/prj/gwas_sumstats/original/PGCED_f3/daner_ANR.meta.gz /scratch/users/k19047584/PGCED3_rg/
+cp /scratch/prj/gwas_sumstats/original/PGCED_f3/daner_ANBP.meta.gz /scratch/users/k19047584/PGCED3_rg/
+```
+
+# Supermunge - light cleaning to sort out N column
+vim /scratch/users/k19047584/sumstats_PGCED_new/scripts/cleaning_sumstats_PGCED_traits.r
+```{r cleaning_sumstats_PGCED_traits.r}
+results <- shru::supermunge(
+                filePaths = c(
+               "/scratch/users/k19047584/PGCED3_rg/daner_AN.meta.gz",  
+               "/scratch/users/k19047584/PGCED3_rg/daner_BEBROAD.meta.gz",
+               "/scratch/users/k19047584/PGCED3_rg/daner_BENARROW.meta.gz",
+               "/scratch/users/k19047584/PGCED3_rg/daner_ANR.meta.gz",
+               "/scratch/users/k19047584/PGCED3_rg/daner_ANBP.meta.gz"
+
+                   ), # list of file paths
+                
+              
+              traitNames = c("daner_AN.meta_clean.gz",
+             "daner_BEBROAD.meta_clean.gz",
+             "daner_BENARROW.meta_clean.gz",
+             "daner_ANR.meta_clean.gz",
+             "daner_ANBP.meta_clean.gz"
+                            ), # names/codes of the traits in the filePaths
+                
+                  
+                pathDirOutput = "/scratch/users/k19047584/PGCED3_rg", #path to the folder where to put the output files, named by the (trait name).gz
+                process=T,
+                setNtoNEFF=c(TRUE,TRUE,TRUE,TRUE,TRUE),
+                filter.maf = 0.001, # keep "minor allele" everything above
+                filter.info = 0.6, # keep everything above
+                filter.or = 10000 # this filters out everything above 10000 rather than below
+    )
+```
+
+Run supermunge
+```{bash}
+cd /scratch/users/k19047584/PGCED3_rg
+module add r
+sbatch --time 24:00:00 --partition cpu --job-name="cleaning_sumstats" --ntasks 1 --cpus-per-task 5 --mem 64G --wrap="Rscript /scratch/users/k19047584/sumstats_PGCED_new/scripts/cleaning_sumstats_PGCED_traits.r" --output "/scratch/users/k19047584/sumstats_PGCED_new/cleaning_sumstats_PGCED_traits.out"
+```
+
+Checking neff half interpreted correctly
+```{bash neff_half check}
+gunzip /scratch/users/k19047584/PGCED3_rg/daner_AN.meta.gz
+grep -e "rs1535173" /scratch/users/k19047584/PGCED3_rg/daner_AN.meta > /scratch/users/k19047584/PGCED3_rg/raw_rs1535173.txt
+
+gunzip /scratch/users/k19047584/PGCED3_rg/daner_AN.meta_clean.gz.gz
+grep -e "rs1535173" /scratch/users/k19047584/PGCED3_rg/daner_AN.meta_clean.gz > /scratch/users/k19047584/PGCED3_rg/cleaned_rs1535173.txt
+
+cat /scratch/users/k19047584/PGCED3_rg/raw_rs1535173.txt
+cat /scratch/users/k19047584/PGCED3_rg/cleaned_rs1535173.txt
+```
+Raw:
+Ncases =	21929
+Ncontrols = 1237806
+neff half = 33471.42
+
+Clean: 66942.84 (double neff half, so this is fine!)
+
+# Interactive node + activate environment
+```{bash}
+# 1. Request node
+srun -p cpu --nodes=1 --ntasks=12 --mem-per-cpu=19000 --pty /bin/bash
+
+source activate ldsc
+
+cd /scratch/users/k19047584/PGCED3_rg/
+```
+
+# Munge to hm3 SNPs
+## AN
+```{bash}
+head  /scratch/users/k19047584/PGCED3_rg/daner_AN.meta_clean.gz | column -t
+# SNP  A1  A2  CHR  BP  FRQ  FRQ_CAS  FRQ_CON  BETA SE  Z   P  N  INFO
+
+gzip -f /scratch/users/k19047584/PGCED3_rg/daner_AN.meta_clean.gz
+
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p p \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/users/k19047584/PGCED3_rg/daner_AN.meta_clean.gz.gz \
+--out /scratch/users/k19047584/PGCED3_rg/daner_AN.meta_munged_hm3 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## ANBP
+```{bash}
+less -S /scratch/users/k19047584/PGCED3_rg/daner_ANBP.meta_clean.gz.gz
+# SNP  A1  A2  CHR  BP  FRQ  FRQ_CAS  FRQ_CON  BETA SE  Z   P  N  INFO
+
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p p \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/users/k19047584/PGCED3_rg/daner_ANBP.meta_clean.gz.gz \
+--out /scratch/users/k19047584/PGCED3_rg/daner_ANBP.meta_munged_hm3 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## ANR
+```{bash}
+less -S /scratch/users/k19047584/PGCED3_rg/daner_ANR.meta_clean.gz.gz
+# SNP  A1  A2  CHR  BP  FRQ  FRQ_CAS  FRQ_CON  BETA SE  Z   P  N  INFO
+
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p p \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/users/k19047584/PGCED3_rg/daner_ANR.meta_clean.gz.gz \
+--out /scratch/users/k19047584/PGCED3_rg/daner_ANR.meta_munged_hm3 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## BE broad
+```{bash}
+less -S /scratch/users/k19047584/PGCED3_rg/daner_BEBROAD.meta_clean.gz.gz
+# SNP  A1  A2  CHR  BP  FRQ  FRQ_CAS  FRQ_CON  BETA SE  Z   P  N  INFO
+
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p p \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/users/k19047584/PGCED3_rg/daner_BEBROAD.meta_clean.gz.gz \
+--out /scratch/users/k19047584/PGCED3_rg/daner_BEBROAD.meta_munged_hm3 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## BE narrow
+```{bash}
+less -S /scratch/users/k19047584/PGCED3_rg/daner_BENARROW.meta_clean.gz.gz
+# SNP  A1  A2  CHR  BP  FRQ  FRQ_CAS  FRQ_CON  BETA SE  Z   P  N  INFO
+
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p p \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/users/k19047584/PGCED3_rg/daner_BENARROW.meta_clean.gz.gz \
+--out /scratch/users/k19047584/PGCED3_rg/daner_BENARROW.meta_munged_hm3 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```

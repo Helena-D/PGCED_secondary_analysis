@@ -1,0 +1,113 @@
+---
+title: "Make nice plotting names column"
+author: "Abigail ter Kuile"
+date: "2022-12-23"
+output: html_document
+---
+
+Configure global options for all chunks
+```{r Setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  comment = '',
+  prompt = FALSE,
+  cache = FALSE
+  )
+```
+
+Clear global environment prior to initiation
+```{r Clear global environment}
+remove(list = ls())
+```
+
+```{r load packages}
+library(summarytools)
+library(skimr)
+library(gtsummary)
+library(tidyverse)
+```
+
+```{r Source the credentials file}
+source("credentials/paths.R")
+```
+
+# Read in results that need nice plotting names 
+```{r}
+results_gad_fear <- read_csv(file = paste0(path_anxiety_gwas,
+                              "results/meta/external_rg/long_abstract/gad_fear_rg_results_all_gwas_info_NEW_COLUMNS.csv"))
+
+```
+
+```{r}
+results_gad_fear <- results_gad_fear %>% 
+  mutate(plotting_name = name)
+```
+
+# save
+```{r}
+write_excel_csv(results_gad_fear,
+                file = paste0(path_anxiety_gwas,
+                              "results/meta/external_rg/long_abstract/gad_fear_rg_results_all_gwas_info_add_to_plotting_name.csv"))
+
+```
+
+# Read in results that now have nice plotting names (manually edited and added)
+```{r}
+results_gad_fear_plotting_names_added <- read_csv(file = paste0(path_anxiety_gwas,
+                              "results/meta/external_rg/long_abstract/EDIT_THIS_plotting_names_added_gad_fear_rg_results_all_gwas_info.csv"))
+
+results_gad_fear_plotting_names_added_limited_col <- results_gad_fear_plotting_names_added %>% 
+  select(p2,
+         plotting_name,
+         keep_for_plotting)
+```
+
+Drop duplicates
+```{r}
+
+results_gad_fear_plotting_names_added_limited_col_nodups <- results_gad_fear_plotting_names_added_limited_col %>%
+ distinct(p2, plotting_name, .keep_all= TRUE)
+```
+
+# Merge with GWAS information sheet to add new column for plotting
+```{r}
+trait_details <- read_csv(file = paste0(path_anxiety_gwas,
+                                        "results/meta/external_rg/long_abstract/sumstats_list_all_info_221222.csv"))
+
+trait_details <- trait_details %>% 
+  rename(p2 = code) #rename Code to p2 (phenotype 2 from rg results)
+
+```
+```{r}
+rgs_results_details_plotting <- left_join(trait_details,
+                                 results_gad_fear_plotting_names_added_limited_col_nodups,
+                                 by = "p2")
+
+glimpse(rgs_results_details_plotting)
+```
+
+```{r}
+rgs_results_details_plotting <- rgs_results_details_plotting %>%
+  mutate(plotting_name_all =
+           case_when(
+             (is.na(plotting_name)) ~ name,
+             (!is.na(plotting_name) ~ plotting_name
+              )
+                     ))
+```
+
+```{r}
+rgs_results_details_plotting <- rgs_results_details_plotting %>% 
+  rename(code = p2)
+```
+
+# Save
+"results/meta/external_rg/long_abstract/sumstats_list_all_info_221222.csv"
+```{r}
+write_excel_csv(rgs_results_details_plotting,
+                file = paste0(path_anxiety_gwas,
+                              "results/meta/external_rg/long_abstract/anx_paper_plotting_names_sumstats_list_all_info_1222.csv"))
+
+```
+
+

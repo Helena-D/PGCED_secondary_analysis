@@ -1,0 +1,406 @@
+---
+title: "Checking h2"
+author: "Helena Davies"
+date: "2023-08-08"
+output: html_document
+---
+
+```{bash}
+source activate ldsc
+cd /scratch/users/k19047584/ldsc/scripts/
+rm /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC47.sh
+
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC47.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=herit_ldsc_testing_GLYC47
+#SBATCH --output=/scratch/users/k19047584/ldsc/herit_ldsc_hm3_testing_GLYC47%j.out
+
+python /scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/ldsc.py \
+--h2 /scratch/prj/gwas_sumstats/munged/GLYC47.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--out /scratch/users/k19047584/ldsc/GLYC47_h2
+EOT
+
+sbatch -p cpu /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC47.sh
+```
+
+```{bash}
+source activate ldsc
+cd /scratch/users/k19047584/ldsc/scripts/
+rm /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC48.sh
+
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC48.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=herit_ldsc_testing_GLYC48
+#SBATCH --output=/scratch/users/k19047584/ldsc/herit_ldsc_hm3_testing_GLYC48%j.out
+
+python /scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/ldsc.py \
+--h2 /scratch/prj/gwas_sumstats/munged/GLYC48.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--out /scratch/users/k19047584/ldsc/GLYC48_h2
+EOT
+
+sbatch -p cpu /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC48.sh
+```
+
+```{bash}
+source activate ldsc
+cd /scratch/users/k19047584/ldsc/scripts/
+rm /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC49.sh
+
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC49.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=herit_ldsc_testing_GLYC49
+#SBATCH --output=/scratch/users/k19047584/ldsc/herit_ldsc_hm3_testing_GLYC49%j.out
+
+python /scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/ldsc.py \
+--h2 /scratch/prj/gwas_sumstats/munged/GLYC49.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--out /scratch/users/k19047584/ldsc/GLYC49_h2
+EOT
+
+sbatch -p cpu /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC49.sh
+```
+
+```{bash}
+source activate ldsc
+cd /scratch/users/k19047584/ldsc/scripts/
+rm /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC48F.sh
+
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC48F.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=herit_ldsc_testing_GLYC48F
+#SBATCH --output=/scratch/users/k19047584/ldsc/herit_ldsc_hm3_testing_GLYC48F%j.out
+
+python /scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/ldsc.py \
+--h2 /scratch/prj/gwas_sumstats/munged/GLYC48F.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--out /scratch/users/k19047584/ldsc/GLYC48F_h2
+EOT
+
+sbatch -p cpu /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC48F.sh
+```
+
+```{bash}
+source activate ldsc
+cd /scratch/users/k19047584/ldsc/scripts/
+rm /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC48M.sh
+
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC48M.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=herit_ldsc_testing_GLYC48M
+#SBATCH --output=/scratch/users/k19047584/ldsc/herit_ldsc_hm3_testing_GLYC48M%j.out
+
+python /scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/ldsc.py \
+--h2 /scratch/prj/gwas_sumstats/munged/GLYC48M.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--out /scratch/users/k19047584/ldsc/GLYC48M_h2
+EOT
+
+sbatch -p cpu /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC48M.sh
+```
+
+```{bash}
+source activate ldsc
+cd /scratch/users/k19047584/ldsc/scripts/
+rm /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC50.sh
+
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC50.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=herit_ldsc_testing_GLYC50
+#SBATCH --output=/scratch/users/k19047584/ldsc/herit_ldsc_hm3_testing_GLYC50%j.out
+
+python /scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/ldsc.py \
+--h2 /scratch/prj/gwas_sumstats/munged/GLYC50.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--out /scratch/users/k19047584/ldsc/GLYC50_h2
+EOT
+
+sbatch -p cpu /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC50.sh
+```
+
+```{bash}
+source activate ldsc
+cd /scratch/users/k19047584/ldsc/scripts/
+rm /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC51.sh
+
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC51.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=herit_ldsc_testing_GLYC51
+#SBATCH --output=/scratch/users/k19047584/ldsc/herit_ldsc_hm3_testing_GLYC51%j.out
+
+python /scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/ldsc.py \
+--h2 /scratch/prj/gwas_sumstats/munged/GLYC51.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--out /scratch/users/k19047584/ldsc/GLYC51_h2
+EOT
+
+sbatch -p cpu /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC51.sh
+```
+
+```{bash}
+source activate ldsc
+cd /scratch/users/k19047584/ldsc/scripts/
+rm /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC50F.sh
+
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC50F.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=herit_ldsc_testing_GLYC50F
+#SBATCH --output=/scratch/users/k19047584/ldsc/herit_ldsc_hm3_testing_GLYC50F%j.out
+
+python /scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/ldsc.py \
+--h2 /scratch/prj/gwas_sumstats/munged/GLYC50F.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--out /scratch/users/k19047584/ldsc/GLYC50F_h2
+EOT
+
+sbatch -p cpu /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC50F.sh
+```
+
+```{bash}
+source activate ldsc
+cd /scratch/users/k19047584/ldsc/scripts/
+rm /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC50M.sh
+
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC50M.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=herit_ldsc_testing_GLYC50M
+#SBATCH --output=/scratch/users/k19047584/ldsc/herit_ldsc_hm3_testing_GLYC50M%j.out
+
+python /scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/ldsc.py \
+--h2 /scratch/prj/gwas_sumstats/munged/GLYC50M.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--out /scratch/users/k19047584/ldsc/GLYC50M_h2
+EOT
+
+sbatch -p cpu /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC50M.sh
+```
+
+```{bash}
+source activate ldsc
+cd /scratch/users/k19047584/ldsc/scripts/
+rm /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC52.sh
+
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC52.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=herit_ldsc_testing_GLYC52
+#SBATCH --output=/scratch/users/k19047584/ldsc/herit_ldsc_hm3_testing_GLYC52%j.out
+
+python /scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/ldsc.py \
+--h2 /scratch/prj/gwas_sumstats/munged/GLYC52.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--out /scratch/users/k19047584/ldsc/GLYC52_h2
+EOT
+
+sbatch -p cpu /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC52.sh
+```
+
+```{bash}
+source activate ldsc
+cd /scratch/users/k19047584/ldsc/scripts/
+rm /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC53.sh
+
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC53.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=herit_ldsc_testing_GLYC53
+#SBATCH --output=/scratch/users/k19047584/ldsc/herit_ldsc_hm3_testing_GLYC53%j.out
+
+python /scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/ldsc.py \
+--h2 /scratch/prj/gwas_sumstats/munged/GLYC53.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--out /scratch/users/k19047584/ldsc/GLYC53_h2
+EOT
+
+sbatch -p cpu /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_GLYC53.sh
+```
+
+```{bash}
+source activate ldsc
+cd /scratch/users/k19047584/ldsc/scripts/
+rm /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_OPIO01.sh
+
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_OPIO01.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=herit_ldsc_testing_OPIO01
+#SBATCH --output=/scratch/users/k19047584/ldsc/herit_ldsc_hm3_testing_OPIO01%j.out
+
+python /scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/ldsc.py \
+--h2 /scratch/prj/gwas_sumstats/munged/OPIO01.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--out /scratch/users/k19047584/ldsc/OPIO01_h2
+EOT
+
+sbatch -p cpu /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_OPIO01.sh
+```
+
+```{bash}
+source activate ldsc
+cd /scratch/users/k19047584/ldsc/scripts/
+rm /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_BODY15.sh
+
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_BODY15.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=herit_ldsc_testing_BODY15
+#SBATCH --output=/scratch/users/k19047584/ldsc/herit_ldsc_hm3_testing_BODY15%j.out
+
+python /scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/ldsc.py \
+--h2 /scratch/prj/gwas_sumstats/munged/BODY15.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--out /scratch/users/k19047584/ldsc/BODY15_h2_test
+EOT
+
+sbatch -p cpu /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_BODY15.sh
+```
+
+```{bash}
+source activate ldsc
+cd /scratch/users/k19047584/ldsc/scripts/
+rm /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_PSOR01.sh
+
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_PSOR01.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=herit_ldsc_testing_PSOR01
+#SBATCH --output=/scratch/users/k19047584/ldsc/herit_ldsc_hm3_testing_PSOR01%j.out
+
+python /scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/ldsc.py \
+--h2 /scratch/prj/gwas_sumstats/munged/PSOR01.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--out /scratch/users/k19047584/ldsc/PSOR01_h2
+EOT
+
+sbatch -p cpu /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_PSOR01.sh
+```
+
+```{bash}
+source activate ldsc
+cd /scratch/users/k19047584/ldsc/scripts/
+rm /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_SMOK11.sh
+
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_SMOK11.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=herit_ldsc_testing_SMOK11
+#SBATCH --output=/scratch/users/k19047584/ldsc/herit_ldsc_hm3_testing_SMOK11%j.out
+
+python /scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/ldsc.py \
+--h2 /scratch/prj/gwas_sumstats/munged/SMOK11.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--out /scratch/users/k19047584/ldsc/SMOK11_h2
+EOT
+
+sbatch -p cpu /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_SMOK11.sh
+```
+
+```{bash}
+source activate ldsc
+cd /scratch/users/k19047584/ldsc/scripts/
+rm /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_ANXI05.sh
+
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_ANXI05.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=herit_ldsc_testing_ANXI05
+#SBATCH --output=/scratch/users/k19047584/ldsc/herit_ldsc_hm3_testing_ANXI05%j.out
+
+python /scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/ldsc.py \
+--h2 /scratch/prj/gwas_sumstats/munged/ANXI05.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/eur_w_ld_chr/ \
+--out /scratch/users/k19047584/ldsc/ANXI05_h2
+EOT
+
+sbatch -p cpu /scratch/users/k19047584/ldsc/scripts/sumstats_missing_h2_ANXI05.sh
+```

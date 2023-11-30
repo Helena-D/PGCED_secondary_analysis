@@ -1,0 +1,1065 @@
+---
+title: "Plot jacknife: AN vs BE BROAD"
+author: "Abigail ter Kuile & Helena Davies"
+date: "2022-12-22"
+output: html_document
+---
+
+Configure global options for all chunks
+```{r Setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  comment = '',
+  prompt = FALSE,
+  cache = FALSE
+  )
+```
+
+Clear global environment prior to initiation
+```{r Clear global environment}
+remove(list = ls())
+```
+
+```{r load packages}
+library(summarytools)
+library(skimr)
+library(gtsummary)
+#library(ggview)
+library(patchwork)
+library(tidyverse)
+```
+
+# Read in & transform data
+Trait 1
+```{r Read in the data trait 1}
+rgs_AN_non_MVP <- read_csv(file = "/Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/AN_PGCED3_rgs.csv")
+                             
+rgs_AN_non_MVP
+```
+
+# Keep correct traits in rg
+```{r keep correct traits}
+rgs_AN_non_MVP <- rgs_AN_non_MVP %>% 
+  filter(p2 == "ADHD06" |
+           p2 == "SMOK10" |
+           p2 == "ALCD03" |
+           p2 == "ALCU01" |
+           p2 == "ALCU02" |
+           p2 == "ALCU03" |
+           p2 == "ALZH01" |
+           p2 == "ANOR02" |
+           p2 == "ANOR03" |
+           p2 == "ANXI03" |
+           p2 == "ASTH01" |
+           p2 == "AUTI07" |
+           p2 == "BALD01" |
+           p2 == "BFPC03" |
+           p2 == "BIPO03" |
+           p2 == "BIPO04" |
+           p2 == "BIPO05" |
+           p2 == "BLOO01" |
+           p2 == "BLOO02" |
+           p2 == "BLOO03" |
+           p2 == "BLOO04" |
+           p2 == "BLOO05" |
+           p2 == "BLOO06" |
+           p2 == "BLOO07" |
+           p2 == "BLOO08" |
+           p2 == "BLOO09" |
+           p2 == "BLOO10" |
+           p2 == "BLOO11" |
+           p2 == "BLOO12" |
+           p2 == "BLOO13" |
+           p2 == "BLOO14" |
+           p2 == "BLOO15" |
+           p2 == "BLOO16" |
+           p2 == "BLOO17" |
+           p2 == "BLOO18" |
+           p2 == "BLOO19" |
+           p2 == "BLOO20" |
+           p2 == "BLOO21" |
+           p2 == "BLOO22" |
+           p2 == "BLOO23" |
+           p2 == "BLOO24" |
+           p2 == "BLOO25" |
+           p2 == "BLOO26" |
+           p2 == "BLOO27" |
+           p2 == "BLOO28" |
+           p2 == "BLOO29" |
+           p2 == "BLOO30" |
+           p2 == "BLOO31" |
+           p2 == "BLOO32" |
+           p2 == "BLOO33" |
+           p2 == "BLOO34" |
+           p2 == "BLOO35" |
+           p2 == "BLOO36" |
+           p2 == "BODY02" |
+           p2 == "BODY04" |
+           p2 == "BODY07" |
+           p2 == "CANU02" |
+           p2 == "CANU03" |
+           p2 == "CAUD01" |
+           p2 == "CELI01" |
+           p2 == "CHOL21" |
+           p2 == "CHOL22" |
+           p2 == "CHOL27" |
+           p2 == "CHRO01" |
+           p2 == "CHRO02" |
+           p2 == "CHRO06" |
+           p2 == "SMOK09" |
+           p2 == "CIRR01" |
+           p2 == "COAD03" |
+           p2 == "COLL01" |
+           p2 == "CROH01" |
+           p2 == "CROS01" |
+           p2 == "DEPR02" |
+           p2 == "DEPR05" |
+           p2 == "DIAB02" |
+           p2 == "ALCO04" |
+           p2 == "EDUC02" |
+           p2 == "EXTR01" |
+           p2 == "FATM02" |
+           p2 == "FATM02B" |
+           p2 == "FATM02F" |
+           p2 == "FATM02M" |
+           p2 == "FATM03" |
+           p2 == "FATM03B" |
+           p2 == "FATM03F" |
+           p2 == "FATM03M" |
+           p2 == "FATM04" |
+           p2 == "FATM04B" |
+           p2 == "FATM04F" |
+           p2 == "FATM04M" |
+           p2 == "FATM05B" |
+           p2 == "ANXI04" |
+           p2 == "GLYC02" |
+           p2 == "GLYC04" |
+           p2 == "GLYC05" |
+           p2 == "GLYC07" |
+           p2 == "GLYC08" |
+           p2 == "GLYC13" |
+           p2 == "GLYC14" |
+           p2 == "GLYC16" |
+           p2 == "GLYC22" |
+           p2 == "GROW01" |
+           p2 == "GROW01F" |
+           p2 == "GROW03" |
+           p2 == "HEAD01" |
+           p2 == "HEAL01" |
+           p2 == "HEAR01" |
+           p2 == "HEIG01" |
+           p2 == "HEIG02" |
+           p2 == "HEIG07" |
+         #  p2 == "HEIG08" | using updated HEIG09
+           p2 == "HIPC01" |
+           p2 == "HIPC01F" |
+           p2 == "HIPC01M" |
+           p2 == "HIPC03" |
+           p2 == "HIPC03F" |
+           p2 == "HIPC03M" |
+           p2 == "INCO01" |
+           p2 == "INCO03" |
+           p2 == "INFB01" | 
+         #  p2 == "INSO02" | using updated INSO03
+           p2 == "INTE01" |
+           p2 == "INTE03" |
+           p2 == "LEAN02" |
+           p2 == "LEAN03" |
+           p2 == "LEAN04" |
+           p2 == "LEAN04B" |
+           p2 == "LEAN04F" |
+           p2 == "LEAN04M" |
+           p2 == "LEAN05" |
+           p2 == "LEAN05B" |
+           p2 == "LEAN05F" |
+           p2 == "LEAN05M" |
+           p2 == "LEAN06" |
+           p2 == "LEAN06B" |
+           p2 == "LEAN06F" |
+           p2 == "LEAN06M" |
+           p2 == "LEAN07B" |
+           p2 == "LONG01" |
+           p2 == "LONG02" |
+           p2 == "LONG03" |
+           p2 == "LONG04" |
+           p2 == "LONG05" |
+           p2 == "LONG06" |
+           p2 == "LONG07" |
+           p2 == "LUNG01" |
+           p2 == "LUNG02" |
+           p2 == "LUNG03" |
+           p2 == "LUNG05" |
+           p2 == "LUPU01" |
+           p2 == "MEMO01" |
+           p2 == "MENA03F" |
+           p2 == "MENO01F" |
+           p2 == "MIGR01" |
+           p2 == "NEUR02B" |
+           p2 == "OBES01" |
+           p2 == "OBES02" |
+           p2 == "OBES03" |
+           p2 == "OBES05" |
+           p2 == "OBES07" |
+           p2 == "OCDI01" |
+           p2 == "OSTE01" |
+           p2 == "OSTE03" |
+           p2 == "OSTE04" |
+           p2 == "OSTE05" |
+           p2 == "OVER01" |
+           p2 == "ANXI05" |
+           p2 == "PHYS01" |
+           p2 == "PRCA01" |
+           p2 == "PUTA01" |
+           p2 == "REAC01" |
+           p2 == "REAS01" |
+           p2 == "REPR01" |
+           p2 == "REPR01F" |
+           p2 == "REPR01M" |
+           p2 == "REPR02" |
+           p2 == "REPR02F" |
+           p2 == "REPR02M" |
+           p2 == "RHEU02" |
+           p2 == "RISK01" |
+           p2 == "RISK02" |
+           p2 == "RISK03" |
+           p2 == "SCBP01" |
+           p2 == "SCBP02" |
+           p2 == "SCHI05" |
+           p2 == "SMOK05" |
+           p2 == "SMOK08" |
+           p2 == "SMOK07" |
+           p2 == "SUBJ01" |
+           p2 == "THIN01" |
+           p2 == "TIRE01" |
+           p2 == "TOUR01" |
+           p2 == "TRGL04" |
+           p2 == "URAT01" |
+           p2 == "URIN08" |
+           p2 == "URIN11" |
+           p2 == "VITD01" |
+           p2 == "WAIS01F" |
+           p2 == "WAIS01M" |
+           p2 == "WAIS03" |
+           p2 == "WAIS03F" |
+           p2 == "WAIS03M" |
+           p2 == "WEIG01" |
+           p2 == "WEIG04F" |
+           p2 == "WEIG04M" |
+           p2 == "WEIG05F" |
+           p2 == "WHIP01" |
+           p2 == "WHIP03" |
+           p2 == "WHIP03F" |
+           p2 == "WHIP03M" |
+           p2 == "WHIP05" |
+           p2 == "WHIP05F" |
+           p2 == "WHIP05M" |
+           p2 == "BODY04F" |
+           p2 == "BODY04M" |
+           p2 == "EDUC03" |
+           p2 == "HEIG09" |
+           p2 == "CROS01" |
+           p2 == "PSOR01" |
+           p2 == "SMOK11" |
+           p2 == "INSO03" |
+           p2 == "ADHD06" |
+           p2 == "SMOK10" |
+           p2 == "BIPO03" |
+           p2 == "BIPO04" |
+           p2 == "BIPO05" |
+           p2 == "CANU02" |
+           p2 == "CANU03" |
+           p2 == "SMOK09" |
+           p2 == "ALCO04" |
+           p2 == "SMOK08" |
+           p2 == "SMOK07" |
+           p2 == "ANXI05" |
+           p2 == "TOUR01" |
+           p2 == "LONE04" |
+           p2 == "BODY15" |
+           p2 == "GLYC47" |
+           p2 == "GLYC48" |
+           p2 == "GLYC49" |
+           p2 == "GLYC48F" |
+           p2 == "GLYC48M" |
+           p2 == "GLYC50" |
+           p2 == "GLYC51" |
+           p2 == "GLYC50F" |
+           p2 == "GLYC50M" |
+          # p2 == "GLYC52" | USING glyc22 as bigger h2
+           p2 == "GLYC53" |
+           p2 == "REPR04" |
+           p2 == "REPR03")
+```
+
+Trait 1 MVP
+```{r Read in the data trait 1 mvp}
+rgs_AN_MVP <- read_csv(file = "/Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/AN_PGCED3_MVP_rgs_MVP.csv")
+                             
+rgs_AN_MVP
+```
+
+Bind
+```{r bind AN rgs}
+rgs_AN <- rgs_AN_non_MVP %>%
+  bind_rows(rgs_AN_MVP)
+```
+
+Trait 2
+```{r Read in the data trait 2}
+rgs_BEBROAD_non_MVP <- read_csv(file = "/Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/BEBROAD_PGCED3_rgs.csv")
+
+rgs_BEBROAD_non_MVP
+```
+
+
+# Keep correct traits in rg
+```{r keep correct traits}
+rgs_BEBROAD_non_MVP <- rgs_BEBROAD_non_MVP %>% 
+  filter(p2 == "ADHD06" |
+           p2 == "SMOK10" |
+           p2 == "ALCD03" |
+           p2 == "ALCU01" |
+           p2 == "ALCU02" |
+           p2 == "ALCU03" |
+           p2 == "ALZH01" |
+           p2 == "ANOR02" |
+           p2 == "ANOR03" |
+           p2 == "ANXI03" |
+           p2 == "ASTH01" |
+           p2 == "AUTI07" |
+           p2 == "BALD01" |
+           p2 == "BFPC03" |
+           p2 == "BIPO03" |
+           p2 == "BIPO04" |
+           p2 == "BIPO05" |
+           p2 == "BLOO01" |
+           p2 == "BLOO02" |
+           p2 == "BLOO03" |
+           p2 == "BLOO04" |
+           p2 == "BLOO05" |
+           p2 == "BLOO06" |
+           p2 == "BLOO07" |
+           p2 == "BLOO08" |
+           p2 == "BLOO09" |
+           p2 == "BLOO10" |
+           p2 == "BLOO11" |
+           p2 == "BLOO12" |
+           p2 == "BLOO13" |
+           p2 == "BLOO14" |
+           p2 == "BLOO15" |
+           p2 == "BLOO16" |
+           p2 == "BLOO17" |
+           p2 == "BLOO18" |
+           p2 == "BLOO19" |
+           p2 == "BLOO20" |
+           p2 == "BLOO21" |
+           p2 == "BLOO22" |
+           p2 == "BLOO23" |
+           p2 == "BLOO24" |
+           p2 == "BLOO25" |
+           p2 == "BLOO26" |
+           p2 == "BLOO27" |
+           p2 == "BLOO28" |
+           p2 == "BLOO29" |
+           p2 == "BLOO30" |
+           p2 == "BLOO31" |
+           p2 == "BLOO32" |
+           p2 == "BLOO33" |
+           p2 == "BLOO34" |
+           p2 == "BLOO35" |
+           p2 == "BLOO36" |
+           p2 == "BODY02" |
+           p2 == "BODY04" |
+           p2 == "BODY07" |
+           p2 == "CANU02" |
+           p2 == "CANU03" |
+           p2 == "CAUD01" |
+           p2 == "CELI01" |
+           p2 == "CHOL21" |
+           p2 == "CHOL22" |
+           p2 == "CHOL27" |
+           p2 == "CHRO01" |
+           p2 == "CHRO02" |
+           p2 == "CHRO06" |
+           p2 == "SMOK09" |
+           p2 == "CIRR01" |
+           p2 == "COAD03" |
+           p2 == "COLL01" |
+           p2 == "CROH01" |
+           p2 == "CROS01" |
+           p2 == "DEPR02" |
+           p2 == "DEPR05" |
+           p2 == "DIAB02" |
+           p2 == "ALCO04" |
+           p2 == "EDUC02" |
+           p2 == "EXTR01" |
+           p2 == "FATM02" |
+           p2 == "FATM02B" |
+           p2 == "FATM02F" |
+           p2 == "FATM02M" |
+           p2 == "FATM03" |
+           p2 == "FATM03B" |
+           p2 == "FATM03F" |
+           p2 == "FATM03M" |
+           p2 == "FATM04" |
+           p2 == "FATM04B" |
+           p2 == "FATM04F" |
+           p2 == "FATM04M" |
+           p2 == "FATM05B" |
+           p2 == "ANXI04" |
+           p2 == "GLYC02" |
+           p2 == "GLYC04" |
+           p2 == "GLYC05" |
+           p2 == "GLYC07" |
+           p2 == "GLYC08" |
+           p2 == "GLYC13" |
+           p2 == "GLYC14" |
+           p2 == "GLYC16" |
+           p2 == "GLYC22" |
+           p2 == "GROW01" |
+           p2 == "GROW01F" |
+           p2 == "GROW03" |
+           p2 == "HEAD01" |
+           p2 == "HEAL01" |
+           p2 == "HEAR01" |
+           p2 == "HEIG01" |
+           p2 == "HEIG02" |
+           p2 == "HEIG07" |
+         #  p2 == "HEIG08" | using updated HEIG09
+           p2 == "HIPC01" |
+           p2 == "HIPC01F" |
+           p2 == "HIPC01M" |
+           p2 == "HIPC03" |
+           p2 == "HIPC03F" |
+           p2 == "HIPC03M" |
+           p2 == "INCO01" |
+           p2 == "INCO03" |
+           p2 == "INFB01" |
+         #  p2 == "INSO02" | using updated INSO03
+           p2 == "INTE01" |
+           p2 == "INTE03" |
+           p2 == "LEAN02" |
+           p2 == "LEAN03" |
+           p2 == "LEAN04" |
+           p2 == "LEAN04B" |
+           p2 == "LEAN04F" |
+           p2 == "LEAN04M" |
+           p2 == "LEAN05" |
+           p2 == "LEAN05B" |
+           p2 == "LEAN05F" |
+           p2 == "LEAN05M" |
+           p2 == "LEAN06" |
+           p2 == "LEAN06B" |
+           p2 == "LEAN06F" |
+           p2 == "LEAN06M" |
+           p2 == "LEAN07B" |
+           p2 == "LONG01" |
+           p2 == "LONG02" |
+           p2 == "LONG03" |
+           p2 == "LONG04" |
+           p2 == "LONG05" |
+           p2 == "LONG06" |
+           p2 == "LONG07" |
+           p2 == "LUNG01" |
+           p2 == "LUNG02" |
+           p2 == "LUNG03" |
+           p2 == "LUNG05" |
+           p2 == "LUPU01" |
+           p2 == "MEMO01" |
+           p2 == "MENA03F" |
+           p2 == "MENO01F" |
+           p2 == "MIGR01" |
+           p2 == "NEUR02B" |
+           p2 == "OBES01" |
+           p2 == "OBES02" |
+           p2 == "OBES03" |
+           p2 == "OBES05" |
+           p2 == "OBES07" |
+           p2 == "OCDI01" |
+           p2 == "OSTE01" |
+           p2 == "OSTE03" |
+           p2 == "OSTE04" |
+           p2 == "OSTE05" |
+           p2 == "OVER01" |
+           p2 == "ANXI05" |
+           p2 == "PHYS01" |
+           p2 == "PRCA01" |
+           p2 == "PUTA01" |
+           p2 == "REAC01" |
+           p2 == "REAS01" |
+           p2 == "REPR01" |
+           p2 == "REPR01F" |
+           p2 == "REPR01M" |
+           p2 == "REPR02" |
+           p2 == "REPR02F" |
+           p2 == "REPR02M" |
+           p2 == "RHEU02" |
+           p2 == "RISK01" |
+           p2 == "RISK02" |
+           p2 == "RISK03" |
+           p2 == "SCBP01" |
+           p2 == "SCBP02" |
+           p2 == "SCHI05" |
+           p2 == "SMOK05" |
+           p2 == "SMOK08" |
+           p2 == "SMOK07" |
+           p2 == "SUBJ01" |
+           p2 == "THIN01" |
+           p2 == "TIRE01" |
+           p2 == "TOUR01" |
+           p2 == "TRGL04" |
+           p2 == "URAT01" |
+           p2 == "URIN08" |
+           p2 == "URIN11" |
+           p2 == "VITD01" |
+           p2 == "WAIS01F" |
+           p2 == "WAIS01M" |
+           p2 == "WAIS03" |
+           p2 == "WAIS03F" |
+           p2 == "WAIS03M" |
+           p2 == "WEIG01" |
+           p2 == "WEIG04F" |
+           p2 == "WEIG04M" |
+           p2 == "WEIG05F" |
+           p2 == "WHIP01" |
+           p2 == "WHIP03" |
+           p2 == "WHIP03F" |
+           p2 == "WHIP03M" |
+           p2 == "WHIP05" |
+           p2 == "WHIP05F" |
+           p2 == "WHIP05M" |
+           p2 == "BODY04F" |
+           p2 == "BODY04M" |
+           p2 == "EDUC03" |
+           p2 == "HEIG09" |
+           p2 == "CROS01" |
+           p2 == "PSOR01" |
+           p2 == "SMOK11" |
+           p2 == "INSO03" |
+           p2 == "ADHD06" |
+           p2 == "SMOK10" |
+           p2 == "BIPO03" |
+           p2 == "BIPO04" |
+           p2 == "BIPO05" |
+           p2 == "CANU02" |
+           p2 == "CANU03" |
+           p2 == "SMOK09" |
+           p2 == "ALCO04" |
+           p2 == "SMOK08" |
+           p2 == "SMOK07" |
+           p2 == "ANXI05" |
+           p2 == "TOUR01" |
+           p2 == "LONE04" |
+           p2 == "BODY15" |
+           p2 == "GLYC47" |
+           p2 == "GLYC48" |
+           p2 == "GLYC49" |
+           p2 == "GLYC48F" |
+           p2 == "GLYC48M" |
+           p2 == "GLYC50" |
+           p2 == "GLYC51" |
+           p2 == "GLYC50F" |
+           p2 == "GLYC50M" |
+          # p2 == "GLYC52" | USING glyc22 as bigger h2
+           p2 == "GLYC53" |
+           p2 == "REPR04" |
+           p2 == "REPR03")
+```
+
+Trait 2 MVP
+```{r Read in the data trait 2 mvp}
+rgs_BEBROAD_MVP <- read_csv(file = "/Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/BEBROAD_PGCED3_MVP_rgs_MVP.csv")
+                             
+rgs_BEBROAD_MVP
+```
+Bind
+```{r bind AN rgs}
+rgs_BEBROAD <- rgs_BEBROAD_non_MVP %>%
+  bind_rows(rgs_BEBROAD_MVP)
+```
+
+Check overlap in traits, should be the same
+```{r check overlap}
+#check difference in merging variable Phenotype
+AN_traits <- rgs_AN %>% 
+  select(p2)
+
+BEBROAD_traits <- rgs_BEBROAD %>% 
+  select(p2)
+
+setdiff(rownames(AN_traits), rownames(BEBROAD_traits))
+```
+
+Bind the rows of all data frames
+```{r Bind the rows of all data frames}
+rgs_results <- bind_rows(rgs_BEBROAD,
+                 rgs_AN)
+# check
+if(nrow(rgs_BEBROAD) + nrow(rgs_AN) == nrow(rgs_results)) 
+{ print("Binding rows worked!")} else {print("Binding rows didn't work!")}
+```
+Remove NAs
+```{r}
+rgs_results <- rgs_results %>%
+  filter(!is.na(rg))
+```
+
+
+Merge with GWAS information sheet to get phenotype name for plotting
+```{r merge with GWAS info}
+trait_details <- read_csv(file = "/Users/helenadavies/Downloads/PGC ED GWAS rg analyses - RULES APPLIED_ PGC-ED rg traits (9).csv")
+
+trait_details <- trait_details %>% 
+  select(p2 = "KCL code",
+         name,
+         name_plotting) # rename Code to p2 so that it matches with column name in rg results
+
+rgs_results_details <- left_join(rgs_results,
+                                 trait_details,
+                                 by = "p2")
+
+rgs_results_details
+
+## for now ##
+rgs_results_details <- rgs_results_details %>%
+  mutate(name =
+           case_when(!is.na(name_plotting) ~ name_plotting,
+                     TRUE ~ name))
+```
+
+Merge rows to a single trait, by renaming p value to p_BEBROAD and p_AN - to filter traits that are non-significant for both
+```{r merge to single trait}
+rgs_BEBROAD_specific_to_filter <- rgs_BEBROAD %>% 
+  select(p2,
+         p_BEBROAD = p,
+         rg_BEBROAD = rg)
+
+rgs_BEBROAD_specific_to_filter
+
+rgs_AN_specific_to_filter <- rgs_AN %>% 
+  select(p2,
+         p_AN = p,
+         rg_AN = rg)
+
+rgs_AN_specific_to_filter
+
+p_BEBROAD_AN <- inner_join(rgs_AN_specific_to_filter,
+                           rgs_BEBROAD_specific_to_filter,
+                         by = "p2")
+
+p_BEBROAD_AN
+```
+
+Set number of traits tested for bonferonni correction 
+```{r no. of traits for bonf correction}
+n_traits <- nrow(rgs_BEBROAD)
+n_traits
+
+Bonf_threshold <- (0.05/n_traits)
+Bonf_threshold
+```
+
+Create column to specify if significant for AN or BE BROAD
+```{r sig for AN or BE BROAD}
+p_BEBROAD_AN <- p_BEBROAD_AN %>%
+  mutate(bonf_signif =
+           case_when((p_AN <= (0.05/n_traits))
+                     & (p_BEBROAD <= (0.05/n_traits)) ~ "AN & BE BROAD bonf significant",
+                     (p_AN > (0.05/n_traits))
+                     & (p_BEBROAD > (0.05/n_traits)) ~ "AN & BE BROAD bonf non-significant",
+                     (p_BEBROAD > (0.05/n_traits))
+                     & (p_AN <= (0.05/n_traits)) ~ "Only AN bonf significant",
+                     (p_AN > (0.05/n_traits))
+                     & (p_BEBROAD <= (0.05/n_traits)) ~ "Only BE BROAD bonf significant"))
+
+p_BEBROAD_AN %>%
+  freq(bonf_signif)
+```
+
+Add variable to say if abs rg is stronger for fear or for gad. This is for plotting blockjacknife results, where the rg is different but significant for both - note this is just stronger in terms of direction (not yet applying if this is significant or not from jackknife results)
+```{r direction of strength AN or BE BROAD}
+p_BEBROAD_AN <- p_BEBROAD_AN %>%
+  mutate(rg_higher_AN_or_BEBROAD =
+           case_when(rg_AN > rg_BEBROAD ~ "Higher rg with AN",
+                     rg_BEBROAD > rg_AN ~ "Higher rg with BE BROAD"))
+
+p_BEBROAD_AN %>%
+  freq(rg_higher_AN_or_BEBROAD)
+```
+
+# Merge back with gwas detail info
+```{r merge with gwas details}
+rg_p_BEBROAD_AN_details <- inner_join(rgs_results_details, 
+                                   p_BEBROAD_AN, 
+                                   by = "p2")
+
+rg_p_BEBROAD_AN_details
+```
+
+# Read in and transform results from block jacknife 
+(testing whether two rg's are significantly different from each other)
+```{r Read in the jackknife data}
+jacknife_results <- data.table::fread(file = "/Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/AN_BEBROAD_jacknife_results2.txt",
+                          sep = " ")
+                             
+jacknife_results <- jacknife_results %>% 
+  rename(p2 = phenotype,
+         jn_pvalue_diff_0 = 'pvalue(diff!=0)',
+         jn_Zvalue_diff_0 ='zscore(diff!=0)')
+
+jacknife_results
+```
+Check same as rgs
+```{r}
+jacknife_results_traits <- jacknife_results %>% 
+  select(p2)
+
+differences <- setdiff(rownames(AN_traits),
+                       rownames(jacknife_results_traits))
+
+diff <- anti_join(AN_traits,
+                  jacknife_results_traits)
+
+# Traits in rg not in jackknife
+diff
+```
+
+```{r filter out NAs}
+jacknife_results <- jacknife_results %>%
+  filter(!is.na(var))
+```
+
+Check overlap in traits, should be the same
+```{r check overlap jackknife}
+#check difference in merging variable Phenotype
+jacknife_results_traits <- jacknife_results %>% 
+  select(p2)
+
+setdiff(rownames(jacknife_results_traits), rownames(BEBROAD_traits))
+setdiff(rownames(BEBROAD_traits), rownames(jacknife_results_traits))
+```
+
+Merge jacknife with rg results and gwas details
+```{r merge jackknife and rg and gwas details}
+rg_p_BEBROAD_AN_details$se_rg <- rg_p_BEBROAD_AN_details$se
+
+jacknife_rg <- left_join(rg_p_BEBROAD_AN_details,
+                         jacknife_results,
+                         by = "p2")
+
+jacknife_rg
+```
+
+Create column to specify if jackknife significantly different rg results
+```{r new column jackknife sig}
+jacknife_rg <- jacknife_rg %>%
+  mutate(jn_diff =
+           case_when((jn_pvalue_diff_0 <= (0.05/n_traits)) ~ "rg jn different",
+                     (jn_pvalue_diff_0 > (0.05/n_traits)) ~ "rg jn same"))
+
+jacknife_rg %>% 
+  freq(jn_diff)
+```
+
+Create variable for plotting
+```{r jackknife variable for plotting}
+jacknife_rg <- jacknife_rg %>%
+  mutate(jn_diff_rg_stronger_AN_or_BEBROAD_plotting = 
+           case_when(jn_diff == "rg jn different" 
+                        & rg_higher_AN_or_BEBROAD == "Higher rg with BE BROAD" 
+                       & bonf_signif != "AN & BE BROAD bonf non-significant" ~ "BEBROAD rg > AN rg",
+                     
+                     jn_diff == "rg jn different" 
+                     & rg_higher_AN_or_BEBROAD == "Higher rg with AN"
+                     & bonf_signif != "AN & BE BROAD bonf non-significant" ~ "AN rg > BE BROAD rg",
+                     
+                     jn_diff == "rg jn same"
+                     & bonf_signif == "AN & BE BROAD bonf significant" ~ "Both sig",
+                     
+                     jn_diff == "rg jn same"
+                     & bonf_signif == "Only BE BROAD bonf significant" ~ "Only BE BROAD sig",
+                     
+                     jn_diff == "rg jn same"
+                     & bonf_signif == "Only AN bonf significant" ~ "Only AN sig",
+                     
+                     bonf_signif == "AN & BE BROAD bonf non-significant" ~ "AN & BE BROAD both non-sig (no jackknife)",
+                     
+                     TRUE ~ jn_diff
+                      ))
+                      
+
+jacknife_rg %>% 
+  freq(jn_diff_rg_stronger_AN_or_BEBROAD_plotting)
+```
+
+Save for supplementary table
+```{r save table for supplementary}
+supp_jacknife_rg <- jacknife_rg %>%
+  filter(!is.na(p1)) %>%
+  select(
+    Trait = name,
+    "rg with BE BROAD" = rg_BEBROAD,
+    "p value for BE BROAD rg" = p_BEBROAD,
+    "rg with AN" = rg_AN,
+    "p value for AN rg" = p_AN,
+    bonf_signif,
+    "Jackknife results" = jn_diff_rg_stronger_AN_or_BEBROAD_plotting
+  ) 
+  
+supp_jacknife_rg <- supp_jacknife_rg[!duplicated(supp_jacknife_rg$Trait), ]
+
+supp_jacknife_rg %>%
+  write_excel_csv(file = "/Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/AN_BEBROAD_PGCED3_rgs_jackknife_SUPPLEMENTARY2.csv")
+```
+
+Filter dataframe for plotting: remove traits that are non-significant for both
+```{r remove non-sig traits}
+jacknife_rg_plotting <- jacknife_rg %>% 
+  filter(bonf_signif != "AN & BE BROAD bonf non-significant")
+
+# check 
+jacknife_rg_plotting %>% 
+  freq(jn_diff_rg_stronger_AN_or_BEBROAD_plotting)
+```
+
+## PLotting
+Create variables with nice names for plotting
+```{r new names for plotting}
+jacknife_rg_plotting <- jacknife_rg_plotting %>%
+  mutate(bonf_signif_plotting =
+           case_when(p1 == "BEBROAD" & p <= (0.05/n_traits) ~ "BEBROAD: significant",
+                                        p1 =="BEBROAD" & p > (0.05/n_traits) ~ "BEBROAD: non-significant",
+                                        p1 =="AN" & (p <= (0.05/n_traits)) ~ "AN: significant",
+                                        p1 =="AN" & (p > (0.05/n_traits)) ~ "AN: non-significant"))
+
+jacknife_rg_plotting %>% 
+  freq(bonf_signif_plotting)
+```
+
+```{r factor relevel new names for plotting}
+jacknife_rg_plotting <- jacknife_rg_plotting %>%
+  mutate(bonf_signif_plotting = fct_relevel(bonf_signif_plotting,
+                                   c("BEBROAD: significant",
+                                     "BEBROAD: non-significant",
+                                     "AN: significant",
+                                     "AN: non-significant")))
+
+jacknife_rg_plotting %>% 
+  freq(bonf_signif_plotting)
+```
+
+```{r recode cateogries to numeric values}
+jacknife_rg_plotting <- jacknife_rg_plotting %>%
+  mutate(
+    jn_diff_rg_stronger_AN_or_BEBROAD_numeric = 
+      case_when(
+        jn_diff_rg_stronger_AN_or_BEBROAD_plotting =="Both sig" ~ 4,
+        jn_diff_rg_stronger_AN_or_BEBROAD_plotting == "Only BE BROAD sig" ~ 3,
+        jn_diff_rg_stronger_AN_or_BEBROAD_plotting == "Only AN sig" ~ 3,
+        jn_diff_rg_stronger_AN_or_BEBROAD_plotting =="BEBROAD rg > AN rg" ~ 2,
+        jn_diff_rg_stronger_AN_or_BEBROAD_plotting =="AN rg > BE BROAD rg" ~ 1
+      ))
+
+# check
+jacknife_rg_plotting %>%
+  select(jn_diff_rg_stronger_AN_or_BEBROAD_numeric,
+         jn_diff_rg_stronger_AN_or_BEBROAD_plotting,
+         name)
+  
+```
+
+# PLOT
+## Try with facet wrap with two grid options instead of 1 to save text space in grid
+recode categories to nice plotting names
+```{r rename jn diff for plotting}
+jacknife_rg_plotting <- jacknife_rg_plotting %>% 
+  mutate(jn_diff_plotting =
+           case_when(jn_diff == "rg jn same" ~"AN vs BE BROAD: No sig diff",
+                     jn_diff == "rg jn different" ~"AN vs BE BROAD: Sig diff")
+  )
+```
+
+```{r rg over 1 transform}
+jacknife_rg_plotting <- jacknife_rg_plotting %>% 
+  mutate(rg =
+           case_when(rg > 1 ~ 1,
+                     TRUE ~ rg))
+```
+
+```{r new dataset jn same}
+plotting_jn_same <- jacknife_rg_plotting %>% 
+  filter(jn_diff == "rg jn same")
+```
+
+Jacknife rg results significantly different
+```{r new dataset jn different} 
+plotting_jn_different <- jacknife_rg_plotting %>% 
+  filter(jn_diff == "rg jn different")
+```
+
+Using facet_grid: Jacknife rg results the same
+```{r plot jackknife same results}
+rg_plot_facet_grid_jn_same_2_grid <- ggplot(data = plotting_jn_same,
+       aes(x=reorder(reorder(name,
+                     rg),
+           jn_diff_rg_stronger_AN_or_BEBROAD_numeric),
+           y=rg,
+           color=bonf_signif_plotting,
+           shape=bonf_signif_plotting)) +
+  facet_grid(jn_diff_rg_stronger_AN_or_BEBROAD_plotting ~ jn_diff_plotting,
+              scales = "free",
+              space = "free") + 
+  geom_point(position=position_dodge2(1),
+             stat="identity",
+             size=2.6) + # Width of rg estimate point
+ geom_errorbar(aes(ymin=rg-se_rg,
+                    ymax=rg+se_rg),
+                width=.07,                    # Width of the error bars
+                position=position_dodge(1),
+                size=1)  +
+  coord_flip(ylim=c(-0.6,1)) +
+  labs(x = NULL,
+       y = expression("Genetic correlation r"[g])) +
+  scale_color_manual(values=c(
+    "BEBROAD: significant" = "#D672A4", # colour by trait
+    "AN: significant" = "#66B8BA",
+    "BEBROAD: non-significant" = "#D672A4",
+    "AN: non-significant" = "#66B8BA")) +
+ scale_shape_manual(values=c("BEBROAD: significant" = 15,
+                             "AN: significant" = 15,
+                             "BEBROAD: non-significant" = 0,
+                             "AN: non-significant" = 0)) + #hollow/filled square = 0/15, hollow/filled circle = 1/16, hollow/filled triangle = 2/1 
+  geom_hline(yintercept=0,
+              linetype="dashed",
+              colour = "black",
+              size = 1) +
+  theme(legend.background = element_rect(fill=NA,
+                                  size=0.2, 
+                                  #linetype="solid",  #black box border around legend
+                                  colour ="black"),
+        panel.grid.major.y=element_line(size=.2,
+                                          color="grey"),
+        panel.grid.major.x = element_line(size=.2,
+                                          color="grey" ),
+        panel.grid.minor = element_blank(),
+        panel.border = element_rect(size=.5,
+                                    color="grey",
+                                    fill = NA),
+        panel.background = element_blank(), 
+        axis.line = element_blank(),
+        axis.text.x = element_text(colour ="black"),
+        axis.text.y = element_text(colour ="black"),
+        axis.ticks.y = element_line(size=.2,
+                                          color="grey"),
+        axis.ticks.x = element_line(size=.2,
+                                          color="grey"),
+        legend.title = element_blank(),
+        axis.text = element_text(size=17),
+        text = element_text(size=17),
+        legend.text = element_text(size = 16),
+        legend.key = element_rect(fill = "white"),
+        legend.key.size = unit(0.75, 'cm'),
+        legend.key.height = unit(0.75, 'cm'), #change legend key height
+        legend.key.width = unit(1.5, 'cm'),
+        legend.position = "none",
+        strip.text = element_text(size = 12)) +
+  scale_y_continuous(n.breaks = 10)
+
+```
+
+Using facet_grid: Jacknife rg results significantly different
+```{r plot jackknife different results}
+rg_plot_facet_grid_jn_different_2_grid <- ggplot(data = plotting_jn_different,
+       aes(x=reorder(reorder(name,
+                     abs(rg)),
+           jn_diff_rg_stronger_AN_or_BEBROAD_numeric),
+           y=rg,
+           color=bonf_signif_plotting,
+           shape=bonf_signif_plotting)) +
+  facet_grid(jn_diff_rg_stronger_AN_or_BEBROAD_plotting ~  jn_diff_plotting,
+              scales = "free",
+              space = "free") +
+  geom_point(position=position_dodge2(1),
+             stat="identity",
+             size=2.6) + # Width of rg estimate point
+ geom_errorbar(aes(ymin=rg-se_rg,
+                    ymax=rg+se_rg),
+                width=.07,                    # Width of the error bars
+                position=position_dodge(1),
+                size=1) +
+  geom_vline(xintercept = 0, linetype = "longdash",size = 5, colour ="black") +
+  coord_flip(ylim=c(-0.6,1)) +
+  labs(x = NULL,
+       y = expression("Genetic correlation r"[g])) +
+  scale_color_manual(values=c(
+    "BEBROAD: significant" = "#D672A4", # colour by trait
+    "AN: significant" = "#66B8BA",
+    "BEBROAD: non-significant" = "#D672A4",
+    "AN: non-significant" = "#66B8BA")) +
+ scale_shape_manual(values=c("BEBROAD: significant" = 15,
+                             "AN: significant" = 15,
+                             "BEBROAD: non-significant" = 0,
+                             "AN: non-significant" = 0)) + #hollow/filled square = 0/15, hollow/filled circle = 1/16, hollow/filled triangle = 2/1 
+   geom_hline(yintercept=0,
+              linetype="dashed",
+              colour = "black",
+              size = 1) +
+  theme(legend.background = element_blank(),
+        panel.grid.major.y=element_line(size=.2,
+                                          color="grey"),
+        panel.grid.major.x = element_line(size=.2,
+                                          color="grey" ),
+        panel.grid.minor = element_blank(),
+        panel.border = element_rect(size=.5,
+                                    color="grey",
+                                    fill = NA),
+        panel.background = element_blank(), 
+        axis.line = element_blank(),
+        axis.text.x = element_text(colour ="black"),
+        axis.text.y = element_text(colour ="black"),
+        axis.ticks.y = element_line(size=.2,
+                                          color="grey"),
+        axis.ticks.x = element_line(size=.2,
+                                          color="grey"),
+        legend.title = element_blank(),
+        axis.text = element_text(size=17.5),
+        text = element_text(size=17.5),
+        legend.text = element_text(size = 17),
+        legend.key = element_rect(fill = "white"),
+        legend.key.size = unit(0.8, 'cm'),
+        legend.key.height = unit(.6, 'cm'), #change legend key height
+        legend.key.width = unit(1.2, 'cm'),
+        legend.position = "top",
+        strip.text = element_text(size = 13)) +
+  scale_y_continuous(n.breaks = 10) +
+  guides(color = guide_legend(nrow = 4))
+
+```
+
+```{r layout}
+pp1_2_grid <- rg_plot_facet_grid_jn_same_2_grid
+pp2_2_grid <- plot_spacer() / rg_plot_facet_grid_jn_different_2_grid + plot_layout(heights = c(1, 9))
+
+pp1_2_grid + pp2_2_grid
+```
+
+# Save plot as pdf
+```{r save plot pdf}
+ggsave(filename = "AN_BEBROAD_1000DPI_largetxt_18_width2.pdf",
+       path = "/Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/",
+       width = 20,
+       height = 30,
+       dpi = 1000
+       ) 
+```
+
+# Save plot as png
+```{r save plot png}
+ggsave(filename = "AN_BEBROAD_1000DPI_largetxt_18_width2.png",
+      path = "/Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/",
+        width = 20,
+       height = 25,
+       dpi = 1000
+       ) 
+
+```

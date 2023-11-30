@@ -1,0 +1,479 @@
+---
+title: 'ANR Plotting external rg: Single PGCED trait'
+author: "Helena Davies"
+date: "2023-07-14"
+output: html_document
+---
+
+Configure global options for all chunks
+```{r Setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  comment = '',
+  prompt = FALSE,
+  cache = FALSE
+  )
+```
+
+Clear global environment prior to initiation
+```{r Clear global environment}
+remove(list = ls())
+```
+
+```{r load packages}
+library(summarytools)
+library(skimr)
+library(gtsummary)
+library(tidyverse)
+```
+
+# Read in and transform the results
+## ANR
+```{r Read in the data non MVP}
+ANR_rgs_non_MVP <- read_csv("/Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/ANR_PGCED3_rgs.csv")
+```
+# Keep correct traits in rg
+```{r keep correct traits}
+ANR_rgs_non_MVP <- ANR_rgs_non_MVP %>% 
+  filter(p2 == "ADHD06" |
+           p2 == "SMOK10" |
+           p2 == "ALCD03" |
+           p2 == "ALCU01" |
+           p2 == "ALCU02" |
+           p2 == "ALCU03" |
+           p2 == "ALZH01" |
+           p2 == "ANOR02" |
+           p2 == "ANOR03" |
+           p2 == "ANXI03" |
+           p2 == "ASTH01" |
+           p2 == "AUTI07" |
+           p2 == "BALD01" |
+           p2 == "BFPC03" |
+           p2 == "BIPO03" |
+           p2 == "BIPO04" |
+           p2 == "BIPO05" |
+           p2 == "BLOO01" |
+           p2 == "BLOO02" |
+           p2 == "BLOO03" |
+           p2 == "BLOO04" |
+           p2 == "BLOO05" |
+           p2 == "BLOO06" |
+           p2 == "BLOO07" |
+           p2 == "BLOO08" |
+           p2 == "BLOO09" |
+           p2 == "BLOO10" |
+           p2 == "BLOO11" |
+           p2 == "BLOO12" |
+           p2 == "BLOO13" |
+           p2 == "BLOO14" |
+           p2 == "BLOO15" |
+           p2 == "BLOO16" |
+           p2 == "BLOO17" |
+           p2 == "BLOO18" |
+           p2 == "BLOO19" |
+           p2 == "BLOO20" |
+           p2 == "BLOO21" |
+           p2 == "BLOO22" |
+           p2 == "BLOO23" |
+           p2 == "BLOO24" |
+           p2 == "BLOO25" |
+           p2 == "BLOO26" |
+           p2 == "BLOO27" |
+           p2 == "BLOO28" |
+           p2 == "BLOO29" |
+           p2 == "BLOO30" |
+           p2 == "BLOO31" |
+           p2 == "BLOO32" |
+           p2 == "BLOO33" |
+           p2 == "BLOO34" |
+           p2 == "BLOO35" |
+           p2 == "BLOO36" |
+           p2 == "BODY02" |
+           p2 == "BODY04" |
+           p2 == "BODY07" |
+           p2 == "CANU02" |
+           p2 == "CANU03" |
+           p2 == "CAUD01" |
+           p2 == "CELI01" |
+           p2 == "CHOL21" |
+           p2 == "CHOL22" |
+           p2 == "CHOL27" |
+           p2 == "CHRO01" |
+           p2 == "CHRO02" |
+           p2 == "CHRO06" |
+           p2 == "SMOK09" |
+           p2 == "CIRR01" |
+           p2 == "COAD03" |
+           p2 == "COLL01" |
+           p2 == "CROH01" |
+           p2 == "CROS01" |
+           p2 == "DEPR02" |
+           p2 == "DEPR05" |
+           p2 == "DIAB02" |
+           p2 == "ALCO04" |
+           p2 == "EDUC02" |
+           p2 == "EXTR01" |
+           p2 == "FATM02" |
+           p2 == "FATM02B" |
+           p2 == "FATM02F" |
+           p2 == "FATM02M" |
+           p2 == "FATM03" |
+           p2 == "FATM03B" |
+           p2 == "FATM03F" |
+           p2 == "FATM03M" |
+           p2 == "FATM04" |
+           p2 == "FATM04B" |
+           p2 == "FATM04F" |
+           p2 == "FATM04M" |
+           p2 == "FATM05B" |
+           p2 == "ANXI04" |
+           p2 == "GLYC02" |
+           p2 == "GLYC04" |
+           p2 == "GLYC05" |
+           p2 == "GLYC07" |
+           p2 == "GLYC08" |
+           p2 == "GLYC13" |
+           p2 == "GLYC14" |
+           p2 == "GLYC16" |
+           p2 == "GLYC22" |
+           p2 == "GROW01" |
+           p2 == "GROW01F" |
+           p2 == "GROW03" |
+           p2 == "HEAD01" |
+           p2 == "HEAL01" |
+           p2 == "HEAR01" |
+           p2 == "HEIG01" |
+           p2 == "HEIG02" |
+           p2 == "HEIG07" |
+         #  p2 == "HEIG08" | using updated HEIG09
+           p2 == "HIPC01" |
+           p2 == "HIPC01F" |
+           p2 == "HIPC01M" |
+           p2 == "HIPC03" |
+           p2 == "HIPC03F" |
+           p2 == "HIPC03M" |
+           p2 == "INCO01" |
+           p2 == "INCO03" |
+           p2 == "INFB01" |
+         #  p2 == "INSO02" | using updated INSO03
+           p2 == "INTE01" |
+           p2 == "INTE03" |
+           p2 == "LEAN02" |
+           p2 == "LEAN03" |
+           p2 == "LEAN04" |
+           p2 == "LEAN04B" |
+           p2 == "LEAN04F" |
+           p2 == "LEAN04M" |
+           p2 == "LEAN05" |
+           p2 == "LEAN05B" |
+           p2 == "LEAN05F" |
+           p2 == "LEAN05M" |
+           p2 == "LEAN06" |
+           p2 == "LEAN06B" |
+           p2 == "LEAN06F" |
+           p2 == "LEAN06M" |
+           p2 == "LEAN07B" |
+           p2 == "LONG01" |
+           p2 == "LONG02" |
+           p2 == "LONG03" |
+           p2 == "LONG04" |
+           p2 == "LONG05" |
+           p2 == "LONG06" |
+           p2 == "LONG07" |
+           p2 == "LUNG01" |
+           p2 == "LUNG02" |
+           p2 == "LUNG03" |
+           p2 == "LUNG05" |
+           p2 == "LUPU01" |
+           p2 == "MEMO01" |
+           p2 == "MENA03F" |
+           p2 == "MENO01F" |
+           p2 == "MIGR01" |
+           p2 == "NEUR02B" |
+           p2 == "OBES01" |
+           p2 == "OBES02" |
+           p2 == "OBES03" |
+           p2 == "OBES05" |
+           p2 == "OBES07" |
+           p2 == "OCDI01" |
+           p2 == "OSTE01" |
+           p2 == "OSTE03" |
+           p2 == "OSTE04" |
+           p2 == "OSTE05" |
+           p2 == "OVER01" |
+           p2 == "ANXI05" |
+           p2 == "PHYS01" |
+           p2 == "PRCA01" |
+           p2 == "PUTA01" |
+           p2 == "REAC01" |
+           p2 == "REAS01" |
+           p2 == "REPR01" |
+           p2 == "REPR01F" |
+           p2 == "REPR01M" |
+           p2 == "REPR02" |
+           p2 == "REPR02F" |
+           p2 == "REPR02M" |
+           p2 == "RHEU02" |
+           p2 == "RISK01" |
+           p2 == "RISK02" |
+           p2 == "RISK03" |
+           p2 == "SCBP01" |
+           p2 == "SCBP02" |
+           p2 == "SCHI05" |
+           p2 == "SMOK05" |
+           p2 == "SMOK08" |
+           p2 == "SMOK07" |
+           p2 == "SUBJ01" |
+           p2 == "THIN01" |
+           p2 == "TIRE01" |
+           p2 == "TOUR01" |
+           p2 == "TRGL04" |
+           p2 == "URAT01" |
+           p2 == "URIN08" |
+           p2 == "URIN11" |
+           p2 == "VITD01" |
+           p2 == "WAIS01F" |
+           p2 == "WAIS01M" |
+           p2 == "WAIS03" |
+           p2 == "WAIS03F" |
+           p2 == "WAIS03M" |
+           p2 == "WEIG01" |
+           p2 == "WEIG04F" |
+           p2 == "WEIG04M" |
+           p2 == "WEIG05F" |
+           p2 == "WHIP01" |
+           p2 == "WHIP03" |
+           p2 == "WHIP03F" |
+           p2 == "WHIP03M" |
+           p2 == "WHIP05" |
+           p2 == "WHIP05F" |
+           p2 == "WHIP05M" |
+           p2 == "BODY04F" |
+           p2 == "BODY04M" |
+           p2 == "EDUC03" |
+           p2 == "HEIG09" |
+           p2 == "CROS01" |
+           p2 == "PSOR01" |
+           p2 == "SMOK11" |
+           p2 == "INSO03" |
+           p2 == "ADHD06" |
+           p2 == "SMOK10" |
+           p2 == "BIPO03" |
+           p2 == "BIPO04" |
+           p2 == "BIPO05" |
+           p2 == "CANU02" |
+           p2 == "CANU03" |
+           p2 == "SMOK09" |
+           p2 == "ALCO04" |
+           p2 == "SMOK08" |
+           p2 == "SMOK07" |
+           p2 == "ANXI05" |
+           p2 == "TOUR01" |
+           p2 == "LONE04" |
+           p2 == "BODY15" |
+           p2 == "GLYC47" |
+           p2 == "GLYC48" |
+           p2 == "GLYC49" |
+           p2 == "GLYC48F" |
+           p2 == "GLYC48M" |
+           p2 == "GLYC50" |
+           p2 == "GLYC51" |
+           p2 == "GLYC50F" |
+           p2 == "GLYC50M" |
+          # p2 == "GLYC52" | USING glyc22 as bigger h2
+           p2 == "GLYC53" |
+           p2 == "REPR04" |
+           p2 == "REPR03")
+```
+
+```{r Read in the data MVP}
+ANR_rgs_MVP <- read_csv("/Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/ANR_PGCED3_MVP_rgs_MVP.csv")
+```
+
+```{r bind MVP and non MVP}
+ANR_rgs <- ANR_rgs_MVP %>%
+  bind_rows(ANR_rgs_non_MVP)
+```
+
+```{r see missing}
+ANR_rgs %>%
+  filter(is.na(rg))
+```
+
+Merge with GWAS information sheet to get phenotype name for plotting (and PMID, year, etc)
+```{r merge with GWAS info}
+trait_details <- read_csv(file = "/Users/helenadavies/Downloads/PGC ED GWAS rg analyses - RULES APPLIED_ PGC-ED rg traits (8).csv")
+
+trait_details <- trait_details %>% 
+  select(p2 = "KCL code", # rename Code to p2 so that it matches with column name in rg results
+         name,
+         name_plotting,
+         Phenotype_category,
+         category_name
+         ) 
+
+ANR_rgs_results_details <- left_join(ANR_rgs,
+                                 trait_details,
+                                 by = "p2")
+
+ANR_rgs_results_details
+
+## for now ##
+ANR_rgs_results_details <- ANR_rgs_results_details %>%
+  mutate(name =
+           case_when(!is.na(name_plotting) ~ name_plotting,
+                     TRUE ~ name))
+```
+
+Specify number of traits used for genetic correlation to correct for multiple testing using Bonferonni 
+```{r no. traits}
+n_traits <- nrow(ANR_rgs_results_details)
+```
+
+Create column to specify if significant for trait 1 or trait 2 or trait 3 (or both)
+```{r}
+ANR_rgs_results_details <- ANR_rgs_results_details %>%
+  mutate(bonf_signif =
+           case_when((p < (0.05/n_traits)) ~ "significant",
+                     (p >= (0.05/n_traits)) ~ "non-significant"))
+
+ANR_rgs_results_details %>%
+  count(bonf_signif)
+```
+Save for supplementary table
+```{r save table for supplementary}
+ANR_rgs_results_details <- ANR_rgs_results_details %>%
+  filter(!is.na(rg)) %>%
+  select(
+    Trait = name,
+    'Category' = category_name,
+    rg,
+    SE = se,
+    p,
+    'Bonferroni significant' = bonf_signif
+    )
+
+ANR_rgs_results_details_ordered <- ANR_rgs_results_details[order(ANR_rgs_results_details$Category), ]
+
+write_excel_csv(ANR_rgs_results_details_ordered,
+                file = "/Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/single_trait_rg/ANR_PGCED3_rgs_SUPPLEMENTARY2.csv")
+``` 
+
+# Plot: order by strength of rg
+Filter for only significant rg for plotting
+```{r filter sig rg only plotting}
+ANR_rgs_results_details_sig <- ANR_rgs_results_details %>%
+  filter(`Bonferroni significant` == "significant")
+```
+
+Create column to specify if negative or positive for plotting
+```{r direction of rg}
+ANR_rgs_results_details_sig <- ANR_rgs_results_details_sig %>%
+  mutate(direction =
+           case_when(rg > 0 ~ "positive",
+                     rg < 0 ~ "negative"))
+
+ANR_rgs_results_details_sig %>%
+  count(direction)
+```
+
+Set preferences for text size and style 
+https://htmlcolorcodes.com/color-picker/
+```{r set text prefs}
+
+black_bold_italic_text <- element_text(face = "bold.italic",
+                                      color = "black",
+                                      size = 25)
+
+black_bold_text <- element_text(face = "bold",
+                                colour = "black",
+                                size = 30)
+
+
+black_plain_text <- element_text(face = "plain",
+                           colour = "black",
+                           size = 25)
+
+black_plain_text_smaller <- element_text(face = "plain",
+                           colour = "black",
+                           size = 20)
+
+
+## Set preferences for ggplot theme
+my_theme <- theme(title = black_bold_text,
+                  plot.subtitle = black_bold_italic_text,
+                  axis.title.x = black_plain_text,
+                  axis.title.y = black_plain_text,
+                  axis.text = black_plain_text_smaller) 
+```
+
+Run ggplot
+```{r Plot genetic correlations}
+plot <- ggplot(ANR_rgs_results_details_sig,
+       aes(x=Trait,
+           y=rg,
+          color=direction
+           )) + 
+  geom_point(position=position_dodge2(1),
+             stat="identity",
+             size=5) +
+     geom_hline(yintercept=0,
+              linetype="dashed",
+              colour = "black",
+              size = 1) +
+ coord_flip(ylim=c(-1,1.2)) +
+  labs(title = "Anorexia nervosa restricting",
+    x = "External trait",
+    y = expression("Genetic correlation r"[g])) + # Width of rg estimate point
+  geom_errorbar(aes(ymin=rg-SE,
+                    ymax=rg+SE),
+                width=.1,                    # Width of the error bars
+                position=position_dodge(1),
+                size=1) +
+  scale_color_manual(values=(c("positive" = "#6DA553",
+                             "negative" = "#F15E58"))) + # colour by direction
+  theme(panel.grid.major.y=element_line(size=.2,
+                                          color="black" ),
+        panel.grid.major.x = element_line(size=.2,
+                                          color="black" ),
+         panel.grid.minor = element_blank(),
+        panel.border = element_rect(size=.5,
+                                    color="grey",
+                                    fill = NA),
+        panel.background = element_blank(), 
+        axis.line = element_blank(),
+        axis.text.x = element_text(colour ="black"),
+        axis.text.y = element_text(colour ="black",
+                                   size = 22),
+        axis.ticks.y = element_line(size=.2,
+                                          color="grey"),
+        axis.ticks.x = element_line(size=.2,
+                                          color="grey"),
+        axis.text = element_text(size=17),
+        axis.title.y = element_text(size=30),
+        title = element_text(size=30),
+        text = element_text(size=17),
+        strip.text = element_text(size = 20,
+                                  colour="black",
+                                    face = "bold"),
+        strip.background =element_rect(fill="light grey"),
+      legend.position = "none") + 
+    # my_theme +
+    facet_grid(vars(Category), scales="free_y", space="free")+
+  theme(strip.text.y = element_text(angle=0),
+        panel.border = element_rect(color = "black", fill = NA, size = 1),
+        panel.spacing = unit(1, "lines"),
+                strip.background = element_rect(color = "black", size = 1))
+```
+
+Save rg plot
+```{r Save rg plot}
+ggsave(filename = "/Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/single_trait_rg/ANR_PGCED3_rgs_plot2.png",
+       plot = plot,
+       height = 65,
+       width = 50,
+       units = "cm",
+       device = "png")
+```
+
+

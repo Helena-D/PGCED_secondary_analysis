@@ -1,0 +1,47 @@
+---
+title: "Merging selected rg"
+author: "Helena Davies"
+date: "2023-06-23"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("dplyr")
+library("tidyverse")
+```
+
+```{r read data and select}
+chosen <- data.table::fread("/Users/helenadavies/Desktop/chosen.csv")
+
+all <- data.table::fread("/Users/helenadavies/Desktop/all.csv")
+
+all <- all %>%
+  select("KCL code",
+         "name",
+         "ancestry_details",
+         "ancestry.x",
+         "sex.x",
+         "category_name",
+         "year.x",
+         "pmid",
+         "trait_detail",
+         "h2.observed",
+         "h2.se",
+         "h2.z",
+         "lambda.GC",
+         "mean.chi.2"
+        )
+```
+
+```{r merge}
+merged <- dplyr::left_join(chosen,
+                           all,
+                           by = "KCL code")
+```
+```{r save}
+merged %>%
+  write.csv("/Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_scripts/rg_merged.csv")
+
+```
+

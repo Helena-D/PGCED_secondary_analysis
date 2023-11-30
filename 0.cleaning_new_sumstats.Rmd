@@ -1,0 +1,276 @@
+---
+title: "Cleaning new PGCED sumstats"
+author: "Helena Davies"
+date: "2023-08-08"
+output: html_document
+---
+
+Updated filters for cleaned files
+FREQ_CASES=[0.001,0.995]
+FREQ=[0.001,0.995]
+INFO >= 0.6
+OR<10000 filter
+(if maf is present for both controls and cases, FREQ is for controls, FREQ_CASES is for cases)
+
+# Install Johan's package on create (via r)
+```{bash}
+module add fontconfig
+module add harfbuzz
+module add freetype
+module add fribidi
+module add libpng
+module add libjpeg-turbo
+module add libtiff
+module add r
+R
+devtools::install_github("johanzvrskovec/shru")
+```
+
+# Anxiety
+Prelim edits: Adding a tab between the direction and N
+The 'Direction' and 'N' column do not have a tab between them so supermunge was reading it as 'Direction.N' and therefore got rid of the N column.
+```{bash prelim ANXI04 edits}
+# unzip
+gunzip dbGAP_GAD2eur.gz
+
+# Interactive
+srun -p cpu --nodes=1 --ntasks=12 --mem-per-cpu=19000 --pty /bin/bash
+
+# Remove header first
+tail -n +2 dbGAP_GAD2eur > dbGAP_GAD2eur_noheader
+
+# Add header with spaces
+cat <(echo "CHR BP rsid CHR:BP A1 A2 Freq1 EFFECT SE P DIRECTION N") dbGAP_GAD2eur_noheader > dbGAP_GAD2eur_header
+
+rm dbGAP_GAD2eur
+mv dbGAP_GAD2eur_header dbGAP_GAD2eur
+rm dbGAP_GAD2eur_noheader
+
+# Check
+head dbGAP_GAD2eur
+```
+
+# Supermunge with no munge-step but file interpretation only and specific cleaning filters
+vim /scratch/users/k19047584/sumstats_PGCED_new/scripts/cleaning_sumstats_PGCED_v2.r
+```{r cleaning_sumstats_PGCED_v1.r}
+results <- shru::supermunge(
+                filePaths = c(
+                  "/scratch/users/k19047584/sumstats_PGCED_new/Longitudinal_2019_FGovertime_corrected_meta_filtered_ready.txt", # has N 'size'
+                   "/scratch/users/k19047584/sumstats_PGCED_new/FG_combined_1000G_density_formatted_21-03-29.txt", # has N 'n'
+                "/scratch/users/k19047584/sumstats_PGCED_new/MAGIC1000G_FG_EUR.tsv", # has N 'sample_size'
+                "/scratch/users/k19047584/sumstats_PGCED_new/FG_female_1000G_density_formatted_21-03-29.txt", # has N 'n'
+                "/scratch/users/k19047584/sumstats_PGCED_new/FG_male_1000G_density_formatted_21-03-29.txt", # has N 'n'
+                "/scratch/users/k19047584/sumstats_PGCED_new/FI_combined_1000G_density_formatted_21-03-29.txt", # has N 'n'
+                "/scratch/users/k19047584/sumstats_PGCED_new/MAGIC1000G_FI_EUR.tsv",  # has N 'sample_size'
+                "/scratch/users/k19047584/sumstats_PGCED_new/FI_female_1000G_density_formatted_21-03-29.txt", # has N 'n'
+                "/scratch/users/k19047584/sumstats_PGCED_new/FI_male_1000G_density_formatted_21-03-29.txt", # has N 'n'
+                "/scratch/users/k19047584/sumstats_PGCED_new/MAGIC1000G_HbA1c_EUR.tsv", # has N 'sample_size'
+                "/scratch/users/k19047584/sumstats_PGCED_new/MAGIC1000G_2hGlu_EUR.tsv", # has N 'sample_size'
+                "/scratch/users/k19047584/sumstats_PGCED_new/GCST90002409_buildGRCh37.tsv.gz", # has N 'TotalSampleSize'
+
+                "/scratch/prj/gwas_sumstats/original/All_PsychiatricDisorders_MetaAnalysis2.txt", # n_sum - will be renamed to N
+                "/scratch/prj/gwas_sumstats/original/TS_Oct2018", # No N = 14307
+                 "/scratch/prj/gwas_sumstats/original/daner_bip_pgc3_nm", # no N (only Neff, N cases, N controls) = 413466
+                "/scratch/prj/gwas_sumstats/original/daner_pgc3_BDI_nm.neff", # no N (only Neff, N cases, N controls) = 475038
+                "/scratch/prj/gwas_sumstats/original/daner_pgc3_BDII_nm.neff", # no N (only Neff, N cases, N controls) = 370856
+                "/scratch/users/k19047584/MVP_sumstats/dbGAP_totalPCL_eur2", # has N
+                "/scratch/users/k19047584/MVP_sumstats/dbGAP_reexperiencing_eur2", # has N
+                "/scratch/users/k19047584/MVP_sumstats/dbGAP_avoidance_eur2", # has N
+                "/scratch/users/k19047584/MVP_sumstats/dbGAP_hyperarousal_eur2", # has N - maybe need to add 175163 and rename rsid to SNP
+                "/scratch/users/k19047584/MVP_sumstats/dbGAP_GAD2eur", # has N
+                "/scratch/users/k19047584/MVP_sumstats/EURcaseconAlgPTSD_MVP.gz", # no N 214408
+                "/scratch/prj/gwas_sumstats/original/DrinksPerWeek.txt", # has N 'N' (note: also has effective N: EFFECTIVE_N)
+                "/scratch/prj/gwas_sumstats/original/AgeofInitiation.txt", # has N 'N' (note: also has effective N: EFFECTIVE_N)
+                "/scratch/prj/gwas_sumstats/original/SmokingInitiation.txt", # has N 'N' (note: also has effective N: EFFECTIVE_N)
+                "/scratch/prj/gwas_sumstats/original/SmokingCessation.txt", # has N 'N' (note: also has effective N: EFFECTIVE_N)
+                "/scratch/prj/gwas_sumstats/original/CigarettesPerDay.txt", # has N 'N' (note: also has effective N: EFFECTIVE_N)
+                "/scratch/prj/gwas_sumstats/original/Cannabis_ICC_UKB_rs", # has N 'N' (note: also has effective N: EFFECTIVE_N)
+                "/scratch/prj/gwas_sumstats/original/CUD_EUR_full_public_11.14.2020", # has N - missing SE
+                "/scratch/users/k19047584/MVP_sumstats/OUD_stringent.EUR.MVP.DrugAlcDep2021.txt.gz", # has N 'Sample size'
+                "/scratch/prj/gwas_sumstats/original/loneliness_2019.LOO_23andMe.txt", # has N 'N'
+                "/scratch/prj/gwas_sumstats/original/NEB_chr1tochr23_concatenated.txt",  # No N 785604
+                "/scratch/prj/gwas_sumstats/original/CL_chr1to23_concatenated.txt",  # No N 450082
+                "/scratch/prj/gwas_sumstats/original/final_1df_analysis_eur_concatenated_chr_rsid.txt", # No N 28677
+                "/scratch/prj/gwas_sumstats/original/pts_eur_freeze2_overall.results.gz" # No N 174659
+                 ), # list of file paths
+                
+                
+                N = c( 
+                     NA,       
+                     NA,      
+                     NA,      
+                     NA,        
+                     NA,        
+                     NA,        
+                     NA,   
+                     NA,
+                     NA,    
+                     NA,     
+                     NA,        
+                     NA,        
+                          
+                     NA,
+                     14307,
+                     413466,
+                     475038,
+                     370856,
+                     NA,
+                     NA,
+                     NA,
+                     NA,
+                     NA,
+                     214408,
+                     NA,
+                     NA,
+                     NA,
+                     NA,
+                     NA,
+                     NA,
+                     NA,
+                     NA,
+                     NA,
+                     NA,
+                     785604,
+                     450082,
+                     28677,
+                     174659),
+                
+             traitNames = c("GLYC47",
+                            "GLYC48",
+                            "GLYC49",
+                            "GLYC48F",
+                            "GLYC48M",
+                            "GLYC50",
+                             "GLYC51",
+                             "GLYC50F",
+                             "GLYC50M",
+                             "GLYC52",
+                             "GLYC53",
+                             "BODY15",
+                            
+                            "CROS02",
+                            "TOUR01",
+                            "BIPO03_HLD",
+                            "BIPO04",
+                            "BIPO05",
+                            "PTSD07",
+                            "PTSD08",
+                            "PTSD09",
+                            "PTSD10",
+                            "ANXI04",
+                            "PTSD06",
+                            "ALCO04",
+                            "SMOK10",
+                            "SMOK07",
+                            "SMOK08",
+                            "SMOK09",
+                            "CANU02",
+                            "CANU03",
+                            "OPIO01",
+                            "LONE04",
+                            "REPR03", 
+                            "REPR04",
+                            "SMOK11",
+                            "PTSD04"
+                               ), # names/codes of the traits in the filePaths
+                
+                  
+                pathDirOutput = "/scratch/users/k19047584/sumstats_PGCED_new/cleaned", #path to the folder where to put the output files, named by the (trait name).gz
+                process=T,
+                filter.maf = 0.001, # keep "minor allele" everything above
+                filter.info = 0.6, # keep everything above
+                filter.or = 10000 # this filters out everything above 10000 rather than below
+    )
+    
+
+# save as rds
+base::saveRDS(results,
+file = "/scratch/users/k19047584/sumstats_PGCED_new/cleaned/cleaning_supermunge_results_PGCED.rds"
+)
+```
+
+Run supermunge
+```{bash}
+cd /scratch/users/k19047584/sumstats_PGCED_new/cleaned
+module add r
+sbatch --time 24:00:00 --partition cpu --job-name="cleaning_sumstats" --ntasks 1 --cpus-per-task 5 --mem 64G --wrap="Rscript /scratch/users/k19047584/sumstats_PGCED_new/scripts/cleaning_sumstats_PGCED_v2.r" --output "/scratch/users/k19047584/sumstats_PGCED_new/cleaned_PGCED_v2.out"
+```
+                               
+Copy all non-MVP sumstats to shared folder
+```{bash}
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/GLYC47.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/GLYC48.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/GLYC48F.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/GLYC48M.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/GLYC49.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/GLYC50.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/GLYC51.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/GLYC50F.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/GLYC50M.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/GLYC52.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/GLYC53.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/BODY15.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/CROS02.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/TOUR01.gz /scratch/prj/gwas_sumstats/cleaned/
+# cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/BIPO03_HLD.gz /scratch/prj/gwas_sumstats/cleaned/ # WILL DO
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/BIPO04.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/BIPO05.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/ALCO04.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/SMOK10.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/SMOK07.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/SMOK08.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/SMOK09.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/CANU02.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/LONE04.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/REPR03.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/REPR04.gz /scratch/prj/gwas_sumstats/cleaned/
+cp /scratch/users/k19047584/sumstats_PGCED_new/cleaned/SMOK11.gz /scratch/prj/gwas_sumstats/cleaned/
+```
+
+*NB: MVP sumstats*
+OPIO01
+PTSD07
+PTSD06
+PTSD04
+ANXI04             
+                          
+# Supermunge additional sumstats not in original script
+vim /scratch/users/k19047584/sumstats_PGCED_new/scripts/cleaning_sumstats_PGCED_extras.r
+```{r cleaning_sumstats_PGCED_v1.r}
+results <- shru::supermunge(
+                filePaths = c(
+                  "/scratch/prj/gwas_sumstats/original/ADHD_meta_Jan2022_iPSYCH1_iPSYCH2_deCODE_PGC.meta_2.zip", # Does not have N
+         #       "/scratch/prj/gwas_sumstats/original/pgc-panic2019.vcf.tsv.gz", # Does not have N
+
+                   ), # list of file paths
+                
+                
+                N = c( 
+                     225534        
+                  ),
+                
+             traitNames = c("ADHD06"
+                            ), # names/codes of the traits in the filePaths
+                
+                  
+                pathDirOutput = "/scratch/users/k19047584/sumstats_PGCED_new/cleaned", #path to the folder where to put the output files, named by the (trait name).gz
+                process=T,
+                filter.maf = 0.001, # keep "minor allele" everything above
+                filter.info = 0.6, # keep everything above
+                filter.or = 10000 # this filters out everything above 10000 rather than below
+    )
+    
+
+# save as rds
+base::saveRDS(results,
+file = "/scratch/users/k19047584/sumstats_PGCED_new/cleaned/cleaning_supermunge_results_PGCED_extra.rds"
+)
+```
+
+Run supermunge
+```{bash}
+cd /scratch/users/k19047584/sumstats_PGCED_new/cleaned
+module add r
+sbatch --time 24:00:00 --partition cpu --job-name="cleaning_sumstats" --ntasks 1 --cpus-per-task 5 --mem 64G --wrap="Rscript /scratch/users/k19047584/sumstats_PGCED_new/scripts/cleaning_sumstats_PGCED_extras.r" --output "/scratch/users/k19047584/sumstats_PGCED_new/cleaned_PGCED_extras.out"
+```
+

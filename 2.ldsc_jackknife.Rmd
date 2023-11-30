@@ -1,0 +1,509 @@
+---
+title: "jackknife PGCED3"
+author: "Helena Davies"
+date: "2023-07-13"
+output: html_document
+---
+
+```{bash}
+vim /scratch/users/k19047584/ldsc/external_rg/jacknifelist_full_220723.txt
+
+ADHD06
+SMOK10
+ALCD03
+ALCU01
+ALCU02
+ALCU03
+ALZH01
+ANOR02
+ANOR03
+ANXI03
+ASTH01
+AUTI07
+BALD01
+BFPC03
+BIPO03
+BIPO04
+BIPO05
+BLOO01
+BLOO02
+BLOO03
+BLOO04
+BLOO05
+BLOO06
+BLOO07
+BLOO08
+BLOO09
+BLOO10
+BLOO11
+BLOO12
+BLOO13
+BLOO14
+BLOO15
+BLOO16
+BLOO17
+BLOO18
+BLOO19
+BLOO20
+BLOO21
+BLOO22
+BLOO23
+BLOO24
+BLOO25
+BLOO26
+BLOO27
+BLOO28
+BLOO29
+BLOO30
+BLOO31
+BLOO32
+BLOO33
+BLOO34
+BLOO35
+BLOO36
+BODY02
+BODY04
+BODY07
+CANU02
+CANU03
+CAUD01
+CELI01
+CHOL21
+CHOL22
+CHOL27
+CHRO01
+CHRO02
+CHRO06
+SMOK09
+CIRR01
+COAD03
+COLL01
+CROH01
+CROS01
+DEPR02
+DEPR05
+DIAB02
+ALCO04
+EDUC02
+EDUC06
+EDUC05
+EXTR01
+FATM02
+FATM02B
+FATM02F
+FATM02M
+FATM03
+FATM03B
+FATM03F
+FATM03M
+FATM04
+FATM04B
+FATM04F
+FATM04M
+FATM05B
+ANXI04
+GLYC02
+GLYC04
+GLYC05
+GLYC07
+GLYC08
+GLYC13
+GLYC14
+GLYC16
+GLYC22
+GROW01
+GROW01F
+GROW03
+HEAD01
+HEAL01
+HEAR01
+HEIG01
+HEIG02
+HEIG07
+HEIG08
+HIPC01
+HIPC01F
+HIPC01M
+HIPC03
+HIPC03F
+HIPC03M
+INCO01
+INCO03
+INFB01
+INSO02
+INTE01
+INTE03
+LEAN02
+LEAN03
+LEAN04
+LEAN04B
+LEAN04F
+LEAN04M
+LEAN05
+LEAN05B
+LEAN05F
+LEAN05M
+LEAN06
+LEAN06B
+LEAN06F
+LEAN06M
+LEAN07B
+LONG01
+LONG02
+LONG03
+LONG04
+LONG05
+LONG06
+LONG07
+LUNG01
+LUNG02
+LUNG03
+LUNG05
+LUPU01
+MEMO01
+MENA03F
+MENO01F
+MIGR01
+NEUR02B
+OBES01
+OBES02
+OBES03
+OBES05
+OBES07
+OCDI01
+OSTE01
+OSTE03
+OSTE04
+OSTE05
+OVER01
+ANXI05
+PHYS01
+PRCA01
+PUTA01
+REAC01
+REAS01
+REPR01
+REPR01F
+REPR01M
+REPR02
+REPR02F
+REPR02M
+RHEU02
+RISK01
+RISK02
+RISK03
+SCBP01
+SCBP02
+SCHI05
+SMOK05
+SMOK08
+SMOK07
+SUBJ01
+THIN01
+TIRE01
+TOUR01
+TRGL04
+URAT01
+URIN08
+URIN11
+VITD01
+WAIS01F
+WAIS01M
+WAIS03
+WAIS03F
+WAIS03M
+WEIG01
+WEIG04F
+WEIG04M
+WEIG05F
+WHIP01
+WHIP03
+WHIP03F
+WHIP03M
+WHIP05
+WHIP05F
+WHIP05M
+BODY04F
+BODY04M
+EDUC03
+HEIG09
+CROS01
+PSOR01
+SMOK11
+INSO03
+ADHD06
+SMOK10
+BIPO03
+BIPO04
+BIPO05
+CANU02
+CANU03
+SMOK09
+ALCO04
+SMOK08
+SMOK07
+ANXI05
+TOUR01
+LONE04
+BODY15
+GLYC47
+GLYC48
+GLYC49
+GLYC48F
+GLYC48M
+GLYC50
+GLYC51
+GLYC50F
+GLYC50M
+GLYC52
+GLYC53
+REPR04
+REPR03
+OPIO01
+PTSD07
+PTSD06
+DEPR11
+```
+
+```{bash env}
+#activate ldsc environment with python
+conda activate ldsc_env
+```
+
+# Script 1: compare two genetic correlation results from LDSC log and delete values files (calls in a python script 
+This script is setting up the structure for how to run rg (i.e., the analysis)
+Note: this script reads in LDSC rg results (rg log file and delete values). An example of the file format of the delete values files (between ALCU02 and AN): ALCU02_daner_AN.meta_mungeddaner_AN.meta_munged_hm3.sumstats.gz_ALCU02.sumstats.gz.hsq1.delete. - i.e. the two traits the rg is between, and the sumstats file for both
+```{bash compare2GeneticCorrelations.sh}
+cd /scratch/users/k19047584/ldsc/external_rg/scripts/
+rm /scratch/users/k19047584/ldsc/external_rg/scripts/compare2GeneticCorrelations.sh
+
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/external_rg/scripts/compare2GeneticCorrelations.sh
+#!/bin/bash -l
+#SBATCH --partition shared,brc
+#SBATCH --time=0-06:00:00
+#SBATCH -c 8
+#SBATCH --mem-per-cpu=9G
+#SBATCH -o /scratch/users/k19047584/ldsc/external_rg/wrapper_script_compare2GeneticCorrelations."%j".out
+
+workdir=/scratch/users/k19047584/ldsc/
+
+# log files for comparison (log1 and log2), and names of traits for comparison (phen1, phen 2, phen 3) - specified in run_compare_rg_with_list.sh
+log1=$1
+log2=$2
+phen1=$3
+phen2=$4
+phen3=$5
+
+# file path to output directory
+outputpath=/scratch/users/k19047584/ldsc/external_rg/results/compare_rg/${phen2}_${phen3}
+
+# file path for rg log results
+logpath=${workdir}external_rg/results
+
+# file path to delete values generated from LDSC
+deletevalspath=${workdir}results
+
+# GWAS summary statistics file format
+file_type=.sumstats.gz
+file_type_PGC=.meta_munged_hm3.sumstats.gz
+
+# specify where global rg results are in .log file for rg1 result and rg2 result
+globalrg1=$(grep "Genetic Correlation:" ${log1}|awk '{printf $3}')
+globalrg2=$(grep "Genetic Correlation:" ${log2}|awk '{printf $3}')
+
+# print info
+echo "correlation1: $globalrg1"
+echo "correlation2: $globalrg2"
+echo "output written to:${outputpath}/${phen1}_${phen2}_${phen1}_${phen3}.log"
+
+# call python script to run rg comparison (difference in rg with phen1 [from list of traits] with phen2 versus phen3)
+python ${workdir}external_rg/scripts/doJackyCompare2GeneticCorrelations.py ${deletevalspath}/${phen1}_daner_${phen2}.meta_mungeddaner_${phen2}${file_type_PGC}_${phen1}${file_type}.gencov.delete ${deletevalspath}/${phen1}_daner_${phen3}.meta_mungeddaner_${phen3}${file_type_PGC}_${phen1}${file_type}.gencov.delete ${deletevalspath}/${phen1}_daner_${phen2}.meta_mungeddaner_${phen2}${file_type_PGC}_${phen1}${file_type}.hsq1.delete ${deletevalspath}/${phen1}_daner_${phen2}.meta_mungeddaner_${phen2}${file_type_PGC}_${phen1}${file_type}.hsq2.delete ${deletevalspath}/${phen1}_daner_${phen3}.meta_mungeddaner_${phen3}${file_type_PGC}_${phen1}${file_type}.hsq1.delete ${deletevalspath}/${phen1}_daner_${phen3}.meta_mungeddaner_${phen3}${file_type_PGC}_${phen1}${file_type}.hsq2.delete $globalrg1 $globalrg2 ${outputpath}/${phen1}_${phen2}_${phen1}_${phen3}.log
+echo ""
+
+EOT
+```
+
+## Script 2: run rg comparison between traits for a list of traits
+NB: This script is indicating *which* traits you want to run rg with
+
+#### Create script that specifies traits to run rg comparision with
+$1 = log of rg between name1 and name2
+$2 = log of rg between name1 and name3
+$3 = name1 (i.e., list of traits)
+$4 = name2 (e.g., AN)
+$5 = name3 (e.g., BE_broad)
+```{bash run_compare_rg_with_list.sh}
+# remove previous script if exists
+rm /scratch/users/k19047584/ldsc/external_rg/scripts/run_compare_rg_with_list.sh
+
+# create new .sh file
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/external_rg/scripts/run_compare_rg_with_list.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=run_compare_rg_with_list
+#SBATCH --output=/scratch/users/k19047584/ldsc/external_rg/run_compare_rg_with_list%j.out
+
+workdir=/scratch/users/k19047584/ldsc/
+logpath=${workdir}results
+
+# Specify traits to compare genetic correlations with
+# name1, 2 and 3 specified in command line when job submitted (at end of script) where:
+# name1: list of traits to compare rg with (across first and second trait)
+# name2: first trait for comparison
+# name3: second trait for comparison
+
+name2=$2
+name3=$3
+
+# read list of traits file to compare rg with  (name1)
+varid=$1
+pathvarid="${workdir}external_rg/${varid}"
+countvarid=$(wc -l ${pathvarid}|awk '{printf $1}')
+
+for i in `seq 1 ${countvarid}`
+do name1=$(gawk -v myvar=$i 'NR==myvar{printf $1}' ${pathvarid})
+
+# submit script comparing two genetic correlations from rg log file (across list of traits)
+sh ${workdir}external_rg/scripts/compare2GeneticCorrelations.sh \
+$logpath/${name1}_daner_${name2}.meta_munged.log \
+$logpath/${name1}_daner_${name3}.meta_munged.log \
+${name1} \
+${name2} \
+${name3}
+
+done
+
+EOT
+```
+
+### SUBMIT SCRIPT 2 (WHICH WILL ALSO SUBMIT SCRIPT 1 USING SH):
+$1 = list of traits to compare rg with
+$2 = first trait for comparison e.g. AN
+$3 = second trait for comparison e.g. BEBROAD
+
+NB: we use * (e.g. after awk command  *.log) as its specific to file name matching (the .log file). But for sed (pattern matching), we need to use . and * (matches any character (represented by the dot .) for any number of times (represented by *).
+```{bash}
+cd /scratch/users/k19047584/ldsc/external_rg/
+conda activate ldsc_env
+
+# 9692385
+sbatch /scratch/users/k19047584/ldsc/external_rg/scripts/run_compare_rg_with_list.sh jacknifelist_full_220723.txt AN BEBROAD
+# 9692386
+sbatch /scratch/users/k19047584/ldsc/external_rg/scripts/run_compare_rg_with_list.sh jacknifelist_full_220723.txt ANR ANBP
+```
+
+## Read out block jacknife results compare rg from two traits, from log file to csv file_type
+```{bash}
+cd /scratch/users/k19047584/ldsc/external_rg/results/compare_rg/AN_BEBROAD
+awk 'NR==1{print "phenotype nblocks var se estimate zscore(diff!=0) pvalue(diff!=0)"}; FNR == 2{print FILENAME, $1, $2, $3, $4, $5, $6}' *.log > AN_BEBROAD_jacknife_results2.txt
+sed -i 's/_AN_.*_BEBROAD.log//g' AN_BEBROAD_jacknife_results2.txt
+
+cd /scratch/users/k19047584/ldsc/external_rg/results/compare_rg/ANR_ANBP
+awk 'NR==1{print "phenotype nblocks var se estimate zscore(diff!=0) pvalue(diff!=0)"}; FNR == 2{print FILENAME, $1, $2, $3, $4, $5, $6}' *.log > ANR_ANBP_jacknife_results2.txt
+sed -i 's/_ANR_.*_ANBP.log//g' ANR_ANBP_jacknife_results2.txt
+```
+
+## Download results to local
+```{bash}
+rsync create:/scratch/users/k19047584/ldsc/external_rg/results/compare_rg/AN_BEBROAD/AN_BEBROAD_jacknife_results2.txt /Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/
+
+rsync create:/scratch/users/k19047584/ldsc/external_rg/results/compare_rg/ANR_ANBP/ANR_ANBP_jacknife_results2.txt /Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/
+```
+
+
+
+
+
+
+# NB: For info, this is the doJackyCompare2GeneticCorrelations.py 
+```{bash eval=FALSE, include=FALSE}
+#!/usr/bin/env python
+import sys
+import csv
+import numpy as np
+import scipy.stats
+
+# delete values for first genetic covariance file
+deletefilec1 = sys.argv[1]
+# delete values for second genetic covariance file
+deletefilec2 = sys.argv[2]
+# delete values heritability trait 1 correlation 1
+deletefileh1 = sys.argv[3]
+# delete values heritability trait 2 correlation 1
+deletefileh2 = sys.argv[4]
+# delete values heritability trait 3 correlation 2
+deletefileh3 = sys.argv[5]
+# delete values for heritability trait 4 correlation 2
+deletefileh4 = sys.argv[6]
+# first global genetic correlation
+globgencorr1 = sys.argv[7]
+# second global genetic correlation
+globgencorr2 = sys.argv[8]
+outfile = sys.argv[9]
+
+
+with open(deletefilec1, 'rt') as fc1, open(deletefilec2, 'rt') as fc2, open(deletefileh1, 'rt') as fh1, open(deletefileh2, 'rt') as fh2, open(deletefileh3, 'rt') as fh3, open(deletefileh4, 'rt') as fh4:
+    reader = csv.reader(fc1, delimiter='\t', quoting=csv.QUOTE_NONE)
+    delete_values_c1 = np.array(list(reader)).astype('float64')
+    reader = csv.reader(fc2, delimiter='\t', quoting=csv.QUOTE_NONE)
+    delete_values_c2 = np.array(list(reader)).astype('float64')
+    reader = csv.reader(fh1, delimiter='\t', quoting=csv.QUOTE_NONE)
+    delete_values_h1 = np.array(list(reader)).astype('float64')
+    reader = csv.reader(fh2, delimiter='\t', quoting=csv.QUOTE_NONE)
+    delete_values_h2 = np.array(list(reader)).astype('float64')
+    reader = csv.reader(fh3, delimiter='\t', quoting=csv.QUOTE_NONE)
+    delete_values_h3 = np.array(list(reader)).astype('float64')
+    reader = csv.reader(fh4, delimiter='\t', quoting=csv.QUOTE_NONE)
+    delete_values_h4 = np.array(list(reader)).astype('float64')
+
+delete_values = (delete_values_c1/np.sqrt(delete_values_h1*delete_values_h2)) - (delete_values_c2/np.sqrt(delete_values_h3*delete_values_h4))
+globgencorr = float(globgencorr1)-float(globgencorr2)
+
+def jknife(pseudovalues, outfile):
+    n_blocks = pseudovalues.shape[0]
+    jknife_cov = np.atleast_2d(np.cov(pseudovalues.T, ddof=1) / n_blocks)
+    jknife_var = np.atleast_2d(np.diag(jknife_cov))
+    jknife_se = np.atleast_2d(np.sqrt(jknife_var))
+    jknife_est = np.atleast_2d(np.mean(pseudovalues, axis=0))
+    zscore = float(jknife_est)/float(jknife_se)
+    p_value = scipy.stats.norm.sf(abs(zscore))*2
+    outlog = open(outfile, 'w')
+    outlog.write("nblocks\tvar\tse\testimate\tzscore(diff!=0)\tpvalue(diff!=0)\n")
+    outlog.write("%s\t%s\t%s\t%s\t%s\t%s\n" %
+                 (np.squeeze(n_blocks),
+                 np.squeeze(jknife_var),
+                 np.squeeze(jknife_se),
+                 np.squeeze(jknife_est),
+                 np.squeeze(zscore),
+                 np.squeeze(p_value)))
+    outlog.close()
+    print("\n%s\t%s\t%s" % ("jknife_estimate_difference", "zscore", "p_value"))
+    print("%s\t%s\t%s\n" % (jknife_est[0][0], zscore, p_value))
+
+
+def delete_values_to_pseudovalues(delete_values, est):
+    n_blocks = len(delete_values)
+    return n_blocks * est - (n_blocks - 1) * delete_values
+
+
+jknife(delete_values_to_pseudovalues(delete_values, globgencorr), outfile)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

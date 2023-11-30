@@ -1,0 +1,1231 @@
+---
+title: "Munge sumstats"
+author: "Helena Davies"
+date: "2023-01-24"
+output: html_document
+---
+
+This script downloads, reformats, and munges new sumstats for the PGC-ED rg secondary analysis.
+
+Script from: https://github.com/bulik/ldsc/wiki/Heritability-and-Genetic-Correlation
+
+Info: munge_sumstats.py filters on INFO > 0.9, MAF > 0.01 and 0 < P <= 1. It also removes variants that are not SNPs (e.g., indels), strand ambiguous SNPs, and SNPs with duplicated rs numbers. If there is an N column (sample size), it removes SNPs with low values of N. Finally, munge_sumstats.py checks that the median value of the signed summary statistic column (beta, Z, OR, log OR) is close to the null median (e.g., median OR should be close to 1) in order to make sure that this column is not mislabeled (it is surprisingly common for columns labeled OR to contain log odds ratios).
+
+# CLone ldsc repo to my software folder on create
+```{bash}
+cd /scratch/users/k19047584/sumstats_PGCED_new
+git clone https://github.com/bulik/ldsc.git
+cd ldsc
+```
+
+# Install anaconda
+```{bash}
+wget https://repo.anaconda.com/archive/Anaconda3-2022.10-Linux-x86_64.sh
+```
+
+# Create an environment with LDSC's dependencies
+```{bash}
+conda env create --file environment.yml
+source activate ldsc
+
+# Install necessary python packages (all detailed in the requirements.txt file)
+pip install -r requirements.txt
+```
+
+# Download raw summary statistics from the relevant website for record keeping
+```{bash download new sumstats to create}
+cd /scratch/users/k19047584/sumstats_PGCED_new
+
+# Childhood BMI 2020
+wget http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST90002001-GCST90003000/GCST90002409/GCST90002409_buildGRCh37.tsv.gz
+
+# Insulin-stimulated glucose uptake MAGICEUROPEAN
+## Insulin Fold Change (IFC) 
+wget https://magicinvestigators.org/downloads/IFC_noBMI_EUR.tsv.gz
+
+## Modified Stumvoll ISI (ISI)
+wget https://magicinvestigators.org/downloads/ISI_noBMI_EUR.tsv.gz
+
+# Insulin-stimulated glucose uptake  BMI-adjusted MAGIC EUROPEAN
+## Insulin Fold Change (IFC) 
+wget https://magicinvestigators.org/downloads/IFC_adjBMI_EUR.tsv.gz
+
+## Modified Stumvoll ISI (ISI)
+ISI_adjBMI_EUR.tsv.gz
+
+## Panic disorder (2019)
+wget https://figshare.com/ndownloader/files/30731276
+
+
+wget www.repository.cam.ac.uk/bitstream/handle/1810/318326/Childhoodmaltreatment_sumstats.zip # Gene-environment correlations and causal effects of childhood maltreatment on physical and mental health: a genetically informed approach
+
+wget https://ctg.cncr.nl/documents/p1651/All_PsychiatricDisorders_MetaAnalysis.txt.gz # "Exploring the genetic relationship between twelve psychiatric disorders" by Romero et al. in Nature Genetics.
+
+wget https://figshare.com/ndownloader/files/28169940/TS_Oct2018.gz # Interrogating the Genetic Determinants of Tourette's Syndrome and Other Tic Disorders Through Genome-Wide Association Studies
+
+wget https://figshare.com/articles/dataset/PGC3_bipolar_disorder_GWAS_summary_statistics/14102594/pgc-bip2021-all.vcf.tsv.gz # PGC3 bipolar disorder GWAS summary statistics (all cases) NB: I actually had to download and upload to create manually using rsync as this link didn't work
+
+wget https://www.dropbox.com/sh/xb9bmmjo0rb5pri/AACy2gRoUZbuR1yQUZaXhM8ja/daner_bip_pgc3_nm.gz
+
+wget https://www.dropbox.com/sh/xb9bmmjo0rb5pri/AAD1uPvc_Uz3kP8kSstQceuda/daner_pgc3_BDI_nm.neff.gz # PGC3 bipolar disorder GWAS type 1 summary statistics 
+
+wget https://www.dropbox.com/sh/xb9bmmjo0rb5pri/AAATLxAYAgmjG4BiWIOHzxgza/daner_pgc3_BDII_nm.neff.gz # PGC3 bipolar disorder type 2 GWAS summary statistics 
+
+rsync /Users/helenadavies/Downloads/Cannabis_ICC_UKB_rs.gz create:/scratch/users/k19047584/sumstats_PGCED_new # cannabis initiation UK Biobank
+
+rsync /Users/helenadavies/Downloads/CUD_EUR_full_public_11.14.2020.gz create:/scratch/users/k19047584/sumstats_PGCED_new  # CUD cases vs. controls in European-ancestry cohorts; N cases = 17,068; N controls = 357,219)
+
+rsync /Users/helenadavies/Downloads/CUD_EUR_casecontrol_public_11.14.2020.gz create:/scratch/users/k19047584/sumstats_PGCED_new  # (CUD cases vs. controls European-ancestry cohorts, only including unrelated individuals from genotyped cohorts (i.e., excluding related individuals from the PGC family-based samples; N cases = 14,080; N controls = 343,726)
+
+rsync /Users/helenadavies/Downloads/CUD_AFR_full_public_11.14.2020.gz create:/scratch/users/k19047584/sumstats_PGCED_new # (CUD cases vs. controls in African-ancestry cohorts; N cases = 3,848; N controls = 5,897)
+
+wget https://ipsych.dk/fileadmin/iPSYCH/PGC/ADHD_meta_Jan2022_iPSYCH1_iPSYCH2_deCODE_PGC.meta_2.zip # Genome-wide analyses of ADHD identify 27 risk loci, refine the genetic architecture and implicate several cognitive domains (2023)
+
+wget https://magicinvestigators.org/downloads/PROIadjBMI_META_GWAS_CAT_20221113.tsv.gz # Loci for insulin processing and secretion provide insight into type 2 diabetes risk (BMI adjusted)
+
+wget https://magicinvestigators.org/downloads/PROInoBMI_META_GWAS_CAT_20221113.tsv.gz # Loci for insulin processing and secretion provide insight into type 2 diabetes risk (not BMI adjusted)
+
+wget http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST90132001-GCST90133000/GCST90132314/GCST90132314_buildGRCh37.tsv # Discovery and systematic characterization of risk variants and genes for coronary artery disease in over a million participants. European only
+
+wget http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST90132001-GCST90133000/GCST90132315/GCST90132315_buildGRCh37.tsv # Discovery and systematic characterization of risk variants and genes for coronary artery disease in over a million participants. Mixed ancestry
+
+# Below are all from: Data Related to Association studies of up to 1.2 million individuals yield new insights into the genetic etiology of tobacco and alcohol use (NB: I actually had to download and upload to create manually using rsync as the links didn't work)
+wget https://conservancy.umn.edu/handle/11299/201564/CigarettesPerDay.txt.gz
+
+wget https://conservancy.umn.edu/handle/11299/201564/AgeofInitiation.txt.gz
+
+wget https://conservancy.umn.edu/handle/11299/201564/DrinksPerWeek.txt.gz
+
+wget https://conservancy.umn.edu/handle/11299/201564/SmokingCessation.txt.gz
+
+wget https://conservancy.umn.edu/handle/11299/201564/SmokingInitiation.txt.gz
+
+rsync /Users/helenadavies/Downloads/loneliness_2019.LOO_23andMe.txt create:/scratch/users/k19047584/sumstats_PGCED_new/
+
+# This is a concatenated file of final_1df_analysis_eur_concatenated_chr_rsid2.txt.gz that was used in Melissa's 2021 LDSC paper in Addiction Biology (PMID: 32064741)
+rsync /Users/helenadavies/Desktop/final_1df_analysis_eur_concatenated_chr_rsid.txt create:/scratch/users/k19047584/sumstats_PGCED_new/
+
+# Number of children ever born 
+rsync /Users/helenadavies/Desktop/Mathieson_2023_02_07.zip create:/scratch/users/k19047584/sumstats_PGCED_new/
+
+# Crohn's disease
+wget https://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST000001-GCST001000/GCST000879/franke_2010_21102463_cro_efo0000384_1_gwas.sumstats.tsv.gz
+
+# Thryoid disease
+wget https://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST005001-GCST006000/GCST005524/cooper_2012_22922229_atd_efo0006812_1_ichip.sumstats.tsv.gz	
+
+# MAGIC CONSORTIA
+wget https://magicinvestigators.org/downloads/Longitudinal_2019_FGovertime_corrected_meta_filtered_ready.txt.gz
+
+wget https://magicinvestigators.org/downloads/FG_combined_1000G_density_formatted_21-03-29.txt.gz
+wget https://magicinvestigators.org/downloads/FG_female_1000G_density_formatted_21-03-29.txt.gz
+wget https://magicinvestigators.org/downloads/FG_male_1000G_density_formatted_21-03-29.txt.gz
+wget https://magicinvestigators.org/downloads/FI_combined_1000G_density_formatted_21-03-29.txt.gz
+wget https://magicinvestigators.org/downloads/FI_female_1000G_density_formatted_21-03-29.txt.gz
+wget https://magicinvestigators.org/downloads/FI_male_1000G_density_formatted_21-03-29.txt.gz
+
+wget https://magicinvestigators.org/downloads/MAGIC1000G_2hGlu_EUR.tsv.gz
+wget https://magicinvestigators.org/downloads/MAGIC1000G_FG_EUR.tsv.gz
+wget https://magicinvestigators.org/downloads/MAGIC1000G_FI_EUR.tsv.gz
+wget https://magicinvestigators.org/downloads/MAGIC1000G_HbA1c_EUR.tsv.gz
+
+wget https://magicinvestigators.org/downloads/PROIadjBMI_META_GWAS_CAT_20221113.tsv.gz
+wget https://magicinvestigators.org/downloads/PROInoBMI_META_GWAS_CAT_20221113.tsv.gz
+```
+
+Unzip and check files
+```{bash}
+unzip *.zip
+gunzip *.gz
+```
+
+# Reformatting Summary Statistics
+NB: Note that munge_sumstats.py interprets A1 as the reference allele and that the A1 column in the .sumstats file format refers to the reference allele.
+
+The summary statistics are not in the .sumstats format (defined in the docs that ldsc understands. We strongly recommend that you use the script munge_sumstats.py included in this github repository in order to convert summary statistics into the ldsc format, because this script checks for a lot of annoying gotchas that have gotten us in trouble before.
+
+The ldsc .sumstats format requires six pieces of information for each SNP:
+
+A unique identifier (e.g., the rs number)
+Allele 1 (effect allele)
+Allele 2 (non-effect allele)
+Sample size (which often varies from SNP to SNP)
+A P-value
+A signed summary statistic (beta, OR, log odds, Z-score, etc)
+
+
+*INFO column*: Imputation quality is correlated with LD Score, and low imputation quality yields lower test statistics, so imputation quality is a confounder for LD Score regression. To prevent bias from variable imputation quality, we usually remove poorly-imputed SNPs by filtering on INFO > 0.9. The scz and bip summary statistics that we're using for this tutorial have INFO columns, so munge_sumstats.py will automatically perform the filtering. If you're using summary statistics that don't come with an INFO column, we recommend filtering to HapMap3 SNPs (using the --merge or --merge-alleles flags), because these seem to be well-imputed in most studies. 
+*Matching alleles by filtering to HapMap3 SNPs*: It is a good idea to check that the alleles listed in your summary statistics files match the alleles listed in the data used to estimate LD Scores. Sometimes a small number of alleles won't match; this usually indicates mis-labeled SNPs. This is accomplished using the --merge-alleles flag which takes as its argument a file with a list of SNPs and alleles. You can download the required alleles file with the following command (or by manually following the download link if your machine does not have the wget utility):
+
+```{bash download hapmap3 SNPs}
+wget https://data.broadinstitute.org/alkesgroup/LDSCORE/w_hm3.snplist.bz2
+bunzip2 w_hm3.snplist.bz2
+```
+
+# Checking and reformatting headers
+The next section describes how munge_sumstats.py interprets the column headers. munge_sumstats.py can understand most column headers by default, but if your summary statistics have exotic column names, you may need to tell munge_sumstats.py what it should do. For example, if the foobar column contains INFO scores, you should type munge_sumstats.py --INFO foobar. You should always check this section of the log file to make sure that munge_sumstats.py understood your column headers correctly. If you are not sure whether munge_sumstats.py will understand your column headers, the easiest thing to do is just run munge_sumstats.py; if it does not understand the column headers, it will raise an error immediately.
+
+```{bash check rules for script}
+./munge_sumstats.py -h
+```
+
+Below are the headings that the mungeing script recognises.
+ # RS NUMBER
+    'SNP': 'SNP',
+    'MARKERNAME': 'SNP',
+    'SNPID': 'SNP',
+    'RS': 'SNP',
+    'RSID': 'SNP',
+    'RS_NUMBER': 'SNP',
+    'RS_NUMBERS': 'SNP',
+ # NUMBER OF STUDIES
+    'NSTUDY': 'NSTUDY',
+    'N_STUDY': 'NSTUDY',
+    'NSTUDIES': 'NSTUDY',
+    'N_STUDIES': 'NSTUDY',
+ # P-VALUE
+    'P': 'P',
+    'PVALUE': 'P',
+    'P_VALUE':  'P',
+    'PVAL': 'P',
+    'P_VAL': 'P',
+    'GC_PVALUE': 'P',
+ # ALLELE 1
+    'A1': 'A1',
+    'ALLELE1': 'A1',
+    'ALLELE_1': 'A1',
+    'EFFECT_ALLELE': 'A1',
+    'REFERENCE_ALLELE': 'A1',
+    'INC_ALLELE': 'A1',
+    'EA': 'A1',
+  # ALLELE 2
+    'A2': 'A2',
+    'ALLELE2': 'A2',
+    'ALLELE_2': 'A2',
+    'OTHER_ALLELE': 'A2',
+    'NON_EFFECT_ALLELE': 'A2',
+    'DEC_ALLELE': 'A2',
+    'NEA': 'A2',
+ # N
+    'N': 'N',
+    'NCASE': 'N_CAS',
+    'CASES_N': 'N_CAS',
+    'N_CASE': 'N_CAS',
+    'N_CASES': 'N_CAS',
+    'N_CONTROLS': 'N_CON',
+    'N_CAS': 'N_CAS',
+    'N_CON': 'N_CON',
+    'N_CASE': 'N_CAS',
+    'NCONTROL': 'N_CON',
+    'CONTROLS_N': 'N_CON',
+    'N_CONTROL': 'N_CON',
+    'WEIGHT': 'N',  # metal does this. possibly risky.
+ # SIGNED STATISTICS
+    'ZSCORE': 'Z',
+    'Z-SCORE': 'Z',
+    'GC_ZSCORE': 'Z',
+    'Z': 'Z',
+    'OR': 'OR',
+    'B': 'BETA',
+    'BETA': 'BETA',
+    'LOG_ODDS': 'LOG_ODDS',
+    'EFFECTS': 'BETA',
+    'EFFECT': 'BETA',
+    'SIGNED_SUMSTAT': 'SIGNED_SUMSTAT',
+ # INFO
+    'INFO': 'INFO',
+ # MAF
+    'EAF': 'FRQ',
+    'FRQ': 'FRQ',
+    'MAF': 'FRQ',
+    'FRQ_U': 'FRQ',
+    'F_U': 'FRQ',
+
+# Run munging script on cleaned sumstats
+NB: I had to change the file permissions on create to give myself rwx permissions for the munge_sumstats.py file (chmod 777)
+NB: Make sure you are in your ldsc conda environment (source activate ldsc). This has been set up to include an older version of python that doesn't throw errors like this: https://github.com/bulik/ldsc/issues/90
+# 1. Request node
+```{bash request interactive node}
+srun -p cpu --nodes=1 --ntasks=12 --mem-per-cpu=19000 --pty /bin/bash
+```
+
+# 2. ldsc environment
+```{bash activate ldsc env}
+source activate ldsc
+```
+
+# Psoriasis
+```{bash check column headers and munge PSOR01}
+less -S /scratch/prj/gwas_sumstats/cleaned/PSOR01.gz
+# SNP     A1      A2      P       BETA    SE
+
+# NB: Need to specify the N using the --N flag because the sumstats do not contain this info. We'll have to assume that sample size is the same for all SNPs (found sample size in Supp Table 1 as paper only reports NEFF)
+# Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N 305801 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/PSOR01.gz \
+--out /scratch/prj/gwas_sumstats/munged/PSOR01 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+# Autism spectrum disorder AUTI09
++++ CLEANED FILE IS MISSING SNP INFO
+
+# Insomnia INSO03
+```{bash check column headers and munge INSO03}
+less -S /scratch/prj/gwas_sumstats/cleaned/INSO03.gz
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       NEFF    INFO
+
+# Checking file has rsids
+gunzip INSO03.gz
+grep -e "rs" INSO03 > rsId_INSO03.txt
+wc -l rsId_INSO03.txt # 10230494 SNPs
+gzip INSO03
+
+# NB: Need to specify the N using the --N flag because the sumstats do not contain this info. We'll have to assume that sample size is the same for all SNPs (found sample size in Supp Table 1 as paper only reports NEFF)
+# Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/INSO03.gz \
+--out /scratch/prj/gwas_sumstats/munged/INSO03 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+# ICVO02	Subcortical brain regions: ICV
+```{bash check column headers and munge ICVO02}
+less -S /scratch/prj/gwas_sumstats/cleaned/ICVO02.gz
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       NEFF
+
+# Checking file has rsids
+gunzip ICVO02.gz
+grep -e "rs" ICVO02 > rsId_ICVO02.txt
+wc -l rsId_ICVO02.txt # 9332867 SNPs
+gzip ICVO02
+
+# Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/ICVO02.gz \
+--out /scratch/prj/gwas_sumstats/munged/ICVO02 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+# HEIG09	Height
+```{bash check column headers and munge HEIG09}
+less -S /scratch/prj/gwas_sumstats/cleaned/HEIG09.gz
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       NEFF
+
+# Checking file has rsids
+gunzip HEIG09.gz
+grep -e "rs" HEIG09 > rsId_HEIG09.txt
+wc -l rsId_HEIG09.txt # 1253101 SNPs
+gzip HEIG09
+
+# Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/HEIG09.gz \
+--out /scratch/prj/gwas_sumstats/munged/HEIG09 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+# MAGIC CONSORTIA
+## Change in Fasting Glucose over time
+```{bash check column headers and munge Fasting Glucose over time}
+less -S /scratch/prj/gwas_sumstats/cleaned/GLYC47.gz
+# SNP     A1      A2      CHR     BP      BETA    SE      Z       P       N
+
+# Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/GLYC47.gz \
+--out /scratch/prj/gwas_sumstats/munged/GLYC47 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Fasting glucose  (combined)
+```{bash check column headers and munge Fasting Glucose combined}
+less -S /scratch/prj/gwas_sumstats/cleaned/GLYC48.gz
+# SNP     A1      A2      FRQ     BETA    SE      Z       P       N       NEFF
+
+# Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/GLYC48.gz \
+--out /scratch/prj/gwas_sumstats/munged/GLYC48 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Fasting glucose (male only)
+```{bash check column headers and munge Fasting Glucose male only}
+less -S /scratch/prj/gwas_sumstats/cleaned/GLYC48M.gz
+# SNP     A1      A2      FRQ     BETA    SE      Z       P       N       NEFF
+
+# Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/GLYC48M.gz \
+--out /scratch/prj/gwas_sumstats/munged/GLYC48M \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Fasting glucose (female only)
+```{bash check column headers and munge Fasting Glucose female only}
+less -S /scratch/prj/gwas_sumstats/cleaned/GLYC48F.gz
+# SNP     A1      A2      FRQ     BETA    SE      Z       P       N       NEFF
+
+# Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/GLYC48F.gz \
+--out /scratch/prj/gwas_sumstats/munged/GLYC48F \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Fasting insulin  (combined) 
+```{bash check column headers and munge Fasting insulin combined}
+less -S /scratch/prj/gwas_sumstats/cleaned/GLYC50.gz
+# SNP     A1      A2      FRQ     BETA    SE      Z       P       N       NEFF
+
+# Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/GLYC50.gz \
+--out /scratch/prj/gwas_sumstats/munged/GLYC50 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+Checking if allele flip
+```{bash}
+# Get interactive node 
+srun -p cpu --nodes=1 --ntasks=12 --mem-per-cpu=19000 --pty /bin/bash
+
+# Check 5 rsids
+## rs1000000
+grep -e "rs1000000" /scratch/users/k19047584/sumstats_PGCED_new/FI_combined_1000G_density_formatted_21-03-29.txt
+# z	      source	       rsid	      a1 a2	r2.pred	p-value	 n	    maf	     beta	    se
+# 3.4e-01	GWAS_reinserted	rs1000000	A	 G	1.00	  7.3e-01	 65359	0.2235	 1.2e-03	0.0035
+grep -e "rs1000000" /scratch/users/k19047584/sumstats_PGCED_new/testing_allele_flip/GLYC50.sumstats
+# SNP	      A1	A2	Z   	N
+# rs1000000	A	  G	  0.345	65359.000
+
+## rs10000010
+grep -e "rs10000010" /scratch/users/k19047584/sumstats_PGCED_new/FI_combined_1000G_density_formatted_21-03-29.txt
+# z	      source	       rsid	       a1 a2	r2.pred.  	p-value	 n	    maf	     beta	    se
+# 4.4e-01	GWAS_reinserted	rs10000010	T	C	  1.00	      6.6e-01	100921	0.4822	 1.0e-03	0.0024
+grep -e "rs10000010" /scratch/users/k19047584/sumstats_PGCED_new/testing_allele_flip/GLYC50.sumstats 
+# SNP	       A1	 A2	 Z     	N
+# rs10000010	T	 C	 0.440	100921.000
+
+
+## rs10000023
+grep -e "rs10000023" /scratch/users/k19047584/sumstats_PGCED_new/FI_combined_1000G_density_formatted_21-03-29.txt
+# z	      source	           rsid	       a1 a2	r2.pred.  	p-value	 n	    maf	     beta	    se
+# -8.2e-01	GWAS_reinserted	 rs10000023	 T	G	  1.00	      4.1e-01	 65359	0.4031	-2.5e-03	0.0030
+grep -e "rs10000023" /scratch/users/k19047584/sumstats_PGCED_new/testing_allele_flip/GLYC50.sumstats 
+# SNP	       A1	  A2	 Z     	 N
+# rs10000023	T	  G	   -0.824	 65359.000
+
+# rs10000025
+grep -e "rs10000025" /scratch/users/k19047584/sumstats_PGCED_new/FI_combined_1000G_density_formatted_21-03-29.txt 
+#  z	      source	       rsid	       a1 a2	r2.pred.  	p-value	 n	    maf	     beta	    se
+#  2.2e-01	SSIMP	         rs10000025	 C	T	  0.70	      8.3e-01	 74025	0.0296	 3.3e-03	0.0153
+grep -e "rs10000025" /scratch/users/k19047584/sumstats_PGCED_new/testing_allele_flip/GLYC50.sumstats
+# SNP	        A1	 A2	  Z     	N
+# rs10000025	C	   T  	0.215	  74025.000
+
+# rs1000002
+grep -e "rs1000002" /scratch/users/k19047584/sumstats_PGCED_new/FI_combined_1000G_density_formatted_21-03-29.txt
+# z	      source	         rsid	       a1 a2	r2.pred.  	p-value	 n	    maf	     beta	    se
+#-2.7e-01	GWAS_reinserted	 rs1000002	 C	T	  1.00	      7.8e-01	 64787	0.4738	-8.0e-04	0.0029
+grep -e "rs1000002" /scratch/users/k19047584/sumstats_PGCED_new/testing_allele_flip/GLYC50.sumstats
+# SNP	       A1	  A2	 Z     	N
+# rs1000002	 C  	T	 -0.279	  64787.000
+```
+
+
+## Fasting insulin (male only) GLYC50M
+```{bash check column headers and munge Fasting insulin male only}
+less -S /scratch/prj/gwas_sumstats/cleaned/GLYC50M.gz
+# SNP     A1      A2      FRQ     BETA    SE      Z       P       N       NEFF
+
+# Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/GLYC50M.gz \
+--out /scratch/prj/gwas_sumstats/munged/GLYC50M \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Fasting insulin (female only) GLYC50F
+```{bash check column headers and munge Fasting insulin female only}
+less -S /scratch/prj/gwas_sumstats/cleaned/GLYC50F.gz
+# SNP     A1      A2      FRQ     BETA    SE      Z       P       N       NEFF
+
+# Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/GLYC50F.gz \
+--out /scratch/prj/gwas_sumstats/munged/GLYC50F \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Fasting glucose (FG) BMI adjusted GLYC49
+```{bash check column headers and munge Fasting glucose bmi adjusted}
+less -S /scratch/prj/gwas_sumstats/cleaned/GLYC49.gz
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       NEFF
+
+# Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/GLYC49.gz \
+--out /scratch/prj/gwas_sumstats/munged/GLYC49 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## 2h-glucose post-challenge (2hGlu)  GLYC53
+```{bash check column headers and munge 2h-glucose post-challenge bmi adjusted}
+less -S /scratch/prj/gwas_sumstats/cleaned/GLYC53.gz
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       NEFF
+
+# Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/GLYC53.gz \
+--out /scratch/prj/gwas_sumstats/munged/GLYC53 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Glycated haemoglobin (HbA1c)  GLYC52
+```{bash check column headers and munge glycated haemoglobin}
+less -S /scratch/prj/gwas_sumstats/cleaned/GLYC52.gz
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       NEFF
+
+# Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/GLYC52.gz \
+--out /scratch/prj/gwas_sumstats/munged/GLYC52 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Fasting insulin data (FI) BMI adjusted GLYC51
+```{bash check column headers and munge fasting insulin BMI adjusted}
+less -S /scratch/prj/gwas_sumstats/cleaned/GLYC51.gz
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       NEFF
+
+# Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/GLYC51.gz \
+--out /scratch/prj/gwas_sumstats/munged/GLYC51 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## ADHD
+```{bash check column headers and munge adhd}
+less -S /scratch/prj/gwas_sumstats/cleaned/ADHD06.gz 
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       N_CAS   N_CON   NEFF    INFO
+
+# get rid of ncase, ncontrol, and neff so that sumstats contain N over neff
+gunzip /scratch/prj/gwas_sumstats/cleaned/ADHD06.gz
+awk '{print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$15}' /scratch/prj/gwas_sumstats/cleaned/ADHD06 > /scratch/users/k19047584/sumstats_PGCED_new/ADHD06_no_Ncas_Nco
+gzip /scratch/prj/gwas_sumstats/cleaned/ADHD06
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/users/k19047584/sumstats_PGCED_new/ADHD06_no_Ncas_Nco \
+--out /scratch/prj/gwas_sumstats/munged/ADHD06 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Age of initiation
+```{bash check column headers and munge age of initiation}
+less -S /scratch/prj/gwas_sumstats/cleaned/SMOK10.gz 
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       NEFF
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/SMOK10.gz  \
+--out /scratch/prj/gwas_sumstats/munged/SMOK10.gz  \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Bipolar disorder 2021 - with effective N (for testing)
+```{bash check column headers and munge bipolar disorder 2021 neff}
+less -S /scratch/prj/gwas_sumstats/cleaned/BIPO03.gz 
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       N_CAS   N_CON   NEFF    INFO
+# 1. Request node
+srun -p cpu --nodes=1 --ntasks=12 --mem-per-cpu=19000 --pty /bin/bash
+
+# Get rid of N column
+gunzip /scratch/prj/gwas_sumstats/cleaned/BIPO03.gz
+awk '{print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$14,$15}' /scratch/prj/gwas_sumstats/cleaned/BIPO03 > /scratch/users/k19047584/sumstats_PGCED_new/BIPO03_no_N
+gzip /scratch/prj/gwas_sumstats/cleaned/BIPO03
+
+# check 
+/scratch/users/k19047584/sumstats_PGCED_new/BIPO03_no_N
+# gzip
+gzip /scratch/users/k19047584/sumstats_PGCED_new/BIPO03_no_N
+
+# 2. Run script 
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--signed-sumstats BETA,0 \
+--N-col NEFF \
+--chunksize 50000 \
+--sumstats /scratch/users/k19047584/sumstats_PGCED_new/BIPO03_no_N.gz \
+--out /scratch/users/k19047584/sumstats_PGCED_new/munged/BIPO03_neff.gz \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Bipolar disorder 2021 - normal N 
+```{bash check column headers and munge bipolar disorder 2021}
+less -S /scratch/users/k19047584/sumstats_PGCED_new/cleaned/BIPO03_HLD.gz 
+# SNP     A1      A2      CHR     BP      FRQ     FRQ_CAS FRQ_CON BETA    SE      Z       P       N       N_CAS   N_CON   NEFF    INFO
+
+# Get rid of Ncas and Ncon and neff column
+gunzip /scratch/users/k19047584/sumstats_PGCED_new/cleaned/BIPO03_HLD.gz 
+awk '{print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$17}' /scratch/users/k19047584/sumstats_PGCED_new/cleaned/BIPO03_HLD > /scratch/users/k19047584/sumstats_PGCED_new/BIPO03_no_Ncas_Nco
+gzip /scratch/users/k19047584/sumstats_PGCED_new/cleaned/BIPO03_HLD
+
+# check 
+head /scratch/users/k19047584/sumstats_PGCED_new/BIPO03_no_Ncas_Nco | column -t
+# SNP A1 A2 CHR BP FRQ FRQ_CAS FRQ_CON BETA SE Z P N INFO
+
+# gzip
+gzip /scratch/users/k19047584/sumstats_PGCED_new/BIPO03_no_Ncas_Nco
+
+# 2. Run script 
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--N-col N \
+--p P \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/users/k19047584/sumstats_PGCED_new/BIPO03_no_Ncas_Nco.gz  \
+--out /scratch/users/k19047584/sumstats_PGCED_new/cleaned/BIPO03_HLD.gz  \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Bipolar disorder type 1
+```{bash check column headers and munge bipolar disorder type 1}
+less -S /scratch/prj/gwas_sumstats/cleaned/BIPO04.gz 
+# SNP     A1      A2      CHR     BP      FRQ     FRQ_CAS FRQ_CON BETA    SE      Z       P       N       N_CAS   N_CON   NEFF    INFO
+
+# get rid of ncase, ncontrol, and neff so that sumstats contain N over neff
+gunzip /scratch/prj/gwas_sumstats/cleaned/BIPO04.gz
+awk '{print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$17}' /scratch/prj/gwas_sumstats/cleaned/BIPO04 > /scratch/users/k19047584/sumstats_PGCED_new/BIPO04_no_Ncas_Nco
+gzip /scratch/prj/gwas_sumstats/cleaned/BIPO04
+gzip /scratch/users/k19047584/sumstats_PGCED_new/BIPO04_no_Ncas_Nco
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/users/k19047584/sumstats_PGCED_new/BIPO04_no_Ncas_Nco.gz \
+--out /scratch/prj/gwas_sumstats/munged/BIPO04 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Bipolar disorder type 2
+```{bash check column headers and munge bipolar disorder type 2}
+less -S /scratch/prj/gwas_sumstats/cleaned/BIPO05.gz 
+# SNP     A1      A2      CHR     BP      FRQ     FRQ_CAS FRQ_CON BETA    SE      Z       P       N       N_CAS   N_CON   NEFF    INFO
+
+# get rid of ncase, ncontrol, and neff so that sumstats contain N over neff
+gunzip /scratch/prj/gwas_sumstats/cleaned/BIPO05.gz
+awk '{print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$17}' /scratch/prj/gwas_sumstats/cleaned/BIPO05 > /scratch/users/k19047584/sumstats_PGCED_new/BIPO05_no_Ncas_Nco
+gzip /scratch/prj/gwas_sumstats/cleaned/BIPO05
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/users/k19047584/sumstats_PGCED_new/BIPO05_no_Ncas_Nco \
+--out /scratch/prj/gwas_sumstats/munged/BIPO05 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Cannabis initiation
+```{bash check column headers and munge cannabis initiation}
+less -S /scratch/prj/gwas_sumstats/cleaned/CANU02.gz 
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       NEFF
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/CANU02.gz \
+--out /scratch/prj/gwas_sumstats/munged/CANU02 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Cannabis use disorder
+CUD_EUR_full_public_11.14.2020.gz (CUD cases vs. controls in European-ancestry cohorts; N cases = 17,068; N controls = 357,219)
+NB: For family-based samples of the Psychiatric Genomics Consortium, the authors did association analyses with imputed best-guess genotypes using generalised estimating equations for samples that included only first-degree relatives (eg, sibships), and logistic mixed models for complex pedigrees, in the Picopili pipeline: https://github.com/Nealelab/picopili (a pipeline for GWAS of family data with arbitrary pedigrees, from sib-pairs to extended pedigrees, to work in parallel to ricopili for case/control and trio data)
+```{bash check column headers and munge cannabis use disorder full sample}
+less -S /scratch/prj/gwas_sumstats/cleaned/CANU03.gz 
+# SNP     A1      A2      CHR     BP      Z       P       N       N_CAS   N_CON
+
+# get rid of ncase, ncontrol, and neff so that sumstats contain N over neff
+gunzip /scratch/prj/gwas_sumstats/cleaned/CANU03.gz
+awk '{print $1,$2,$3,$4,$5,$6,$7,$8}' /scratch/prj/gwas_sumstats/cleaned/CANU03 > /scratch/users/k19047584/sumstats_PGCED_new/CANU03_no_Ncas_Nco
+gzip /scratch/prj/gwas_sumstats/cleaned/CANU03
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--chunksize 50000 \
+--sumstats /scratch/users/k19047584/sumstats_PGCED_new/CANU03_no_Ncas_Nco \
+--out /scratch/prj/gwas_sumstats/munged/CANU03 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Cigarettes per day
+```{bash check column headers and munge cigarettes per day}
+less -S /scratch/prj/gwas_sumstats/cleaned/SMOK09.gz 
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       NEFF
+
+#. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/SMOK09.gz \
+--out /scratch/prj/gwas_sumstats/munged/SMOK09 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Cross-psychiatric disorders (ADHD, autism, bipolar disorder, and schizophrenia)
+```{bash check column headers and munge All_PsychiatricDisorders_MetaAnalysis}
+less -S /scratch/prj/gwas_sumstats/cleaned/CROS01.gz 
+# SNP     CHR     ORIGBP  A1      A2      P       INFO    OR      SE      N
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/CROS01.gz \
+--out /scratch/prj/gwas_sumstats/munged/CROS01 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Drinks per week
+```{bash check column headers and munge drinks per week}
+less -S /scratch/prj/gwas_sumstats/cleaned/ALCO04.gz 
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       NEFF
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/ALCO04.gz \
+--out /scratch/prj/gwas_sumstats/munged/ALCO04 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Smoking cessation
+```{bash check column headers and munge smoking cessation}
+less -S /scratch/prj/gwas_sumstats/cleaned/SMOK08.gz 
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       NEFF
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/SMOK08.gz \
+--out /scratch/prj/gwas_sumstats/munged/SMOK08 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Smoking cessation - with effective N (for testing)
+```{bash check column headers and munge smoking cessation neff, eval=FALSE, include=FALSE}
+less -S /scratch/prj/gwas_sumstats/cleaned/SMOK08.gz 
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       NEFF
+
+# Get rid of N column
+gunzip /scratch/prj/gwas_sumstats/cleaned/SMOK08.gz
+awk '{print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$12}' /scratch/prj/gwas_sumstats/cleaned/SMOK08 > /scratch/prj/gwas_sumstats/cleaned/SMOK08_no_N
+
+# gzip
+gzip /scratch/prj/gwas_sumstats/cleaned/SMOK08_no_N
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--N-col NEFF \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/SMOK08_no_N.gz \
+--out /scratch/users/k19047584/sumstats_PGCED_new/munged/SMOK08_neff \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+
+# rezip  
+gzip /scratch/prj/gwas_sumstats/cleaned/SMOK08
+```
+
+## Smoking initiation
+```{bash check column headers and munge smoking initiation}
+less -S /scratch/prj/gwas_sumstats/cleaned/SMOK07.gz 
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       NEFF
+
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/SMOK07.gz \
+--out /scratch/prj/gwas_sumstats/munged/SMOK07 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+Checking if allele flip
+A1 : Effect allele (also sometimes called risk allele, reference allele, effect allele, coded allele, etc.)
+A2 : Non-effect allele (also some times called alternate allele, the other allele etc.)
+```{bash}
+# Get interactive node 
+srun -p cpu --nodes=1 --ntasks=12 --mem-per-cpu=19000 --pty /bin/bash
+
+# Check 5 rsids
+## rs3094315
+grep -e "rs3094315" /scratch/prj/gwas_sumstats/original/SmokingInitiation.txt
+# CHROM	POS	     RSID	    REF	 ALT	AF	  STAT	 PVALUE	BETA	                SE	                N	      EFFECTIVE_N	Number_of_Studies	ANNO	      ANNOFULL
+# 1	    752566	rs3094315	G	   A	  0.82	0.287	 0.592	-0.00254143004832399	0.00474391842129359	632802	557639	    34	              Intergenic	Intergenic
+grep -e "rs3094315" /scratch/users/k19047584/sumstats_PGCED_new/testing_allele_flip/SMOK07.sumstats
+# SNP	      A1	A2	Z   	  N
+# rs3094315	G	  A	  -0.536	632802.000
+
+## rs3131972
+grep -e "rs3131972" /scratch/users/k19047584/sumstats_PGCED_new/SmokingInitiation.txt
+# CHROM	    POS	     RSID	   REF	ALT	AF	  STAT.    	PVALUE	BETA	                SE	                N	     EFFECTIVE_N	Number_of_Studies	ANNO	       ANNOFULL
+# 1	        752721	rs3131972	A	   G	0.814	0.354	    0.552	  -0.00281591279014132	0.0047327936476213	632802	558654	    34	              Intergenic	Intergenic
+grep -e "rs3131972" /scratch/users/k19047584/sumstats_PGCED_new/testing_allele_flip/SMOK07.sumstats 
+# SNP	       A1	 A2	 Z     	N
+# rs3131972	 A	 G	-0.595	632802.000
+
+
+## rs3131969
+grep -e "rs3131969" /scratch/users/k19047584/sumstats_PGCED_new/SmokingInitiation.txt
+# CHROM	POS	     RSID	      REF	ALT	 AF	     STAT	  PVALUE	BETA	                SE	                 N	      EFFECTIVE_N	Number_of_Studies	 ANNO	       ANNOFULL
+# 1	     754182	 rs3131969	A	  G	   0.846	 0.895	0.344	  -0.00481842138702275	0.00509322966792074	 632802	  561460	    34	               Intergenic	 Intergenic
+grep -e "rs3131969" /scratch/users/k19047584/sumstats_PGCED_new/testing_allele_flip/SMOK07.sumstats
+# SNP	       A1	  A2	 Z     	 N
+# rs3131969	  A	   G	-0.946	632802.000
+```
+
+## Panic disorder
+```{bash check column headers and munge panic disorder}
+less -S /scratch/prj/gwas_sumstats/cleaned/ANXI05.gz 
+# SNP     A1      A2      CHR     BP      FRQ     FRQ_CAS FRQ_CON BETA    SE      Z       P       N       N_CAS   N_CON   NEFF    INFO
+
+# get rid of ncase, ncontrol, and neff so that sumstats contain N over neff
+gunzip /scratch/prj/gwas_sumstats/cleaned/ANXI05.gz 
+awk '{print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$17}' /scratch/prj/gwas_sumstats/cleaned/ANXI05 > /scratch/users/k19047584/sumstats_PGCED_new/ANXI05_no_Ncas_Nco
+gzip /scratch/prj/gwas_sumstats/cleaned/ANXI05
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/users/k19047584/sumstats_PGCED_new/ANXI05_no_Ncas_Nco \
+--out /scratch/prj/gwas_sumstats/munged/ANXI05 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Tourette's syndrome
+```{bash check column headers and munge tourettes syndrome}
+less -S /scratch/prj/gwas_sumstats/cleaned/TOUR01.gz 
+# SNP     A1      A2      CHR     BP      BETA    SE      Z       P       N       INFO
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/TOUR01.gz \
+--out /scratch/prj/gwas_sumstats/munged/TOUR01 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Loneliness
+```{bash check column headers and munge loneliness}
+less -S /scratch/prj/gwas_sumstats/cleaned/LONE04.gz 
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       NEFF
+
+# Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/LONE04.gz  \
+--out /scratch/prj/gwas_sumstats/munged/LONE04  \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Childhood BMI
+```{bash check column headers and munge Childhood BMI}
+less -S /scratch/prj/gwas_sumstats/cleaned/BODY15.gz 
+# SNP     A1      A2      CHR     BP      BETA    SE      Z       P       N
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/BODY15.gz  \
+--out /scratch/prj/gwas_sumstats/munged/BODY15 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+
+# MVP sumstats
+## PTSD case/control MVP
+```{bash check column headers and munge PTSD case/control MVP}
+less -S /scratch/users/k19047584/sumstats_PGCED_new/cleaned/PTSD06.gz 
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       NEFF
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/users/k19047584/sumstats_PGCED_new/cleaned/PTSD06.gz \
+--out /scratch/users/k19047584/MVP_sumstats/munged/PTSD06 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## PTSD severity MVP
+```{bash check column headers and munge PTSD severity MVP}
+less -S /scratch/users/k19047584/sumstats_PGCED_new/cleaned/PTSD07.gz 
+# SNP     A1      A2      BETA    SE      Z       P       N
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/users/k19047584/sumstats_PGCED_new/cleaned/PTSD07.gz \
+--out /scratch/users/k19047584/MVP_sumstats/munged/PTSD07 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Generalised anxiety disorder score - TO FIX
+```{bash check column headers and munge GAD2 MVP}
+less -S /scratch/users/k19047584/sumstats_PGCED_new/cleaned/ANXI04.gz 
+# SNP     A1      A2      BETA    SE      Z       P       N
+
+```
+
+## Opioid dependence
+```{bash check column headers and munge Opioid dependence MVP}
+less -S /scratch/users/k19047584/sumstats_PGCED_new/cleaned/OPIO01.gz 
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       NEFF
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/users/k19047584/sumstats_PGCED_new/cleaned/OPIO01.gz \
+--out /scratch/users/k19047584/MVP_sumstats/munged/OPIO01 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Childlessness
+```{bash check column headers and munge childlessness}
+less -S /scratch/prj/gwas_sumstats/cleaned/REPR04.gz 
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       NEFF
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/REPR04.gz  \
+--out /scratch/prj/gwas_sumstats/munged/REPR04 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Number children ever born
+```{bash check column headers and munge number_children_ever_born}
+less -S /scratch/prj/gwas_sumstats/cleaned/REPR03.gz 
+# SNP     A1      A2      CHR     BP      FRQ     BETA    SE      Z       P       N       NEFF
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A1 \
+--a2 A2 \
+--p P \
+--N-col N \
+--signed-sumstats BETA,0 \
+--chunksize 50000 \
+--sumstats /scratch/prj/gwas_sumstats/cleaned/REPR03.gz  \
+--out /scratch/prj/gwas_sumstats/munged/REPR03 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Treatment resistant depression
+```{bash treatment resistant}
+rsync /Users/helenadavies/Desktop/all_chr_TRD_results create:/scratch/users/k19047584/sumstats_PGCED_new/
+
+head  /scratch/users/k19047584/sumstats_PGCED_new/all_chr_TRD_results
+# chr SNP pos A0 A1 af info B SE t_stat p
+
+# 2. Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp SNP \
+--a1 A0 \
+--a2 A1 \
+--p p \
+--N 239022 \
+--signed-sumstats B,0 \
+--chunksize 50000 \
+--sumstats /scratch/users/k19047584/sumstats_PGCED_new/all_chr_TRD_results  \
+--out /scratch/users/k19047584/MVP_sumstats/munged/DEPR11 \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+
+
+
+
+
+
+
+
+
+
+Error with below - no rsids
+## Proinsulin
+```{bash check column headers and munge proinsulin}
+gunzip PROInoBMI_META_GWAS_CAT_20221113.tsv.gz
+head PROInoBMI_META_GWAS_CAT_20221113.tsv | column -t
+# chromosome  base_pair_location  effect_allele  other_allele  effect_allele_frequency  beta     standard_error  p_value  sample_size  het_p_value
+
+# Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp rsid \
+--a1 a1 \
+--a2 a2 \
+--p p-value \
+--N-col n \
+--signed-sumstats beta,0 \
+--chunksize 50000 \
+--sumstats /scratch/users/k19047584/sumstats_PGCED_new/PROInoBMI_META_GWAS_CAT_20221113.tsv \
+--out /scratch/users/k19047584/sumstats_PGCED_new/munged/PROInoBMI_META_GWAS_CAT_20221113.tsv_munged \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+## Proinsulin BMI adjusted
+```{bash check column headers and munge proinsulin BMI adjusted}
+gunzip PROIadjBMI_META_GWAS_CAT_20221113.tsv.gz
+head PROIadjBMI_META_GWAS_CAT_20221113.tsv | column -t
+# 
+
+# Run script
+/scratch/users/k19047584/sumstats_PGCED_new/software/ldsc/munge_sumstats.py \
+--snp rsid \
+--a1 a1 \
+--a2 a2 \
+--p p-value \
+--N-col n \
+--signed-sumstats beta,0 \
+--chunksize 50000 \
+--sumstats /scratch/users/k19047584/sumstats_PGCED_new/PROIadjBMI_META_GWAS_CAT_20221113.tsv \
+--out /scratch/users/k19047584/sumstats_PGCED_new/munged/PROIadjBMI_META_GWAS_CAT_20221113.tsv_munged \
+--merge-alleles /scratch/users/k19047584/sumstats_PGCED_new/w_hm3.snplist
+```
+
+
+## Nicotine dependence
+NB: These are already munged from Melissa.
+```{bash}
+head FTND_nicdep2.sumstats | column -t
+```
+
+
+
+
+
+
+
+
+
+

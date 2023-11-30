@@ -1,0 +1,119 @@
+---
+title: "reading out external rg"
+author: "Helena Davies"
+date: "2023-07-14"
+output: html_document
+---
+
+```{bash}
+### input paths for analysis
+OUTPUTPHENOTYPE=AN
+INPUTPATH=/scratch/users/k19047584/ldsc/results/
+OUTPUTPATH=/scratch/users/k19047584/ldsc/results/${OUTPUTPHENOTYPE}/summary
+CODE=*
+OUTPUTFILENAME=PGCED3
+```
+
+```{bash}
+# fgrep is important here. it accepts a fixed pattern (e.g. _noMHC.sumstats.gz  /data/munged) to match, but then splits that pattern up into one search string per line. the pattern here is the end of p1 and start of p2 in the rG table output at the end of the log file.
+
+LANG=C fgrep -h "/scratch/users/k19047584/PGCED3_rg/daner_${OUTPUTPHENOTYPE}.meta_munged_hm3.sumstats.gz  /scratch/prj/gwas_sumstats/munged/" ${INPUTPATH}/${CODE}_daner_${OUTPUTPHENOTYPE}.meta_munged.log > ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs_temp.txt
+
+awk 'BEGIN {OFS=","} NR==1 {print "p1,p2,rg,se,z,p,h2_obs,h2_obs_se,h2_int,h2_int_se,gcov_int,gcov_int_se"} {print $1, $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12}' ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs_temp.txt > ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs.csv
+
+rm ${OUTPUTPATH}/*temp*
+```
+
+```{bash}
+# Delete the folder path in the file
+sed -i 's/\/scratch\/prj\/gwas_sumstats\/munged\///g' ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs.csv
+head -2 ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs.csv
+
+# Delete the sumstats end
+sed -i 's/.sumstats.gz//g' ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs.csv
+head -2 ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs.csv | column -t
+
+# Delete the 'daner'  in the file
+sed -i 's/\/scratch\/users\/k19047584\/PGCED3_rg\/daner_//g' ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs.csv
+head -2 ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs.csv
+
+# Delete the '.meta_munged_hm3'  in the file
+sed -i 's/.meta_munged_hm3//g' ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs.csv
+head -2 ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs.csv
+```
+
+```{bash}
+# Open new terminal with local folder
+
+# Repeat for local hardrive terminal
+# Output folder
+OUTPUTPHENOTYPE=AN
+INPUTPATH=/scratch/users/k19047584/ldsc/results/
+OUTPUTPATH=/scratch/users/k19047584/ldsc/results/${OUTPUTPHENOTYPE}/summary
+CODE=*
+OUTPUTFILENAME=PGCED3
+
+# find Folder on hard drive
+cd /Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results
+
+# Copy file to hard drive
+rsync create:/${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs.csv /Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/
+```
+
+
+
+## MVP sumstats
+```{bash}
+### input paths for analysis
+OUTPUTPHENOTYPE=BENARROW
+INPUTPATH=/scratch/users/k19047584/ldsc/results/
+OUTPUTPATH=/scratch/users/k19047584/ldsc/results/${OUTPUTPHENOTYPE}/summary
+CODE=*
+OUTPUTFILENAME=PGCED3_MVP
+```
+
+```{bash}
+# fgrep is important here. it accepts a fixed pattern (e.g. _noMHC.sumstats.gz  /data/munged) to match, but then splits that pattern up into one search string per line. the pattern here is the end of p1 and start of p2 in the rG table output at the end of the log file.
+
+LANG=C fgrep -h "/scratch/users/k19047584/PGCED3_rg/daner_${OUTPUTPHENOTYPE}.meta_munged_hm3.sumstats.gz  /scratch/users/k19047584/MVP_sumstats/munged/" ${INPUTPATH}/${CODE}_daner_${OUTPUTPHENOTYPE}.meta_munged.log > ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs_temp_MVP.txt
+
+awk 'BEGIN {OFS=","} NR==1 {print "p1,p2,rg,se,z,p,h2_obs,h2_obs_se,h2_int,h2_int_se,gcov_int,gcov_int_se"} {print $1, $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12}' ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs_temp_MVP.txt > ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs_MVP.csv
+
+rm ${OUTPUTPATH}/*temp*
+```
+
+```{bash}
+# Delete the folder path in the file
+sed -i 's/\/scratch\/users\/k19047584\/MVP_sumstats\/munged\///g' ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs_MVP.csv
+head -2 ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs_MVP.csv
+
+# Delete the sumstats end
+sed -i 's/.sumstats.gz//g' ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs_MVP.csv
+head -2 ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs_MVP.csv | column -t
+
+# Delete the 'daner'  in the file
+sed -i 's/\/scratch\/users\/k19047584\/PGCED3_rg\/daner_//g' ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs_MVP.csv
+head -2 ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs_MVP.csv
+
+# Delete the '.meta_munged_hm3'  in the file
+sed -i 's/.meta_munged_hm3//g' ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs_MVP.csv
+head -2 ${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs_MVP.csv
+```
+
+```{bash}
+# Open new terminal with local folder
+
+# Repeat for local hardrive terminal
+# Output folder
+OUTPUTPHENOTYPE=BENARROW
+INPUTPATH=/scratch/users/k19047584/ldsc/results/
+OUTPUTPATH=/scratch/users/k19047584/ldsc/results/${OUTPUTPHENOTYPE}/summary
+CODE=*
+OUTPUTFILENAME=PGCED3_MVP
+
+# find Folder on hard drive
+cd /Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results
+
+# Copy file to hard drive
+rsync create:/${OUTPUTPATH}/${OUTPUTPHENOTYPE}_${OUTPUTFILENAME}_rgs_MVP.csv /Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/
+```

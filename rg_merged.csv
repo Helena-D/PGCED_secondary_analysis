@@ -1,0 +1,652 @@
+"","KCL code","name","ancestry_details","ancestry.x","sex.x","category_name","year.x","pmid","trait_detail","h2.observed","h2.se","h2.z","lambda.GC","mean.chi.2"
+"1","ACCU01","Subcortical brain regions: Nucleus Accumbens","European","EUR","both","nervous system",2015,25607358,"Subcortical brain regions: Nucleus accumbens",0.0921,0.0355,2.5943662,0.9957,1.0026
+"2","ACHI01","Achilles heel injury","83,264 European-White (EUR); 8,560 Latino (LAT); 7,518 East Asian (EAS); 3,161 African-American (AFR); and 476 South Asian (SAS) individuals based on ancestry principle components.","MIX","both","musculoskeletal and connective",2017,28358823,"Achilles heel injury",0.0091,0.0037,2.45945946,1.0165,1.02
+"3","ADHD06","ADHD","","","","",NA,36702997,"",0.0916,0.0041,22.34146341,NA,NA
+"4","ADIP01","Pericardial adipose tissue volume","Transethnic","MIX","both","anthropometric",2017,27918534,"Pericardial adipose tissue volume",0.147,0.043,3.41860465,1.0466,1.0467
+"5","ADIP01F","Pericardial adipose tissue volume female","Transethnic","MIX","female","anthropometric",2017,27918534,"Pericardial adipose tissue volume",0.1979,0.0689,2.87227867,1.0466,1.0309
+"6","ADIP01M","Pericardial adipose tissue volume male","Transethnic","MIX","male","anthropometric",2017,27918534,"Pericardial adipose tissue volume",0.2018,0.0887,2.27508456,1.0466,1.0371
+"7","ADIP02","Pericardial adipose tissue volume adj. for height and weight","Transethnic","MIX","both","anthropometric",2017,27918534,"Pericardial adipose tissue volume adjusted for height and weight (PATadjHtWt)",0.1951,0.0456,4.27850877,1.0466,1.0634
+"8","ADIP02F","Pericardial adipose tissue volume adj. for height and weight female","Transethnic","MIX","female","anthropometric",2017,27918534,"Pericardial adipose tissue volume adjusted for height and weight (PATadjHtWt)",0.2603,0.074,3.51756757,1.0466,1.0422
+"9","ADIP02M","Pericardial adipose tissue volume adj. for height and weight male","Transethnic","MIX","male","anthropometric",2017,27918534,"Pericardial adipose tissue volume adjusted for height and weight (PATadjHtWt)",0.3022,0.0892,3.38789238,1.0466,1.0542
+"10","ADIP03","Subcutaneous adipose tissue volume","Transethnic (AA + EA)","MIX","both","anthropometric",2017,27918534,"Subcutaneous adipose tissue volume (SAT)",0.1648,0.0265,6.21886793,1.0957,1.0905
+"11","ADIP03F","Subcutaneous adipose tissue volume female","Transethnic","MIX","female","anthropometric",2017,27918534,"Subcutaneous adipose tissue volume (SAT)",0.2071,0.0456,4.54166667,1.0957,1.0758
+"12","ADIP03M","Subcutaneous adipose tissue volume male","Transethnic","MIX","male","anthropometric",2017,27918534,"Subcutaneous adipose tissue volume (SAT)",0.184,0.0559,3.29159213,1.0466,1.0469
+"13","ADIP04","Subcutaneous adipose tissue attenuation","Transethnic","MIX","both","anthropometric",2017,27918534,"Subcutaneous adipose tissue attenuation (SATHU)",0.0576,0.0376,1.53191489,1.0957,1.0706
+"14","ADIP04F","Subcutaneous adipose tissue attenuation female","Transethnic","MIX","female","anthropometric",2017,27918534,"Subcutaneous adipose tissue attenuation (SATHU)",0.1577,0.0724,2.1781768,1.0466,1.058
+"15","ADIP04M","Subcutaneous adipose tissue attenuation male","Transethnic","MIX","male","anthropometric",2017,27918534,"Subcutaneous adipose tissue attenuation (SATHU)",0.0604,0.0822,0.73479319,1.0466,1.071
+"16","ADIP05","Visceral adipose tissue volume","Transethnic","MIX","both","anthropometric",2017,27918534,"Visceral adipose tissue volume (VAT)",0.1388,0.0248,5.59677419,1.0957,1.0949
+"17","ADIP05F","Visceral adipose tissue volume female","Transethnic","MIX","female","anthropometric",2017,27918534,"Visceral adipose tissue volume (VAT)",0.1601,0.044,3.63863636,1.0957,1.0785
+"18","ADIP05M","Visceral adipose tissue volume male","Transethnic","MIX","male","anthropometric",2017,27918534,"Visceral adipose tissue volume (VAT)",0.1742,0.0602,2.89368771,1.0466,1.061
+"19","ADIP06","Visceral adipose tissue volume adj. for BMI","Transethnic","MIX","both","anthropometric",2017,27918534,"Visceral adipose tissue volume adjusted for BMI (VATadjBMI)",0.1652,0.0281,5.87900356,1.0957,1.0956
+"20","ADIP06F","Visceral adipose tissue volume adj. for BMI female","Transethnic","MIX","female","anthropometric",2017,27918534,"Visceral adipose tissue volume adjusted for BMI (VATadjBMI)",0.2312,0.0455,5.08131868,1.0957,1.0856
+"21","ADIP06M","Visceral adipose tissue volume adj. for BMI male","Transethnic","MIX","male","anthropometric",2017,27918534,"Visceral adipose tissue volume adjusted for BMI (VATadjBMI)",0.2148,0.0534,4.02247191,1.0466,1.0606
+"22","ADIP07","Visceral adipose tissue attenutation","Transethnic","MIX","both","anthropometric",2017,27918534,"Visceral adipose tissue attenutation (VATHU)",0.144,0.0411,3.50364964,1.0957,1.0756
+"23","ADIP07F","Visceral adipose tissue attenutation female","Transethnic","MIX","female","anthropometric",2017,27918534,"Visceral adipose tissue attenutation (VATHU)",0.2066,0.0716,2.88547486,1.0466,1.071
+"24","ADIP07M","Visceral adipose tissue attenutation male","Transethnic","MIX","male","anthropometric",2017,27918534,"Visceral adipose tissue attenutation (VATHU)",0.1359,0.0819,1.65934066,1.0466,1.0486
+"25","ADIP08","Ratio of visceral-to-subcutaneous adipose tissue volume","Transethnic","MIX","both","anthropometric",2017,27918534,"Ratio of visceral-to-subcutaneous adipose tissue volume (VATSAT)",0.1589,0.0275,5.77818182,1.0957,1.1004
+"26","ADIP08F","Ratio of visceral-to-subcutaneous adipose tissue volume female","Transethnic","MIX","female","anthropometric",2017,27918534,"Ratio of visceral-to-subcutaneous adipose tissue volume (VATSAT)",0.185,0.0423,4.37352246,1.0957,1.085
+"27","ADIP08M","Ratio of visceral-to-subcutaneous adipose tissue volume male","Transethnic","MIX","male","anthropometric",2017,27918534,"Ratio of visceral-to-subcutaneous adipose tissue volume (VATSAT)",0.2163,0.0569,3.80140598,1.0466,1.0658
+"28","ADIP09","Ratio of visceral-to-subcutaneous adipose tissue volume adj. for BMI","Transethnic","MIX","both","anthropometric",2017,27918534,"Ratio of visceral-to-subcutaneous adipose tissue volume adjusted for BMI (VATSATadjBMI)",0.1469,0.0271,5.42066421,1.0957,1.1025
+"29","ADIP09F","Ratio of visceral-to-subcutaneous adipose tissue volume adj. for BMI female","Transethnic","MIX","female","anthropometric",2017,27918534,"Ratio of visceral-to-subcutaneous adipose tissue volume adjusted for BMI (VATSATadjBMI)",0.1807,0.0464,3.89439655,1.0957,1.0874
+"30","ADIP09M","Ratio of visceral-to-subcutaneous adipose tissue volume adj. for BMI male","Transethnic","MIX","male","anthropometric",2017,27918534,"Ratio of visceral-to-subcutaneous adipose tissue volume adjusted for BMI (VATSATadjBMI)",0.1743,0.0562,3.10142349,1.0466,1.0642
+"31","AGAB01","Agreeableness (NEO five factor inventory)","European","EUR","both","mental and behavioural",2012,21173776,"Agreeableness (NEO five factor inventory)",0.0192,0.0277,0.69314079,1.0016,1.0084
+"32","AGGR01","Aggression","European","EUR","both","mental and behavioural",2015,26087016,"Aggression",0.0512,0.025,2.048,1.0165,1.0127
+"33","AGRA01","Clozapine-Induced Agranulocytosis","European","EUR","both","circulatory",2014,25187353,"Clozapine-Induced Agranulocytosis",0.6991,0.3756,1.86128861,1.0466,1.0328
+"34","ALCD03","Alcohol dependence European","European","EUR","both","mental and behavioural",2017,30482948,"Alcohol dependence (EUR)",0.0547,0.0104,5.25961539,1.071,1.0675
+"35","ALCO01","Daily alcohol use","European","EUR","both","mental and behavioural",2016,27911795,"Daily alcohol use both",0.0517,0.0082,6.30487805,1.071,1.0849
+"36","drinks_per_week",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"37","ALCU01","AUDIT total score","","EUR","both","mental and behavioural",2019,30336701,"AUDIT total score",NA,NA,16.89090909,NA,NA
+"38","ALCU02","Consumption (AUDIT-C)","","EUR","both","mental and behavioural",2019,30336701,"Consumption (AUDIT-C)",NA,NA,15.88679245,NA,NA
+"39","ALCU03","Problematic consequences of drinking (AUDIT-P)","","EUR","both","mental and behavioural",2019,30336701,"Problematic consequences of drinking (AUDIT-P)",NA,NA,12.41666667,NA,NA
+"40","ALSD01","Amyotrophic lateral sclerosis","European","EUR","both","nervous system",2016,27455348,"ALS",0.0496,0.0128,3.875,1.0225,1.0293
+"41","ALZH01","Alzheimer","European","EUR","both","nervous system",2013,24162737,"Alzheimer’s disease",0.0688,0.0128,5.375,1.0926,1.1144
+"42","AMIN01","Alanine","European (+ Finnish)","EUR","both","metabolism: amino acids",2016,27005778,"Alanine",0.0816,0.0257,3.17509728,1.0345,1.0522
+"43","AMIN02","Glutamine","European (+ Finnish)","EUR","both","metabolism: amino acids",2016,27005778,"Glutamine",0.0683,0.0222,3.07657658,1.0285,1.0477
+"44","AMIN03","Glycine","European (+ Finnish)","EUR","both","metabolism: amino acids",2016,27005778,"Glycine",0.2172,0.1186,1.83136594,1.0225,1.0698
+"45","AMIN04","Histidine","European (+ Finnish)","EUR","both","metabolism: amino acids",2016,27005778,"Histidine",0.0386,0.0233,1.65665236,1.0165,1.0173
+"46","AMIN05","Isoleucine","European (+ Finnish)","EUR","both","metabolism: amino acids",2016,27005778,"Isoleucine",0.0735,0.0225,3.26666667,1.0255,1.0282
+"47","AMIN06","Leucine","European (+ Finnish)","EUR","both","metabolism: amino acids",2016,27005778,"Leucine",0.0496,0.0207,2.39613527,1.0315,1.0308
+"48","AMIN07","Phenylalanine","European (+ Finnish)","EUR","both","metabolism: amino acids",2016,27005778,"Phenylalanine",0.0575,0.0219,2.62557078,1.0225,1.0283
+"49","AMIN08","Tyrosine","European (+ Finnish)","EUR","both","metabolism: amino acids",2016,27005778,"Tyrosine",0.0673,0.0239,2.81589958,1.0255,1.0345
+"50","AMIN09","Valine","European (+ Finnish)","EUR","both","metabolism: amino acids",2016,27005778,"Valine",0.0625,0.0189,3.30687831,1.0405,1.0444
+"51","AMIN10M","Glycine male","","EUR","male","metabolism: amino acids",2019,31070104,"Glycine male",NA,NA,2.967592593,NA,NA
+"52","AMYG01","Subcortical brain regions: Amygdala","European","EUR","both","nervous system",2015,25607358,"Subcortical brain regions: Amygdala",-0.0214,0.0324,-0.6604938,0.9957,0.9965
+"53","ANKL01","Ankle injury","EUR, LAT and EAS ancestry groups","MIX","both","musculoskeletal and connective",2017,28957384,"Ankle injury",0.0043,0.0043,1,1.0075,1.009
+"54","ANKY01","Ankylosing spondylitis","European","EUR","both","autoimmune",2013,23749187,"Ankylosing spondylitis",NA,NA,2.325150124,NA,NA
+"55","ANOR01","Anorexia nervosa (PGC1)","European and Japanese","MIX","both","mental and behavioural",2017,28494655,"Anorexia nervosa (PGC1)",0.2676,0.0356,7.51685393,1.0741,1.0757
+"56","ANOR02","Anorexia nervosa (PGC2)","European","EUR","both","mental and behavioural",2019,31308545,"Anorexia nervosa (PGC2)",0.1738,0.0116,14.9827586,1.2431,1.2804
+"57","ANOR03","Anorexia nervosa bingeing","European","EUR","both","mental and behavioural",NA,NA,"Anorexia nervosa with binge eating",0.2381,0.0392,6.07397959,1.0496,1.0557
+"58","ANOR04","Anorexia nervosa restricting","European","EUR","both","mental and behavioural",NA,NA,"Anorexia nervosa without binge eating",0.1781,0.0412,4.32281553,1.0496,1.0494
+"59","ANXI01","Anxiety Disorders meta-analysis: factor scores","European","EUR","both","mental and behavioural",2016,26754954,"Anxiety disorders factor scores",0.0684,0.0268,2.55223881,1.0195,1.0239
+"60","ANXI02","Anxiety Disorders meta-analysis: case-control","European","EUR","both","mental and behavioural",2016,26754954,"Anxiety disorders case-control",0.0763,0.0304,2.50986842,1.0345,1.0298
+"61","ANXI03","Lifetime probable anxiety diagnosis","European","EUR","both","mental and behavioural",2020,31748690,"Lifetime probable anxiety diagnosis",0.1041,0.0069,15.0869565,1.1428,1.1591
+"62","APOL01","Apolipoprotein A-I","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Apolipoprotein A-I",0.0979,0.0305,3.20983607,1.0165,1.0329
+"63","APOL02","Apolipoprotein B","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Apolipoprotein B",0.1065,0.0311,3.4244373,1.0255,1.0429
+"64","ASTH01","Asthma","European","EUR","both","respiratory",2010,20860503,"Asthma",0.1174,0.0217,5.41013825,0.9518,0.9697
+"65","ATOP01","Atopic dermatitis","European","EUR","both","skin",2015,26482879,"Atopic dermatitis",0.0711,0.0166,4.28313253,1.0527,1.08
+"66","AUTI07","Autism spectrum disorder (PGC + iPSYCH)","","EUR","both","mental and behavioural",2019,30804558,"Autism spectrum disorder (PGC +iPSYCH)",0.203,0.0154,13.1818182,1.1619,1.1858
+"67","AUTI07","Autism spectrum disorder (PGC + iPSYCH)","","EUR","both","mental and behavioural",2019,30804558,"Autism spectrum disorder (PGC +iPSYCH)",0.203,0.0154,13.1818182,1.1619,1.1858
+"68","BALD01","Male pattern baldness","European (UK)","EUR","male","autoimmune",2017,28196072,"Male pattern baldness",0.2828,0.0301,9.39534884,1.1715,1.3525
+"69","BFPC01","Body fat percentage (Lu. et al)","predominantly of European ancestry","MIX","both","anthropometric",2016,26833246,"Body fat percentage (Lu. et al)",0.1038,0.0075,13.84,1.0315,1.0576
+"70","BFPC03","Body fat percentage healthy","European","EUR","both","anthropometric",NA,NA,"Body fat percentage healthy both",0.1992,0.0071,28.056338,1.4926,1.6477
+"71","BIPO03","","","","","",NA,NA,"",0.0707,0.0027,26.18518519,NA,NA
+"72","BLOO01","Platelet count","European","EUR","both","blood",2016,27863252,"platelet count",0.2293,0.0174,13.1781609,1.2531,1.7722
+"73","BLOO02","Red blood cell count","European","EUR","both","blood",2016,27863252,"red blood cell count",0.1831,0.0149,12.2885906,1.2498,1.6477
+"74","BLOO03","Hemoglobin concentration","European","EUR","both","blood",2016,27863252,"hemoglobin concentration",0.1351,0.0107,12.6261682,1.2136,1.4633
+"75","BLOO04","Reticulocyte count","European","EUR","both","blood",2016,27863252,"reticulocyte count",0.1706,0.0156,10.9358974,1.2103,1.6381
+"76","BLOO05","Monocyte count","European","EUR","both","blood",2016,27863252,"monocyte count",0.1943,0.0203,9.57142857,1.2201,1.6784
+"77","BLOO06","Neutrophil count","European","EUR","both","blood",2016,27863252,"neutrophil count",0.1526,0.0134,11.3880597,1.2136,1.5165
+"78","BLOO07","Eosinophil count","European","EUR","both","blood",2016,27863252,"eosinophil count",0.1633,0.0146,11.1849315,1.1876,1.6208
+"79","BLOO08","Basophil count","European","EUR","both","blood",2016,27863252,"basophil count",0.0716,0.0076,9.42105263,1.1144,1.2468
+"80","BLOO09","Granulocyte count","European","EUR","both","blood",2016,27863252,"granulocyte count",0.1531,0.0133,11.5112782,1.2103,1.5223
+"81","BLOO10","Myeloid white cell count","European","EUR","both","blood",2016,27863252,"myeloid white cell count",0.1569,0.0129,12.1627907,1.2168,1.5381
+"82","BLOO11","Lymphocyte count","European","EUR","both","blood",2016,27863252,"lymphocyte count",0.1717,0.0125,13.736,1.2431,1.6129
+"83","BLOO12","White blood cell count","European","EUR","both","blood",2016,27863252,"white blood cell count",0.1703,0.0122,13.9590164,1.2464,1.5948
+"84","BLOO13","Sum basophil neutrophil counts","European","EUR","both","blood",2016,27863252,"Sum basophil neutrophil counts",0.1535,0.0136,11.2867647,1.2168,1.5212
+"85","BLOO14","Basophil percentage of white cells","European","EUR","both","blood",2016,27863252,"Basophil percentage of white cells",0.0572,0.0072,7.94444444,1.0895,1.193
+"86","BLOO15","Basophil percentage of granulocytes","European","EUR","both","blood",2016,27863252,"Basophil percentage of granulocytes",0.0589,0.0068,8.66176471,1.0988,1.1952
+"87","BLOO16","Sum eosinophil basophil counts","European","EUR","both","blood",2016,27863252,"Sum eosinophil basophil counts",0.1558,0.0136,11.4558824,1.1908,1.5921
+"88","BLOO17","Eosinophil percentage of white cells","European","EUR","both","blood",2016,27863252,"Eosinophil percentage of white cells",0.1617,0.0135,11.9777778,1.1876,1.6004
+"89","BLOO18","Eosinophil percentage of granulocytes","European","EUR","both","blood",2016,27863252,"Eosinophil percentage of granulocytes",0.1566,0.013,12.0461539,1.1876,1.5785
+"90","BLOO19","Granulocyte percentage of myeloid white cells","European","EUR","both","blood",2016,27863252,"Granulocyte percentage of myeloid white cells",0.1633,0.017,9.60588235,1.1683,1.5446
+"91","BLOO20","Hematocrit","European","EUR","both","blood",2016,27863252,"Hematocrit",0.135,0.0104,12.9807692,1.2103,1.47
+"92","BLOO21","High light scatter percentage of red cells","European","EUR","both","blood",2016,27863252,"High light scatter percentage of red cells",0.1743,0.0155,11.2451613,1.2136,1.6376
+"93","BLOO22","High light scatter reticulocyte count","European","EUR","both","blood",2016,27863252,"High light scatter reticulocyte count",0.1726,0.0155,11.1354839,1.2201,1.6425
+"94","BLOO23","Immature fraction of reticulocytes","European","EUR","both","blood",2016,27863252,"Immature fraction of reticulocytes",0.1304,0.0128,10.1875,1.1555,1.4538
+"95","BLOO24","Lymphocyte percentage of white cells","European","EUR","both","blood",2016,27863252,"Lymphocyte percentage of white cells",0.1391,0.0094,14.7978723,1.2038,1.48
+"96","BLOO25","Mean corpuscular hemoglobin concentration MCHC","European","EUR","both","blood",2016,27863252,"Mean corpuscular hemoglobin concentration MCHC",0.0922,0.0102,9.03921569,1.0988,1.2928
+"97","BLOO26","Mean corpuscular hemoglobin MCH","European","EUR","both","blood",2016,27863252,"Mean corpuscular hemoglobin MCH",0.2266,0.0241,9.40248963,1.194,1.7674
+"98","BLOO27","Mean corpuscular volume","European","EUR","both","blood",2016,27863252,"Mean corpuscular volume",0.2443,0.0247,9.89068826,1.2136,1.8174
+"99","BLOO28","Monocyte percentage of white cells","European","EUR","both","blood",2016,27863252,"Monocyte percentage of white cells",0.1783,0.02,8.915,1.1715,1.6023
+"100","BLOO29","Mean platelet volume","European","EUR","both","blood",2016,27863252,"Mean platelet volume",0.2685,0.0311,8.63344051,1.2005,1.9016
+"101","BLOO30","Sum neutrophil eosinophil counts","European","EUR","both","blood",2016,27863252,"Sum neutrophil eosinophil counts",0.1533,0.0133,11.5263158,1.2136,1.5239
+"102","BLOO31","Neutrophil percentage of granulocytes","European","EUR","both","blood",2016,27863252,"Neutrophil percentage of granulocytes",0.1463,0.0123,11.8943089,1.1843,1.5324
+"103","BLOO32","Neutrophil percentage of white cells","European","EUR","both","blood",2016,27863252,"Neutrophil percentage of white cells",0.1356,0.0095,14.2736842,1.1973,1.4509
+"104","BLOO33","Plateletcrit","European","EUR","both","blood",2016,27863252,"Plateletcrit",0.2051,0.0176,11.6534091,1.2498,1.6983
+"105","BLOO34","Platelet distribution width","European","EUR","both","blood",2016,27863252,"Platelet distribution width",0.166,0.0157,10.5732484,1.1779,1.5951
+"106","BLOO35","Red cell distribution width","European","EUR","both","blood",2016,27863252,"Red cell distribution width",0.1822,0.0183,9.95628415,1.1651,1.6281
+"107","BLOO36","Reticulocyte fraction of red cells","European","EUR","both","blood",2016,27863252,"Reticulocyte fraction of red cells",0.1728,0.0162,10.6666667,1.2038,1.6375
+"108","BLOP01","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"109","BLOP02","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"110","BODY02","Extreme BMI","European","EUR","both","anthropometric",2013,23563607,"Extreme BMI",0.5936,0.045,13.1911111,1.0466,1.0828
+"111","BODY03","BMI (MIX Locke)","All Ancestry but mostly European (+ AMR, SAS, EAS, AFR)","MIX","both","anthropometric",2015,25673413,"BMI (MIX Locke)",0.1346,0.0057,23.6140351,1.1301,1.3228
+"112","BODY04","BMI (EUR Locke)","European","EUR","both","anthropometric",2015,25673413,"BMI (EUR Locke)",0.1297,0.0056,23.1607143,1.0772,1.2603
+"113","BODY05","BMI dominance deviation","European","EUR","both","anthropometric",2016,26961502,"BMI dominance deviation",0.0029,0.0029,1,0.9986,1.0055
+"114","BODY07","BMI healthy","European","EUR","both","anthropometric",NA,NA,"BMI healthy both",0.2083,0.0081,25.7160494,1.5144,1.6821
+"115","CANC01","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"116","CANU01","Lifetime cannabis use","European","EUR","both","mental and behavioural",2016,27023175,"Lifetime cannabis use",0.0897,0.0162,5.53703704,1.0527,1.0573
+"117","CAUD01","Subcortical brain regions: Caudate","European","EUR","both","nervous system",2015,25607358,"Subcortical brain regions: Caudate",0.2507,0.0378,6.63227513,1.0285,1.0333
+"118","CELI01","Celiac Disease","European","EUR","both","autoimmune",2010,20190752,"Celiac Disease",0.2461,0.046,5.35,1.105,1.1348
+"119","CHKD01","CKD (chronic kidney disease)","European","EUR","both","genitourinary",2016,26831199,"CKD (chronic kidney disease)",0.0187,0.0057,3.28070175,1.0466,1.062
+"120","CHOL01","Cholesterol esters in large HDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Cholesterol esters in large HDL",0.158,0.0343,4.60641399,1.0255,1.0479
+"121","CHOL02","Cholesterol esters in large LDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Cholesterol esters in large LDL",0.1231,0.0317,3.88328076,1.0225,1.0425
+"122","CHOL03","Cholesterol esters in large VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Cholesterol esters in large VLDL",0.1597,0.0322,4.95962733,1.0255,1.0387
+"123","CHOL04","Cholesterol esters in medium HDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Cholesterol esters in medium HDL",0.0644,0.0276,2.33333333,1.0135,1.0218
+"124","CHOL05","Cholesterol esters in medium LDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Cholesterol esters in medium LDL",0.1219,0.0313,3.89456869,1.0225,1.0419
+"125","CHOL06","Cholesterol esters in medium VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Cholesterol esters in medium VLDL",0.1493,0.0343,4.35276968,1.0165,1.0441
+"126","CHOL07","Cholesterol esters in very large HDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Cholesterol esters in very large HDL",0.0578,0.0288,2.00694444,1.0105,1.03
+"127","CHOL08","Cholesterol in large HDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Cholesterol in large HDL",0.1363,0.0319,4.27272727,1.0255,1.0503
+"128","CHOL09","Mean diameter for HDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Mean diameter for HDL particles",0.1682,0.0439,3.83143508,1.0255,1.0525
+"129","CHOL10","Free cholesterol","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Free cholesterol",0.0897,0.0421,2.13064133,1.0225,1.0415
+"130","CHOL11","Free cholesterol in IDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Free cholesterol in IDL",0.1159,0.0283,4.09540636,1.0255,1.0499
+"131","CHOL12","Free cholesterol in large HDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Free cholesterol in large HDL",0.1344,0.0323,4.16099071,1.0285,1.0535
+"132","CHOL13","Free cholesterol in large LDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Free cholesterol in large LDL",0.1127,0.0268,4.20522388,1.0225,1.0452
+"133","CHOL14","Free cholesterol in large VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Free cholesterol in large VLDL",0.1138,0.0267,4.26217229,1.0255,1.0396
+"134","CHOL15","Free cholesterol in medium HDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Free cholesterol in medium HDL",0.0739,0.0232,3.18534483,1.0135,1.0267
+"135","CHOL16","Free cholesterol in medium VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Free cholesterol in medium VLDL",0.1018,0.0294,3.46258503,1.0195,1.0418
+"136","CHOL17","Free cholesterol in small VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Free cholesterol in small VLDL",0.1154,0.0311,3.71061093,1.0285,1.0469
+"137","CHOL18","Free cholesterol in very large HDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Free cholesterol in very large HDL",0.0752,0.0306,2.45751634,1.0075,1.0349
+"138","CHOL19","Free cholesterol to esterified cholesterol ratio","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Free cholesterol to esterified cholesterol ratio",0.0868,0.042,2.06666667,1.0135,1.029
+"139","CHOL20","Serum total cholesterol","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Serum total cholesterol",0.0933,0.0302,3.08940397,1.0225,1.0488
+"140","CHOL21","Total cholesterol","European","EUR","both","metabolism: lipids",2010,20686565,"Total cholesterol",0.1322,0.0147,8.99319728,1.0016,1.1408
+"141","CHOL22","Total cholesterol in HDL","European","EUR","both","metabolism: lipids",2010,20686565,"HDL cholesterol",0.1365,0.0164,8.32317073,1.0165,1.1502
+"142","CHOL23","Total cholesterol in HDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total cholesterol in HDL",0.1165,0.027,4.31481482,1.0225,1.0467
+"143","CHOL24","Total cholesterol in IDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total cholesterol in IDL",0.1188,0.0312,3.80769231,1.0225,1.046
+"144","CHOL25","Total cholesterol in large LDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total cholesterol in large LDL",0.1122,0.0265,4.23396226,1.0225,1.0432
+"145","CHOL26","Total cholesterol in large VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total cholesterol in large VLDL",0.1126,0.027,4.17037037,1.0255,1.0387
+"146","CHOL27","Total cholesterol in LDL","European","EUR","both","metabolism: lipids",2010,20686565,"LDL-cholesterol",0.1212,0.0162,7.48148148,1.0165,1.1379
+"147","CHOL28","Total cholesterol in LDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total cholesterol in LDL",0.1155,0.0286,4.03846154,1.0195,1.0438
+"148","CHOL29","Total cholesterol in medium HDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total cholesterol in medium HDL",0.063,0.0245,2.57142857,1.0135,1.0226
+"149","CHOL30","Total cholesterol in medium LDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total cholesterol in medium LDL",0.1125,0.0272,4.13602941,1.0255,1.043
+"150","CHOL31","Total cholesterol in medium VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total cholesterol in medium VLDL",0.1169,0.0303,3.85808581,1.0195,1.0446
+"151","CHOL32","Total cholesterol in small LDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total cholesterol in small LDL",0.1045,0.0297,3.51851852,1.0165,1.047
+"152","CHOL33","Total cholesterol in small VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total cholesterol in small VLDL",0.0979,0.0294,3.32993197,1.0225,1.0429
+"153","CHOL34","Total cholesterol in very large HDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total cholesterol in very large HDL",0.052,0.0247,2.10526316,1.0046,1.0272
+"154","CHRO01","Chronotype","European","EUR","both","mental and behavioural",2016,27494321,"Chronotype",0.1015,0.0059,17.2033898,1.2005,1.265
+"155","CHRO02","Sleep Duration","European","EUR","both","mental and behavioural",2016,27494321,"Sleep Duration",0.0553,0.0051,10.8431373,1.1459,1.1567
+"156","CHRO05","Oversleeper","European","EUR","both","mental and behavioural",2016,27494321,"Oversleeper",0.019,0.004,4.75,1.0466,1.063
+"157","CHRO06","Undersleeper","European","EUR","both","mental and behavioural",2016,27494321,"Undersleeper",0.0414,0.004,10.35,1.0957,1.1091
+"158","CIRR01","Primary Biliary Cirrhosis","European","EUR","both","autoimmune",2015,26394269,"Primary Biliary Cirrhosis",0.3782,0.0589,6.42105263,1.0496,1.1058
+"159","COAD01","Coronary Artery Disease (European, South Asian and East Asian) additive model","European and South Asian (Pakistan, India) and East Asian (China, Korea) and Hispanic and African Americans, but mostly European","MIX","both","circulatory",2015,26343387,"Coronary Artery Disease (European and South Asian and East Asian, 1000 Genomes-based GWAS ): additive model",0.0661,0.0045,14.6888889,1.0466,1.126
+"160","COAD02","Coronary Artery Disease (European, South Asian and East Asian) recessive model","European and South Asian (Pakistan, India) and East Asian (China, Korea) and Hispanic and African Americans","MIX","both","circulatory",2015,26343387,"Coronary Artery Disease (European and South Asian and East Asian, 1000 Genomes-based GWAS ): recessive model",0.0179,0.002,8.95,1.0105,1.0255
+"161","COAD03","Coronary Artery Disease","European (UKBB)","EUR","both","circulatory",2017,28714975,"Coronary Artery Disease",0.0438,0.0026,16.8461539,1.0466,1.1423
+"162","COLL01","Binary variable for college completion","European","EUR","both","mental and behavioural",2013,23722424,"Binary variable for college completion (College)",0.1048,0.0075,13.9733333,1.194,1.2224
+"163","CONS01","Conscientiousness (NEO five factor inventory)","European","EUR","both","mental and behavioural",2012,21173776,"Conscientiousness (NEO five factor inventory)",0.0752,0.0292,2.57534247,1.0195,1.026
+"164","CROH01","Crohn's disease","European","EUR","both","autoimmune",2015,26192919,"Crohn's disease",0.4751,0.0538,8.83085502,1.1396,1.2302
+"165","CROH03","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"166","CROS01","Cross-psychiatric disorders (ADHD, autism, bipolar disorder, and schizophrenia)","European","EUR","both","mental and behavioural",2013,23453885,"Cross-psychiatric disorders",0.1749,0.0106,16.5,1.1973,1.2191
+"167","CSFU01","","","","","",NA,NA,"",1.011243,NA,NA,NA,NA
+"168","CSFU02","","","","","",NA,NA,"",1.005142,NA,NA,NA,NA
+"169","CSFU03","","","","","",NA,NA,"",1.003738,NA,NA,NA,NA
+"170","CSFU04","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"171","CSFU05","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"172","CSFU06","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"173","DEPR02","Depressive symptoms","European","EUR","both","mental and behavioural",2016,27089181,"Depressive symptoms",0.0472,0.0037,12.7567568,1.1333,1.1531
+"174","DEPR03","Major depressive disorder (PGC1)","European","EUR","both","mental and behavioural",2013,22472876,"Major depressive disorder (PGC1)",0.1621,0.0263,6.1634981,1.0679,1.0689
+"175","DEPR05","","","","","",NA,NA,"",0.1084,0.0136,7.970588235,NA,NA
+"176","DIAB02","Type 2 Diabetes 2012","European","EUR","both","metabolism: glucose",2012,22885922,"Type 2 diabetes 2012",0.0971,0.0106,9.16037736,1.0957,1.1331
+"177","DIAB03","Type 2 Diabetes 2014","Trans-ethnic","MIX","both","metabolism: glucose",2014,24509480,"Type 2 diabetes 2014",0.0695,0.0059,11.779661,1.0466,1.1077
+"178","DIAB05","Type-2 Diabetes 2017","Trans-ethnic","MIX","both","metabolism: glucose",2017,28566273,"Type 2 diabetes 2017",0.0781,0.0053,14.7358491,1.1459,1.2311
+"179","DIAB06","Type-2 Diabetes 2017 BMI-adjusted","Trans-ethnic","MIX","both","metabolism: glucose",2017,28566273,"Type 2 diabetes 2017 BMI-adjusted",0.0606,0.0063,9.61904762,1.0957,1.1369
+"180","DIAB07","Type 2 diabetes dominance deviation model","European","EUR","both","metabolism: glucose",2016,26961502,"Type 2 diabetes dominance deviation model",0.0114,0.0029,3.93103448,0.9986,0.9969
+"181","DIAR02","Diarrhea at age 2-year (d2y)","European","EUR","both","other",2016,27559109,"Diarrhea at age 2-year (d2y)",0.1321,0.088,1.50113636,1.0105,1.0039
+"182","DIAR04","Doctor diagnosis of diarrhea at age 2-year (dd2y)","European","EUR","both","other",2016,27559109,"Doctor diagnosis of diarrhea at age 2-year (dd2y)",0.0539,0.0655,0.82290076,0.9986,0.9994
+"183","EDUC02","Attainment of a college or a university degree","European (UKBB)","EUR","both","mental and behavioural",2016,27046643,"Attainment of a college or a university degree",0.1524,0.0077,19.7922078,1.3068,1.3683
+"184","EDUC03 (to replace EDUC01)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"185","ELEC01","Electrolytes: copper blood level","European","EUR","both","metabolism: other",2014,23720494,"Copper blood level",-0.0964,0.1828,-0.5273523,1.0105,1.0133
+"186","ELEC02","Electrolytes: selenium blood level","European","EUR","both","metabolism: other",2014,23720494,"Selenium blood level",0.0254,0.034,0.74705882,1.0075,1.0103
+"187","ELEC03","Electrolytes: zinc blood level","European","EUR","both","metabolism: other",2014,23720494,"Zinc blood level",0.0703,0.1901,0.36980537,0.9986,1.0012
+"188","ELEC04","Electrolytes: iron blood level","European","EUR","both","metabolism: other",2014,25352340,"Iron blood level",0.0061,0.0101,0.6039604,1.0285,1.0348
+"189","ENZY01","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"190","EPIL01","Common epilepsies","European and Asian and African","MIX","both","nervous system",2014,25087078,"Common epilepsies",0.072,0.0144,5,1.0405,1.0475
+"191","EXTR01","Extraversion (item response theory)","European","EUR","both","mental and behavioural",2015,26362575,"Extraversion (item response theory)",0.0518,0.0082,6.31707317,1.0588,1.066
+"192","FATM02","Fat mass anorexia-free","European","EUR","both","anthropometric",NA,NA,"Fat mass anorexia-free both",0.2029,0.0074,27.4189189,1.4853,1.6448
+"193","FATM02B","Fat mass anorexia-free meta-analysis of males and females","European","EUR","both","anthropometric",NA,NA,"Fat mass anorexia-free meta",0.2049,0.0074,27.6891892,1.4926,1.651
+"194","FATM02F","Fat mass anorexia-free female","European","EUR","female","anthropometric",NA,NA,"Fat mass anorexia-free female",0.2055,0.0105,19.5714286,1.2498,1.29
+"195","FATM02M","Fat mass anorexia-free male","European","EUR","male","anthropometric",NA,NA,"Fat mass anorexia-free male",0.2176,0.0095,22.9052632,1.3101,1.3807
+"196","FATM03","Fat mass healthy","European","EUR","both","anthropometric",NA,NA,"Fat mass healthy both",0.2019,0.0073,27.6575343,1.4853,1.6492
+"197","FATM03B","Fat mass healthy meta-analysis of males and females","European","EUR","both","anthropometric",NA,NA,"Fat mass healthy meta",0.204,0.0073,27.9452055,1.4962,1.6559
+"198","FATM03F","Fat mass healthy female","European","EUR","female","anthropometric",NA,NA,"Fat mass healthy female",0.205,0.0104,19.7115385,1.2564,1.2951
+"199","FATM03M","Fat mass healthy male","European","EUR","male","anthropometric",NA,NA,"Fat mass healthy male",0.2179,0.0096,22.6979167,1.3101,1.3814
+"200","FATM04","Fat mass","European","EUR","both","anthropometric",NA,NA,"Fat mass complete both",0.2086,0.0061,34.1967213,2.0175,2.5604
+"201","FATM04B","Fat mass meta-analysis of males and females","European","EUR","both","anthropometric",NA,NA,"Fat mass complete meta",0.2087,0.0061,34.2131148,2.0175,2.5625
+"202","FATM04F","Fat mass female","European","EUR","female","anthropometric",NA,NA,"Fat mass complete female",0.2278,0.0075,30.3733333,1.592,1.8358
+"203","FATM04M","Fat mass male","European","EUR","male","anthropometric",NA,NA,"Fat mass complete male",0.2256,0.0081,27.8518519,1.5771,1.8025
+"204","FATM05B","Fat mass healthy meta-analysis (not alcohol/smoking-adjust)","","EUR","both","anthropometric",NA,NA,NA,0.2071,0.0088,23.53409091,NA,NA
+"205","FATT04","N-6 Fatty Acids: 20:4n6 (arachidonic acid)","European","EUR","both","metabolism: lipids",2014,24823311,"N-6 Fatty Acids: 20:4n6 (arachidonic acid)",0.2178,0.198,1.1,1.0165,1.0505
+"206","FATT06","Ratio of bisallylic groups to double bonds","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Ratio of bisallylic groups to double bonds",0.3062,0.1219,2.511895,1.0195,1.0542
+"207","FATT07","Ratio of bisallylic groups to total fatty acids","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Ratio of bisallylic groups to total fatty acids",0.2801,0.1059,2.64494806,1.0195,1.0544
+"208","FATT10","22:6, docosahexaenoic acid","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"22:6, docosahexaenoic acid",0.131,0.0378,3.46560847,1.0255,1.031
+"209","FATT13","Average number of double bonds in a fatty acid chain","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Average number of double bonds in a fatty acid chain",0.1745,0.0593,2.94266442,1.0255,1.0523
+"210","FATT15","Description of average fatty acid chain length, not actual carbon number","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Description of average fatty acid chain length, not actual carbon number",0.1009,0.0333,3.03003003,1.0105,1.0099
+"211","FATT18","18:2, linoleic acid (LA)","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"18:2, linoleic acid (LA)",0.1307,0.0429,3.04662005,1.0165,1.0374
+"212","FATT20","Average number of methylene groups in fatty acid chain","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Average number of methylene groups in fatty acid chain",0.0603,0.0445,1.35505618,1.0225,1.033
+"213","FATT21","Average number of methylene groups per a double bond","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Average number of methylene groups per a double bond",0.2086,0.0864,2.41435185,1.0195,1.0483
+"214","FATT22","Mono-unsaturated fatty acids","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Mono-unsaturated fatty acids",0.1043,0.0408,2.55637255,1.0075,1.0157
+"215","FATT24","Omega-3 fatty acids","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Omega-3 fatty acids",0.1563,0.0402,3.8880597,1.0225,1.0324
+"216","FATT25","Omega-6 to total FAs ratio","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Omega-6 to total FAs ratio",0.0738,0.043,1.71627907,1.0165,1.0339
+"217","FATT26","Omega-9 and saturated fatty acids","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Omega-9 and saturated fatty acids",0.0867,0.0429,2.02097902,1.0046,1.0188
+"218","FATT29","otPUFA (poly-insaturated fatty acids)","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"otPUFA (poly-insaturated fatty acids)",0.1861,0.1209,1.53928867,1.0135,1.0552
+"219","FATT31","Total fatty acids","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total fatty acids",0.0818,0.0452,1.80973451,1.0105,1.0268
+"220","FOOD01F","Food addiction (Y-scale)","European","EUR","female","mental and behavioural",2016,27106561,"Food addiction (Y-scale)",0.1,0.0397,2.51889169,1.0075,1.0076
+"221","GAIT01","Gait speed in older individuals","European","EUR","both","anthropometric",2017,28077804,"Gait speed in older individuals",0.047,0.0144,3.26388889,1.0436,1.0444
+"222","GLAU01","Glaucoma (primary angle closure)","18063 East Asian (China, China, Hong Kong SAR, Japan, Republic of Korea, Indonesia, Malaysia, Myanmar, Philippines, Singapore, Thailand, Viet Nam), 2875 South Asian (India), 5516 European (Brazil, Peru, U.K.)","MIX","both","eye and adnexa",2016,27064256,"Glaucoma (primary angle closure)",0.1211,0.0181,6.69060774,1.0557,1.0711
+"223","","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"224","GLYC02","HOMA-B: beta-cell function (age- & sex-adjusted)","European","EUR","both","metabolism: glucose",2010,20081858,"HOMA-B: beta-cell function (age- & sex-adjusted)",0.0888,0.0122,7.27868853,1.0496,1.0529
+"225","GLYC03","Fasting pro-insulin","European","EUR","both","metabolism: glucose",2011,21873549,"Fasting pro-insulin",0.1451,0.071,2.04366197,1.0046,1.0216
+"226","GLYC04","Fasting glucose (age- & sex-adjusted)","European","EUR","both","metabolism: glucose",2010,20081858,"Fasting glucose (age- & sex-adjusted)",0.0935,0.0165,5.66666667,1.0466,1.0751
+"227","GLYC05","Fasting insulin (age- & sex-adjusted)","European","EUR","both","metabolism: glucose",2010,20081858,"Fasting insulin (age- & sex-adjusted)",0.0717,0.0123,5.82926829,1.0527,1.0538
+"228","","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"229","GLYC07","HOMA-IR: insulin resistance (age- & sex-adjusted)","European","EUR","both","metabolism: glucose",2010,20081858,"HOMA-IR: insulin resistance (age- & sex-adjusted)",0.0689,0.0127,5.42519685,1.0496,1.0528
+"230","GLYC08","Adiponectin","European","EUR","both","metabolism: glucose",2012,22479202,"Adiponectin",0.1277,0.0223,5.7264574,1.0075,1.0283
+"231","GLYC09","Citrate","European (+ Finnish)","EUR","both","metabolism: glucose",2016,27005778,"Citrate",0.0765,0.0197,3.88324873,1.0315,1.0461
+"232","GLYC10","Glucose","European (+ Finnish)","EUR","both","metabolism: glucose",2016,27005778,"Glucose",0.0841,0.0194,4.33505155,1.0345,1.0372
+"233","GLYC11","Glycerol","European (+ Finnish)","EUR","both","metabolism: glucose",2016,27005778,"Glycerol",0.0301,0.0212,1.41981132,1.0285,1.0264
+"234","GLYC12","Lactate","European (+ Finnish)","EUR","both","metabolism: glucose",2016,27005778,"Lactate",0.0233,0.0179,1.30167598,1.0255,1.0222
+"235","GLYC13","Leptin (BMI-adjusted)","32,161 individuals of European descent from 23 studies","EUR","both","metabolism: glucose",2016,26833098,"Leptin (BMI-adjusted)",0.0943,0.0172,5.48255814,1.0557,1.0614
+"236","GLYC14","Leptin (not BMI-adjusted)","32,161 individuals of European descent from 23 studies","EUR","both","metabolism: glucose",2016,26833098,"Leptin (not BMI-adjusted)",0.0986,0.016,6.1625,1.0588,1.056
+"237","GLYC15","Pyruvate","European (+ Finnish)","EUR","both","metabolism: glucose",2016,27005778,"Pyruvate",0.0362,0.0205,1.76585366,1.0255,1.0293
+"238","GLYC16","Glycaemic traits: insulin resistance meta","European","EUR","both","metabolism: glucose",NA,NA,"Glycaemic traits: insulin resistance meta",0.2215,0.035,6.32857143,1.0135,1.0134
+"239","GLYC16F","Glycaemic traits: insulin resistance female","European","EUR","female","metabolism: glucose",NA,NA,"Glycaemic traits: insulin resistance female",0.2871,0.0637,4.50706436,1.0075,1.0083
+"240","GLYC16M","Glycaemic traits: insulin resistance male","European","EUR","male","metabolism: glucose",NA,NA,"Glycaemic traits: insulin resistance male",0.238,0.0534,4.45692884,1.0075,1.0002
+"241","GLYC17","Glycaemic traits: indices of beta-cell function meta","European","EUR","both","metabolism: glucose",NA,NA,"Glycaemic traits: indices of beta-cell function meta",0.3459,0.0752,4.59973404,1.0165,1.0162
+"242","GLYC17F","Glycaemic traits: indices of beta-cell function female","European","EUR","female","metabolism: glucose",NA,NA,"Glycaemic traits: indices of beta-cell function female",0.3486,0.0938,3.71641791,1.0046,1.0058
+"243","GLYC17M","Glycaemic traits: indices of beta-cell function male","European","EUR","male","metabolism: glucose",NA,NA,"Glycaemic traits: indices of beta-cell function male",0.4595,0.1095,4.19634703,1.0105,1.0117
+"244","GLYC22","HbA1c European","European (N=123,665)","EUR","both","metabolism: glucose",2017,28898252,"HbA1c European",0.0604,0.0058,10.4137931,1.0105,1.066
+"245","GLYC24","Stumvoll Insulin Sensitivity Index (ISI) age- & sex-adjusted","European","EUR","both","metabolism: glucose",2016,27416945,"Stumvoll Insulin Sensitivity Index (ISI) age- & sex-adjusted",0.0997,0.0286,3.48601399,1.0165,1.021
+"246","GLYC25","Stumvoll Insulin Sensitivity Index (ISI) age-, sex- & BMI-adjusted","European","EUR","both","metabolism: glucose",2016,27416945,"Stumvoll Insulin Sensitivity Index (ISI) age-, sex- & BMI-adjusted",0.1182,0.0298,3.96644295,1.0046,1.0237
+"247","GLYC26","OGTT: corrected insulin response","European","EUR","both","metabolism: glucose",2014,24699409,"OGTT: corrected insulin response",0.1466,0.0853,1.71864009,1.0135,1.0161
+"248","GLYC27","OGTT: corrected insulin response adj. for insulin sensitivity (ISI)","European","EUR","both","metabolism: glucose",2014,24699409,"OGTT: corrected insulin response adjusted for insulin sensitivity (ISI)",0.099,0.0942,1.05095541,1.0105,1.0143
+"249","GLYC28","OGTT: ratio between area under the insulin and glucose curves (AUC ins/AUC gluc)","European","EUR","both","metabolism: glucose",2014,24699409,"OGTT: ratio between area under the insulin and glucose curves (AUC ins/AUC gluc)",0.0191,0.1129,0.16917626,1.0165,1.0129
+"250","GLYC29","OGTT: disposition index","European","EUR","both","metabolism: glucose",2014,24699409,"OGTT: disposition index",0.1343,0.0872,1.54013762,1.0105,1.0159
+"251","GLYC30","OGTT: insulin level at 30 min of OGTT","European","EUR","both","metabolism: glucose",2014,24699409,"OGTT: insulin level at 30 min of OGTT",0.0552,0.0966,0.57142857,1.0135,1.0113
+"252","GLYC31","OGTT: incremental insulin at 30 min of OGTT","European","EUR","both","metabolism: glucose",2014,24699409,"OGTT: incremental insulin at 30 min of OGTT",0.1253,0.0962,1.3024948,1.0075,1.0138
+"253","GLYC32","OGTT: insulin level at 30 min of OGTT adj. for BMI","European","EUR","both","metabolism: glucose",2014,24699409,"OGTT: insulin level at 30 min of OGTT adjusted for BMI",0.0862,0.0911,0.94621295,1.0225,1.0188
+"254","GLYC33","OGTT: area under the insulin curve (AUC ins)","European","EUR","both","metabolism: glucose",2014,24699409,"OGTT: area under the insulin curve (AUC ins)",0.0574,0.1113,0.51572327,1.0225,1.0147
+"255","GLYC34","OGTT: insulin sensitivity in non-diabetic individuals","European","EUR","both","metabolism: glucose",2014,24699409,"OGTT: insulin sensitivity in non-diabetic individuals",0.0048,0.0927,0.05177994,1.0105,1.0074
+"256","","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"257","","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"258","GLYC37","IVGTT: AIR","European","EUR","both","metabolism: glucose",2017,28490609,"IVGTT: AIR",0.1257,0.0936,1.34294872,1.0195,1.0156
+"259","GLYC38","IVGTT: AIR BMI- & insulin sensitivity (SI)-adjusted","European","EUR","both","metabolism: glucose",2017,28490609,"IVGTT: AIR BMI- & insulin sensitivity (SI)-adjusted",0.1668,0.0984,1.69512195,1.0075,1.0105
+"260","GLYC39","IVGTT: AIR insulin sensitivity (SI)-adjusted","European","EUR","both","metabolism: glucose",2017,28490609,"IVGTT: AIR insulin sensitivity (SI)-adjusted",0.141,0.0953,1.4795383,1.0105,1.0103
+"261","GLYC40","IVGTT: Peak","European","EUR","both","metabolism: glucose",2017,28490609,"IVGTT: Peak",0.0169,0.0905,0.18674033,1.0046,1.009
+"262","GLYC41","IVGTT: Peak BMI- & insulin sensitivity (SI)-adjusted","European","EUR","both","metabolism: glucose",2017,28490609,"IVGTT: Peak BMI- & insulin sensitivity (SI)-adjusted",0.0363,0.0968,0.375,1.0016,1.006
+"263","GLYC42","IVGTT: Peak insulin sensitivity (SI)-adjusted","European","EUR","both","metabolism: glucose",2017,28490609,"IVGTT: Peak insulin sensitivity (SI)-adjusted",0.0155,0.0939,0.16506922,1.0016,1.0067
+"264","GLYC43","IVGTT: DI","European","EUR","both","metabolism: glucose",2017,28490609,"IVGTT: DI",0.2256,0.0877,2.57240593,1.0165,1.0168
+"265","GLYC44","IVGTT: DI BMI-adjusted","European","EUR","both","metabolism: glucose",2017,28490609,"IVGTT: DI BMI-adjusted",0.16,0.091,1.75824176,1.0105,1.0126
+"266","GROW01","Pubertal growth: single height measurement at age 10 in girls and 12 in boys","European","EUR","both","anthropometric",2013,23449627,"Pubertal growth: single height measurement at age 10 in girls and 12 in boys",0.4282,0.0467,9.16916488,1.0527,1.0727
+"267","GROW01F","Pubertal growth: single height measurement at age 10 in girls","European","EUR","female","anthropometric",2013,23449627,"Pubertal growth: single height measurement at age 10 in girls",0.5678,0.0726,7.82093664,1.0315,1.0364
+"268","GROW01M","Pubertal growth: single height measurement at age 12 in boys","European","EUR","male","anthropometric",2013,23449627,"Pubertal growth: single height measurement at age 12 in boys",0.3968,0.083,4.78072289,1.0255,1.0313
+"269","GROW02","Pubertal growth: standardized difference in height between age 14 and adult in males and females","European","EUR","both","anthropometric",2013,23449627,"Pubertal growth: standardized difference in height between age 14 and adult in males and females",0.4508,0.1095,4.11689498,1.0135,1.0201
+"270","GROW02F","Pubertal growth: standardized difference in height between age 14 and adult in females","European","EUR","female","anthropometric",2013,23449627,"Pubertal growth: standardized difference in height between age 14 and adult in females",0.2254,0.0813,2.77244772,1.0016,1.0048
+"271","GROW02M","Pubertal growth: standardized difference in height between age 14 and adult in males","European","EUR","male","anthropometric",2013,23449627,"Pubertal growth: standardized difference in height between age 14 and adult in males",0.4278,0.11,3.88909091,1.0046,1.0123
+"272","GROW03","Pubertal growth: standardized difference in height between age 8 and adult in males and females","European","EUR","both","anthropometric",2013,23449627,"Pubertal growth: standardized difference in height between age 8 and adult in males and females",0.3308,0.0503,6.57654076,1.0375,1.0447
+"273","GROW03F","Pubertal growth: standardized difference in height between age 8 and adult in females","European","EUR","female","anthropometric",2013,23449627,"Pubertal growth: standardized difference in height between age 8 and adult in females",0.368,0.0906,4.06181016,1.0195,1.0266
+"274","GROW03M","Pubertal growth: standardized difference in height between age 8 and adult in males","European","EUR","male","anthropometric",2013,23449627,"Pubertal growth: standardized difference in height between age 8 and adult in males",0.3851,0.0983,3.91759919,1.0105,1.0202
+"275","HEAD01","Infant Head Circumference","European","EUR","both","anthropometric",2012,22504419,"Infant Head Circumference",0.23,0.0456,5.04385965,1.0405,1.0396
+"276","HEAL01","Self-rated health","European","EUR","both","mental and behavioural",2016,27864402,"Self-rated health",0.0976,0.0057,17.122807,1.1908,1.225
+"277","HEAR01","Heart Rate","European","EUR","both","circulatory",2013,23583979,"Heart Rate",0.0838,0.0087,9.63218391,1.1238,1.16
+"278","HEIG01","Birth Length","European","EUR","both","anthropometric",2015,25281659,"Birth Length",0.1698,0.0227,7.48017621,1.0588,1.0671
+"279","HEIG02","Extreme Height","European","EUR","both","anthropometric",2013,23563607,"Extreme Height",1.0072,0.0802,12.5586035,1.0466,1.2281
+"280","HEIG05","Sitting height ratio (SHR) Sitting/total height African American","African American","AFR","both","anthropometric",2015,25865494,"Sitting height ratio (SHR) Sitting/total height African American",NA,NA,NA,NA,NA
+"281","HEIG07","Sitting height ratio (SHR) Sitting/total height European","European","EUR","both","anthropometric",2015,25865494,"Sitting height ratio (SHR) Sitting/total height European",0.4063,0.0505,8.04554455,1.0466,1.0771
+"282","HEIG08","Height (2018)","","EUR","both","anthropometric",2018,30124842,"Height 2019",NA,NA,22.58928571,NA,NA
+"283","HIPC01","Hip circumference European","European","EUR","both","anthropometric",2015,25673412,"Hip circumference European",0.141,0.0066,21.3636364,1.0466,1.1693
+"284","HIPC01F","Hip circumference European female","European","EUR","female","anthropometric",2015,25673412,"Hip circumference European female",0.1673,0.0088,19.0113636,1.0466,1.106
+"285","HIPC01M","Hip circumference European male","European","EUR","male","anthropometric",2015,25673412,"Hip circumference European male",0.1776,0.0127,13.984252,1.0466,1.0861
+"286","HIPC02","Hip circumference all ancestries","All ancestry","MIX","both","anthropometric",2015,25673412,"Hip circumference All Ancestries",0.1402,0.0065,21.5692308,1.0466,1.1671
+"287","HIPC02F","Hip circumference all ancestries female","All ancestry","MIX","female","anthropometric",2015,25673412,"Hip circumference All Ancestries female",0.1682,0.0087,19.3333333,1.0466,1.1064
+"288","HIPC02M","Hip circumference all ancestries male","All ancestry","MIX","male","anthropometric",2015,25673412,"Hip circumference All Ancestries male",0.1764,0.0125,14.112,1.0466,1.0846
+"289","HIPC03","Hip circumference European BMI-adjusted","European","EUR","both","anthropometric",2015,25673412,"Hip circumference European BMI-adjusted",0.1367,0.0076,17.9868421,1.0466,1.2117
+"290","HIPC03F","Hip circumference European female BMI-adjusted","European","EUR","female","anthropometric",2015,25673412,"Hip circumference European female BMI-adjusted",0.1474,0.0101,14.5940594,1.0466,1.114
+"291","HIPC03M","Hip circumference European male BMI-adjusted","European","EUR","male","anthropometric",2015,25673412,"Hip circumference European male BMI-adjusted",0.1937,0.014,13.8357143,1.0466,1.1072
+"292","HIPC04","Hip circumference all ancestries BMI-adjusted","All ancestry","MIX","both","anthropometric",2015,25673412,"Hip circumference All Ancestries BMI-adjusted",0.1364,0.0075,18.1866667,1.0466,1.21
+"293","HIPC04F","Hip circumference all ancestries female BMI-adjusted","All ancestry","MIX","female","anthropometric",2015,25673412,"Hip circumference All Ancestries female BMI-adjusted",0.1472,0.0099,14.8686869,1.0466,1.1109
+"294","HIPC04M","Hip circumference all ancestries male BMI-adjusted","All ancestry","MIX","male","anthropometric",2015,25673412,"Hip circumference All Ancestries male BMI-adjusted",0.1926,0.0139,13.8561151,1.0466,1.106
+"295","HIPP01","Subcortical brain regions: Hippocampus","European","EUR","both","nervous system",2015,25607358,"Subcortical brain regions: Hippocampus",0.1428,0.0383,3.72845953,1.0105,1.025
+"296","ICVO01","Subcortical brain regions: ICV","European","EUR","both","nervous system",2015,25607358,"Subcortical brain regions: ICV",0.1751,0.0439,3.98861048,1.0375,1.0419
+"297","INCO01","Household income","European","EUR","both","mental and behavioural",2016,27818178,"Household income",0.0599,0.0056,10.6964286,1.1428,1.1613
+"298","INCO02","Household income, one person per household","European","EUR","both","mental and behavioural",2016,27818178,"Household income, one person per household",0.0715,0.0068,10.5147059,1.1333,1.153
+"299","INCO03","Social deprivation, as measured using Townsend scores","European","EUR","both","mental and behavioural",2016,27818178,"Social deprivation, as measured using Townsend scores",0.038,0.0046,8.26086957,1.0957,1.0935
+"300","INFB01","Inflammatory bowel diseases (ulcerative colitis + Crohn's disease)","European","EUR","both","autoimmune",2015,26192919,"Inflammatory bowel diseases (UC + CD)",0.319,0.0308,10.3571429,1.1747,1.2794
+"301","INFL01","Glycoprotein acetyls, mainly a1-acid glycoprotein (inflammation biomarker)","European (+ Finnish)","EUR","both","metabolism: other",2016,27005778,"Glycoprotein acetyls, mainly a1-acid glycoprotein",0.0967,0.0286,3.38111888,1.0135,1.0235
+"302","INFL02","CCL11","","EUR","both","blood",2017,27989323,"CCL11",NA,NA,NA,NA,NA
+"303","INFL03","CCL19","KORA cohort","EUR","both","blood",2017,28240269,"CCL19",NA,NA,NA,NA,NA
+"304","INFL04","CCL25","KORA cohort","EUR","both","blood",2017,28240269,"CCL25",NA,NA,NA,NA,NA
+"305","INFL05","CCL3","","EUR","both","blood",2017,27989323,"CCL3",NA,NA,NA,NA,NA
+"306","INFL06","CSF-1","","EUR","both","blood",2017,27989323,"CSF-1",NA,NA,NA,NA,NA
+"307","INFL07","CST5","KORA cohort","EUR","both","blood",2017,28240269,"CST5",NA,NA,NA,NA,NA
+"308","INFL08","CXCL1 GROa","","EUR","both","blood",2017,27989323,"CXCL1",NA,NA,NA,NA,NA
+"309","INFL09","HGF","","EUR","both","blood",2017,27989323,"HGF",NA,NA,NA,NA,NA
+"310","INFL10","IL10RB","KORA cohort","EUR","both","blood",2017,28240269,"IL-10RB",NA,NA,NA,NA,NA
+"311","INFL11","IL-15RA","KORA cohort","EUR","both","blood",2017,28240269,"IL-15RA",NA,NA,NA,NA,NA
+"312","INFL12","IL10","","EUR","both","blood",2017,27989323,"IL10",NA,NA,NA,NA,NA
+"313","INFL13","IL-18","","EUR","both","blood",2017,27989323,"IL18",NA,NA,NA,NA,NA
+"314","INFL14","IL-7","","EUR","both","blood",2017,27989323,"IL7",NA,NA,NA,NA,NA
+"315","INFL15","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"316","INFL16","MCP-2","KORA cohort","EUR","both","blood",2017,28240269,"MCP-2",NA,NA,NA,NA,NA
+"317","INFL17","MCP3","","EUR","both","blood",2017,27989323,"MCP-3",NA,NA,NA,NA,NA
+"318","INFL18","OPG","KORA cohort","EUR","both","blood",2017,28240269,"OPG",NA,NA,NA,NA,NA
+"319","INFL19","SIRT2","KORA cohort","EUR","both","blood",2017,28240269,"SIRT2",NA,NA,NA,NA,NA
+"320","INFL20","TNFB","","EUR","both","blood",2017,27989323,"TNFB",NA,NA,NA,NA,NA
+"321","INFL21","TRAIL","","EUR","both","blood",2017,27989323,"TRAIL",NA,NA,NA,NA,NA
+"322","INFL22","CCL28","","EUR","both","blood",2017,28240269,"CCL28",NA,NA,NA,NA,NA
+"323","INFL23","CX3CL1","KORA cohort","EUR","both","blood",2017,28240269,"CX3CL1",NA,NA,NA,NA,NA
+"324","INFL24","CXCL11","KORA cohort","EUR","both","blood",2017,28240269,"CXCL11",NA,NA,NA,NA,NA
+"325","INFL25","CXCL5","KORA cohort","EUR","both","blood",2017,28240269,"CXCL5",NA,NA,NA,NA,NA
+"326","INFL26","CXCL6","KORA cohort","EUR","both","blood",2017,28240269,"CXCL6",NA,NA,NA,NA,NA
+"327","INFL27","FGF19","KORA cohort","EUR","both","blood",2017,28240269,"FGF-19",NA,NA,NA,NA,NA
+"328","INFL28","Flt3L","KORA cohort","EUR","both","blood",2017,28240269,"Flt3L",NA,NA,NA,NA,NA
+"329","INFL29","IL12RB1","KORA cohort","EUR","both","blood",2017,28240269,"IL-12B",NA,NA,NA,NA,NA
+"330","INFL30","IL18R1","KORA cohort","EUR","both","blood",2017,28240269,"IL-18R1",NA,NA,NA,NA,NA
+"331","INFL31","LIF-R","KORA cohort","EUR","both","blood",2017,28240269,"LIF-R",NA,NA,NA,NA,NA
+"332","INFL32","MMP10","","EUR","both","blood",2017,28240269,"MMP-10",NA,NA,NA,NA,NA
+"333","INFL33","OSM","KORA cohort","EUR","both","blood",2017,28240269,"OSM",NA,NA,NA,NA,NA
+"334","INFL34","TNFRSF9","KORA cohort","EUR","both","blood",2017,28240269,"TNFRSF9",NA,NA,NA,NA,NA
+"335","INFL35","TNFSF14","KORA cohort","EUR","both","blood",2017,28240269,"TNFSF14",NA,NA,NA,NA,NA
+"336","INFL36","TRANCE","KORA cohort","EUR","both","blood",2017,28240269,"TRANCE",NA,NA,NA,NA,NA
+"337","INFL37","TWEAK","KORA cohort","EUR","both","blood",2017,28240269,"TWEAK",NA,NA,NA,NA,NA
+"338","INFL38","uPA","KORA cohort","EUR","both","blood",2017,28240269,"uPA",NA,NA,NA,NA,NA
+"339","INFL39","VEGFA","KORA cohort","EUR","both","blood",2017,28240269,"VEGFA",NA,NA,NA,NA,NA
+"340","INFL40","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"341","INFL41","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"342","INFL42","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"343","INFL43","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"344","INFL44","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"345","INFL45","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"346","INFL46","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"347","INFL47","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"348","INFL48","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"349","INFL49","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"350","INFL50","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"351","INFL51","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"352","INFL52","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"353","INFL53","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"354","INFL54","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"355","INFL55","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"356","INFL56","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"357","INFL57","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"358","INFL58","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"359","INFL59","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"360","INFL60","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"361","INFL61","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"362","INFL62","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"363","INFL63","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"364","INFL64","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"365","INFL65","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"366","INFL66","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"367","INFL67","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"368","INFL68","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"369","INFL69","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"370","INFL70","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"371","INSO02","Insomnia (2019)","","EUR","both","mental and behavioural",2019,30804565,"Insomnia (2019)",NA,NA,21.95238095,NA,NA
+"372","INTE01","Childhood Intelligence","European","EUR","both","mental and behavioural",2014,23358156,"Childhood Intelligence",0.2764,0.0454,6.08810573,1.0649,1.075
+"373","INTE02","Intelligence","European","EUR","both","mental and behavioural",2017,28530673,"Intelligence",0.1879,0.0102,18.4215686,1.2597,1.2991
+"374","INTE03","Intelligence (Cognitive ability)","European","EUR","both","mental and behavioural",2018,29942086,"Intelligence (Cognitive ability)",0.1834,0.0062,29.5806452,1.753,2.074
+"375","INTZ01","Internalizing","European","EUR","both","mental and behavioural",2014,24839885,"Internalizing",0.0955,0.2235,0.42729307,1.0135,1.0188
+"376","IRON01","Log10 Ferritin (iron metabolism)","European","EUR","both","metabolism: other",2014,25352340,"Log10 Ferritin",0.0397,0.0121,3.28099174,1.0618,1.0703
+"377","IRON02","Transferrin (iron metabolism)","European","EUR","both","metabolism: other",2014,25352340,"Transferrin",0.0624,0.0324,1.92592593,1.0864,1.1241
+"378","IRON03","Transferrin saturation (iron metabolism)","European","EUR","both","metabolism: other",2014,25352340,"Transferrin saturation",0.0211,0.0114,1.85087719,1.0436,1.0483
+"379","KETO01","Metabolites: acetate (ketone bodies)","European","EUR","both","metabolism: other",2016,27005778,"Metabolites: acetate",0.0571,0.0188,3.03723404,1.0255,1.0282
+"380","KETO02","Metabolites: Acetoacetate (ketone bodies)","Eureopan","EUR","both","metabolism: other",2016,27005778,"Metabolites: Acetoacetate",0.0723,0.0276,2.61956522,1.0016,1.0084
+"381","KETO03","beta-hydroxybutyrate (ketone bodies)","European","EUR","both","metabolism: other",2016,27005778,"beta-hydroxybutyrate",0.0332,0.0201,1.65174129,1.0105,1.0114
+"382","LDLP01","Low Density Lipoprotein (LDL)","","MIX","both","blood",2013,24097068,NA,0.202,0.0328,6.158536585,NA,NA
+"383","LEAN01","Total body lean mass childhood","Mostly European","MIX","both","anthropometric",2017,28743860,"Total body lean mass (TB-LM) / fat free mass (childhood)",0.3964,0.0477,8.31027254,1.0405,1.0568
+"384","LEAN02","Total body lean mass adulthood","European","EUR","both","anthropometric",2017,28724990,"Whole body lean mass (adulthood)",0.1299,0.0151,8.60264901,1.0864,1.0993
+"385","LEAN03","Appendicular (arms and legs) lean mass","European","EUR","both","anthropometric",2017,28724990,"Appendicular (arms and legs) lean body mass",0.18,0.0202,8.91089109,1.0833,1.0943
+"386","LEAN04","Lean mass (fat free mass) anorexia-free","European","EUR","both","anthropometric",NA,NA,"Fat free mass / lean mass anorexia-free both",0.2825,0.0117,24.1452992,1.6032,1.9763
+"387","LEAN04B","Lean mass (fat free mass) anorexia-free meta-analysis of males and females","European","EUR","both","anthropometric",NA,NA,"Fat free mass / lean mass anorexia-free meta",0.2741,0.0111,24.6936937,1.5845,1.9414
+"388","LEAN04F","Lean mass (fat free mass) anorexia-free female","European","EUR","female","anthropometric",NA,NA,"Fat free mass / lean mass anorexia-free female",0.2929,0.0152,19.2697368,1.3135,1.4276
+"389","LEAN04M","Lean mass (fat free mass) anorexia-free male","European","EUR","male","anthropometric",NA,NA,"Fat free mass / lean mass anorexia-free male",0.323,0.0168,19.2261905,1.3929,1.6072
+"390","LEAN05","Lean mass (fat free mass) mass healthy","European","EUR","both","anthropometric",NA,NA,"Fat free mass / lean mass healthy both",0.2816,0.0116,24.2758621,1.607,1.9846
+"391","LEAN05B","Lean mass (fat free mass) healthy meta","European","EUR","both","anthropometric",NA,NA,"Fat free mass / lean mass healthy meta",0.2734,0.011,24.8545455,1.592,1.9503
+"392","LEAN05F","Lean mass (fat free mass) healthy female","European","EUR","female","anthropometric",NA,NA,"Fat free mass / lean mass healthy female",0.2939,0.0152,19.3355263,1.3169,1.4371
+"393","LEAN05M","Lean mass (fat free mass) healthy male","European","EUR","male","anthropometric",NA,NA,"Fat free mass / lean mass healthy male",0.3233,0.0168,19.2440476,1.3929,1.6071
+"394","LEAN06","Lean mass (fat free mass)","European","EUR","both","anthropometric",NA,NA,"Fat free mass / lean mass complete both",0.2661,0.0094,28.3085106,2.1851,3.1585
+"395","LEAN06B","Lean mass (fat free mass) meta-analysis of males and females","European","EUR","both","anthropometric",NA,NA,"Fat free mass / lean mass complete meta",0.2617,0.009,29.0777778,2.1895,3.1125
+"396","LEAN06F","Lean mass (fat free mass) female","European","EUR","female","anthropometric",NA,NA,"Fat free mass / lean mass complete female",0.2789,0.0101,27.6138614,1.7024,2.1076
+"397","LEAN06M","Lean mass (fat free mass) male","European","EUR","male","anthropometric",NA,NA,"Fat free mass / lean mass complete male",0.3077,0.0123,25.0162602,1.6985,2.1938
+"398","LEAN07B","Fat-free mass/lean mass healthy meta-analysis (not alcohol/smoking-adjust)","","EUR","both","anthropometric",NA,NA,NA,0.29,0.0137,21.16788321,NA,NA
+"399","LIPI01","Total lipids in chylomicrons and largest VLDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total lipids in chylomicrons and largest VLDL particles",0.1223,0.0272,4.49632353,1.0225,1.0345
+"400","LIPI02","Total lipids in IDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total lipids in IDL",0.1189,0.0317,3.75078864,1.0225,1.0472
+"401","LIPI03","Total lipids in large HDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total lipids in large HDL",0.1685,0.036,4.68055556,1.0225,1.0498
+"402","LIPI04","Total lipids in large LDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total lipids in large LDL",0.1264,0.0315,4.01269841,1.0225,1.0437
+"403","LIPI05","Total lipids in large VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total lipids in large VLDL",0.1332,0.0283,4.70671378,1.0225,1.0361
+"404","LIPI06","Total lipids in medium HDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total lipids in medium HDL",0.0657,0.0259,2.53667954,1.0135,1.0198
+"405","LIPI07","Total lipids in medium LDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total lipids in medium LDL",0.1255,0.031,4.0483871,1.0195,1.0415
+"406","LIPI08","Total lipids in small HDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total lipids in small HDL",0.0596,0.0267,2.23220974,1.0225,1.0224
+"407","LIPI09","Total lipids in small LDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total lipids in small LDL",0.1198,0.0319,3.75548589,1.0165,1.0416
+"408","LIPI10","Total lipids in small VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total lipids in small VLDL",0.1403,0.0338,4.15088757,1.0255,1.0464
+"409","LIPI11","Total lipids in very large HDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total lipids in very large HDL",0.0945,0.035,2.7,1.0105,1.0373
+"410","LIPI12","Total lipids in very large VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total lipids in very large VLDL",0.134,0.0279,4.80286738,1.0255,1.029
+"411","LIPI13","Total lipids in very small VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total lipids in very small VLDL",0.1225,0.0328,3.7347561,1.0255,1.0497
+"412","LIPI14","Total lipids in medium VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total lipids in medium VLDL",0.1307,0.0312,4.18910256,1.0195,1.038
+"413","LIPO01","Concentration of IDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Concentration of IDL particles",0.1172,0.0317,3.69716088,1.0225,1.0469
+"414","LIPO02","Concentration of large HDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Concentration of large HDL particles",0.1712,0.0364,4.7032967,1.0225,1.0493
+"415","LIPO03","Concentration of large LDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Concentration of large LDL particles",0.124,0.0315,3.93650794,1.0225,1.0451
+"416","LIPO04","Concentration of large VLDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Concentration of large VLDL particles",0.1219,0.0311,3.91961415,1.0135,1.0228
+"417","LIPO05","Concentration of medium HDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Concentration of medium HDL particles",0.0684,0.0258,2.65116279,1.0135,1.0195
+"418","LIPO06","Concentration of medium LDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Concentration of medium LDL particles",0.121,0.0313,3.8658147,1.0195,1.0426
+"419","LIPO07","Concentration of medium VLDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Concentration of medium VLDL particles",0.1396,0.0325,4.29538462,1.0165,1.0366
+"420","LIPO08","Concentration of chylomicrons and largest VLDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Concentration of chylomicrons and largest VLDL particles",0.1146,0.025,4.584,1.0285,1.0303
+"421","LIPO09","Concentration of small HDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Concentration of small HDL particles",0.0501,0.0269,1.86245353,1.0225,1.0189
+"422","LIPO10","Concentration of small LDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Concentration of small LDL particles",0.1213,0.0328,3.69817073,1.0195,1.0436
+"423","LIPO11","Concentration of small VLDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Concentration of small VLDL particles",0.1442,0.0334,4.31736527,1.0255,1.047
+"424","LIPO12","Concentration of very large HDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Concentration of very large HDL particles",0.0967,0.0345,2.80289855,1.0046,1.0262
+"425","LIPO13","Concentration of very large VLDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Concentration of very large VLDL particles",0.1181,0.0284,4.1584507,1.0225,1.0295
+"426","LIPO14","Concentration of very small VLDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Concentration of very small VLDL particles",0.1305,0.0335,3.89552239,1.0255,1.0479
+"427","LIPO15","Mean diameter for LDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Mean diameter for LDL particles",0.0622,0.0274,2.27007299,1.0046,1.0188
+"428","LIPO16","Mean diameter for VLDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Mean diameter for VLDL particles",0.137,0.0322,4.25465839,1.0225,1.0408
+"429","LONE01","Loneliness: Linear","European","EUR","both","mental and behavioural",2016,27629369,"Loneliness: Linear",0.1063,0.0578,1.83910035,1.0165,1.0214
+"430","LONE02","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"431","LONE03","Loneliness: Case-control","European","EUR","both","mental and behavioural",2016,27629369,"Loneliness: Case-control",0.1236,0.0576,2.14583333,1.0195,1.0194
+"432","LONG01","Parents' age at death","European","EUR","both","anthropometric",2017,27015805,"Parents' age at death",0.0192,0.0018,10.6666667,1.2005,1.2141
+"433","LONG02","Mother's age at death","European","EUR","both","anthropometric",2017,27015805,"Mother's age at death",0.0141,0.0016,8.8125,1.1459,1.1672
+"434","LONG03","Father's age at death","European","EUR","both","anthropometric",2017,27015805,"Father's age at death",0.0185,0.0016,11.5625,1.2005,1.1944
+"435","LONG04","Parents attained age","European","EUR","both","anthropometric",2017,27015805,"Parents attained age",0.0322,0.0022,14.6363636,1.3101,1.3376
+"436","LONG05","Mother attained age","European","EUR","both","anthropometric",2017,27015805,"Mother attained age",0.0179,0.0016,11.1875,1.2005,1.224
+"437","LONG06","Father attained age","European","EUR","both","anthropometric",2017,27015805,"Father attained age",0.0297,0.0021,14.1428571,1.3101,1.3082
+"438","LONG07","Longest 10% survival","European","EUR","both","anthropometric",2017,27015805,"Longest 10% survival",0.0146,0.0016,9.125,1.1459,1.1698
+"439","LUNG01","Low FEV1 versus average FEV1 never smokers","European","EUR","both","respiratory",2017,28166213,"Low FEV1 versus average FEV1 never smokers",0.1563,0.0236,6.62288136,1.0527,1.0584
+"440","LUNG02","Low FEV1 versus high FEV1 never smokers","European","EUR","both","respiratory",2017,28166213,"Low FEV1 versus high FEV1 never smokers",0.6165,0.0426,14.471831,1.1683,1.1967
+"441","LUNG03","High FEV1 versus average FEV1 never smokers","European","EUR","both","respiratory",2017,28166213,"High FEV1 versus average FEV1 never smokers",0.2094,0.0326,6.42331288,1.071,1.0768
+"442","LUNG04","Low FEV1 versus average FEV1 heavy smokers","European","EUR","both","respiratory",2017,28166213,"Low FEV1 versus average FEV1 heavy smokers",0.0925,0.0238,3.88655462,1.0285,1.0333
+"443","LUNG05","Low FEV1 versus high FEV1 heavy smokers","European","EUR","both","respiratory",2017,28166213,"Low FEV1 versus high FEV1 heavy smokers",0.4632,0.043,10.772093,1.1082,1.1309
+"444","LUNG06","High FEV1 versus average FEV1 heavy smokers","European","EUR","both","respiratory",2017,28166213,"High FEV1 versus average FEV1 heavy smokers",0.1795,0.0374,4.79946524,1.0466,1.0527
+"445","LUPU01","Systemic Lupus Erythematosus","European","EUR","both","autoimmune",2015,26502338,"Systemic Lupus Erythematosus",0.2535,0.0443,5.72234763,1.1715,1.2194
+"446","MCLI01","MCL (medial collateral ligament) injury","EUR+LAT+EAS","MIX","both","musculoskeletal and connective",2017,28482362,"MCL (medial collateral ligament) injury",5e-04,0.0042,0.11904762,0.9986,1.0029
+"447","MEMO01","Memory","European","EUR","both","mental and behavioural",2016,27046643,"Memory",0.0431,0.0048,8.97916667,1.0895,1.0926
+"448","MENA01F","Age at Menarche (marker of puberty in females)","European","EUR","female","anthropometric",2014,25231870,"Age at Menarche (marker of puberty in females)",0.1577,0.0074,21.3108108,1.2531,1.3973
+"449","MENA03F","Age at menarche (UKB only)","","","","",NA,31768069,"",0.1944,0.0083,23.42168675,NA,NA
+"450","MENO01F","Age at Menopause","European","EUR","female","anthropometric",2015,26414677,"Age at Menopause",0.1335,0.0136,9.81617647,1.0957,1.175
+"451","MIGR01","Migraine","European","EUR","both","nervous system",2016,27322543,"Migraine",0.0368,0.0031,11.8709677,1.1428,1.1737
+"452","NEUR01","Neuroticism.","European","EUR","both","mental and behavioural",2016,27089181,"Neuroticism. UKB: 12-item version of the Eysenck Personality Inventory Neuroticism; GPC: item response theory",0.0877,0.0067,13.0895522,1.2365,1.3067
+"453","NEUR02B","Neuroticism 300K meta-analysis.","European","EUR","both","mental and behavioural",NA,NA,"Neuroticism 300K complete meta. UKB: 12-item version of the Eysenck Personality Inventory Neuroticism; GPC: item response theory",0.1098,0.0051,21.5294118,1.4745,1.6672
+"454","NEUR03B","Neuroticism 150K healthy meta-analysis.","European","EUR","both","mental and behavioural",NA,NA,"Neuroticism 150K healthy meta. UKB: 12-item version of the Eysenck Personality Inventory Neuroticism; GPC: item response theory",0.0995,0.0073,13.630137,1.2531,1.3273
+"455","NPAT01","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"456","NPAT02","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"457","NPAT03","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"458","NPAT04","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"459","NPAT05","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"460","NPAT06","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"461","NPAT07","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"462","NPAT08","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"463","NPAT09","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"464","NPAT10","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"465","NPAT11","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"466","OBES01","Obesity class 1","European","EUR","both","anthropometric",2013,23563607,"Obesity class 1",0.1672,0.0083,20.1445783,1.0466,1.1217
+"467","OBES02","Obesity class 2","European","EUR","both","anthropometric",2013,23563607,"Obesity class 2",0.1593,0.0102,15.6176471,1.0466,1.1056
+"468","OBES03","Obesity class 3","European","EUR","both","anthropometric",2013,23563607,"Obesity class 3",0.117,0.0128,9.140625,1.0466,1.0421
+"469","OBES04","Childhood obesity","European","EUR","both","anthropometric",2012,22484627,"Childhood obesity",0.4067,0.0423,9.61465721,1.0105,1.0319
+"470","OBES05","Severe early onset obesity vs controls","","EUR","both","anthropometric",2019,30677029,"Childhood obesity (2019)",0.3228,0.0423,7.63120567,1.0649,1.0762
+"471","OBES07","","","","","",NA,NA,"",0.3214,0.0309,10.4012945,NA,NA
+"472","OCDI01","Obsessive compulsive disorder","European","EUR","both","mental and behavioural",2017,28761083,"Obsessive compulsive disorder",0.3375,0.0475,7.10526316,1.0496,1.0533
+"473","OPEN01","Openness to Experience (NEO five factor inventory)","European","EUR","both","mental and behavioural",2012,21173776,"Openness to Experience (NEO five factor inventory)",0.1068,0.0267,4,1.0315,1.0293
+"474","OSTE01","Osteoporosis: femoral neck bone mineral density","European","EUR","both","musculoskeletal and connective",2015,26367794,"Osteoporosis: femoral neck bone mineral density",NA,NA,7.117166213,NA,1.0988
+"475","OSTE02","Osteoporosis: forearm bone mineral density","European","EUR","both","musculoskeletal and connective",2015,26367794,"Osteoporosis: forearm bone mineral density",NA,NA,0.564228642,NA,1.0436
+"476","OSTE03","Osteoporosis: lumbar spine bone mineral density","European","EUR","both","musculoskeletal and connective",2015,26367794,"Osteoporosis: lumbar spine bone mineral density",NA,NA,7.046189376,NA,1.0864
+"477","OSTE04","Osteoporosis: heel bone mineral density","European","EUR","both","musculoskeletal and connective",2017,28869591,"Osteoporosis: heel bone mineral density",0.3498,0.0309,11.3203884,1.4926,2.1383
+"478","OSTE05","Total body less head bone mineral density (TBLH-BMD) children","Mostly European","EUR","both","musculoskeletal and connective",2017,28743860,"Total body less head bone mineral density (TBLH-BMD) children",0.4265,0.0447,9.54138703,1.0466,1.0639
+"479","OSTE11","Lifecourse bone mineral density: meta-analysis","Mixed","MIX","both","anthropometric",2017,29304378,"Lifecourse TB-BMD: meta-analysis",NA,NA,12.32876712,NA,NA
+"480","OVER01","Overweight","European","EUR","both","anthropometric",2013,23563607,"Overweight",0.0862,0.0049,17.5918367,1.0466,1.0861
+"481","PALL01","Subcortical brain regions: Pallidum","European","EUR","both","nervous system",2015,25607358,"Subcortical brain regions: Pallidum",0.1607,0.0403,3.98759305,1.0075,1.0203
+"482","PHLI01","Phospholipids in very large HDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Phospholipids in very large HDL",0.1312,0.0403,3.25558313,1.0165,1.0424
+"483","PHLI02","Phosphatidylcholine","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Phosphatidylcholine",0.0097,0.0404,0.24009901,0.9957,1.0131
+"484","PHLI03","Phospholipids in chylomicrons and largest VLDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Phospholipids in chylomicrons and largest VLDL particles",0.0935,0.0252,3.71031746,1.0195,1.0263
+"485","PHLI04","Phospholipids in IDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Phospholipids in IDL",0.1,0.0292,3.42465753,1.0225,1.0472
+"486","PHLI05","Phospholipids in large HDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Phospholipids in large HDL",0.1596,0.0341,4.68035191,1.0195,1.0473
+"487","PHLI06","Phospholipids in large LDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Phospholipids in large LDL",0.104,0.0265,3.9245283,1.0225,1.0447
+"488","PHLI07","Phospholipids in large VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Phospholipids in large VLDL",0.1076,0.0276,3.89855073,1.0255,1.0371
+"489","PHLI08","Phospholipids in medium HDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Phospholipids in medium HDL",0.0718,0.0236,3.04237288,1.0165,1.0242
+"490","PHLI09","Phospholipids in medium LDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Phospholipids in medium LDL",0.106,0.0275,3.85454546,1.0225,1.0407
+"491","PHLI10","Phospholipids in medium VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Phospholipids in medium VLDL",0.1027,0.0294,3.49319728,1.0195,1.0426
+"492","PHLI11","Phospholipids in small VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Phospholipids in small VLDL",0.1155,0.0318,3.63207547,1.0285,1.0479
+"493","PHLI12","Phospholipids in very small VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Phospholipids in very small VLDL",0.1147,0.0324,3.54012346,1.0225,1.0471
+"494","PHLI13","Phospholipids in very large VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Phospholipids in very large VLDL",0.1005,0.0258,3.89534884,1.0225,1.0296
+"495","PHLI14","Sphingomyelins","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Sphingomyelins",0.0077,0.041,0.18780488,1.0075,1.0147
+"496","PHLI15","Total phosphoglycerides","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Total phosphoglycerides",NA,NA,NA,NA,NA
+"497","PHYS01","Physical activity (objectively-measured)","European","EUR","both","mental and behavioural",NA,NA,"Physical activity (objectively-measured)",0.143,0.0096,14.8958333,1.1619,1.1799
+"498","PRCA01","Prostate Cancer","","EUR","both","genitourinary",2017,29892016,NA,0.1635,0.0238,6.869747899,NA,NA
+"499","PRSC01","Primary sclerosing cholangitis","European","EUR","both","autoimmune",2016,27992413,"Primary sclerosing cholangitis",0.1497,0.0311,4.81350482,1.0557,1.0873
+"500","PSOR01","Psoriasis","","EUR","both","autoimmune",2017,28537254,"Psoriasis",NA,NA,NA,NA,NA
+"501","PSPA02","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"502","PTSD01","PTSD Mixed Ancestry","Mixed","MIX","both","mental and behavioural",2017,28439101,"PTSD Mixed Ancestry",0.0224,0.0219,1.02283105,1.0285,1.0215
+"503","PTSD03","PTSD European","European","EUR","both","mental and behavioural",2017,28439101,"PTSD European",0.1197,0.053,2.25849057,1.0165,1.0127
+"504","PUTA01","Subcortical brain regions: Putamen","European","EUR","both","nervous system",2015,25607358,"Subcortical brain regions: Putamen",0.2934,0.0439,6.6833713,1.0135,1.0275
+"505","REAC01","Reaction time","European","EUR","both","mental and behavioural",2016,27046643,"Reaction time",0.0732,0.0055,13.3090909,1.1428,1.168
+"506","REAS01","Verbal-numerical reasoning","European","EUR","both","mental and behavioural",2016,27046643,"Verbal-numerical reasoning",0.1978,0.0174,11.3678161,1.1491,1.1664
+"507","REPR01","Reproductive behavior: Age First Birth","European","EUR","both","mental and behavioural",2016,27798627,"Reproductive behavior: Age First Birth",0.0546,0.003,18.2,1.1876,1.2229
+"508","REPR01F","Reproductive behavior: Age First Birth Female","European","EUR","female","mental and behavioural",2016,27798627,"Reproductive behavior: Age First Birth Female",0.0521,0.0036,14.4722222,1.1364,1.1632
+"509","REPR01M","Reproductive behavior: Age First Birth Male","European","EUR","male","mental and behavioural",2016,27798627,"Reproductive behavior: Age First Birth Male",0.1133,0.01,11.33,1.0466,1.0477
+"510","REPR02","Reproductive behavior: Number of Children Ever Born","European","EUR","both","mental and behavioural",2016,27798627,"Reproductive behavior: Number of Children Ever Born",0.0238,0.0017,14,1.1082,1.1278
+"511","REPR02F","Reproductive behavior: Number of Children Ever Born Female","European","EUR","female","mental and behavioural",2016,27798627,"Reproductive behavior: Number of Children Ever Born Female",0.0219,0.0022,9.95454546,1.0557,1.0707
+"512","REPR02M","Reproductive behavior: Number of Children Ever Born Male","European","EUR","male","mental and behavioural",2016,27798627,"Reproductive behavior: Number of Children Ever Born Male",0.0352,0.0049,7.18367347,1.0405,1.0402
+"513","RHEU01","Rheumatoid Arthritis 2014","European and East Asian","EUR","both","autoimmune",2014,24390342,"Rheumatoid Arthritis 2014",0.1018,0.013,7.83076923,1.0466,1.1184
+"514","RHEU02","Rheumatoid Arthritis 2014 European","European","EUR","both","autoimmune",2014,24390342,"Rheumatoid Arthritis 2014 European",0.1406,0.0176,7.98863636,1.0466,1.1168
+"515","RHEU03","Rheumatoid Arthritis 2014 East Asian","Asian","EAS","both","autoimmune",2014,24390342,"Rheumatoid Arthritis 2014 East Asian",NA,NA,NA,NA,NA
+"516","RISK01","General risk tolerance (UKB + 10 replication cohorts)","","EUR","both","mental and behavioural",2019,30643258,NA,0.0522,0.0023,22.69565217,NA,NA
+"517","RISK02","Automobile speeding propensity (risky behaviour)","","EUR","both","mental and behavioural",2019,30643258,NA,0.0634,0.0025,25.36,NA,NA
+"518","RISK03","number of sexual partners (risky behaviour)","","EUR","both","mental and behavioural",2019,30643258,NA,0.0991,0.0037,26.78378378,NA,NA
+"519","SCBP01","Schizophrenia+bipolar","European","EUR","both","mental and behavioural",2014,24280982,"Schizophrenia+bipolar",0.3777,0.0214,17.6495327,1.2664,1.3127
+"520","SCBP02","Schizophrenia-vs-bipolar","European","EUR","both","mental and behavioural",2014,24280982,"Schizophrenia-vs-bipolar",0.3206,0.0388,8.2628866,1.105,1.1168
+"521","SCHI05","","","","","",NA,NA,"",0.299,0.0093,32.15053763,NA,NA
+"522","SCLE02","","","","","",NA,NA,"",0.048,0.0263,1.825095057,NA,NA
+"523","SCLE03","Multiple sclerosis (SCLE02 with SE column)","European","EUR","both","autoimmune",2011,21833088,NA,0.0493,0.0262,1.881679389,NA,NA
+"524","SEXH01","Dehydroepiandrosterone (DHEA)","","EUR","both","metabolism: other",2015,26014426,"Dehydroepiandrosterone (DHEA)",NA,NA,NA,NA,NA
+"525","SEXH02","Free androgen index (FAI)","","EUR","both","metabolism: other",2015,26014426,"Free androgen index (FAI)",NA,NA,NA,NA,NA
+"526","SEXH03","Follicle-stimulating hormone (FSH)","","EUR","both","metabolism: other",2015,26014426,"Follicle-stimulating hormone (FSH)",NA,NA,NA,NA,NA
+"527","SEXH04","Luteinising hormone (LH)","","EUR","both","metabolism: other",2015,26014426,"Luteinising hormone (LH)",NA,NA,NA,NA,NA
+"528","SEXH05","Oestradiol","","EUR","both","metabolism: other",2015,26014426,"Oestradiol",NA,NA,NA,NA,NA
+"529","SEXH06","Progesterone","","EUR","both","metabolism: other",2015,26014426,"Progesterone",NA,NA,NA,NA,NA
+"530","SEXH07","Prolactin","","EUR","both","metabolism: other",2015,26014426,"Prolactin",NA,NA,NA,NA,NA
+"531","SEXH08","Sex hormone binding globulin (SHBG)","","EUR","both","metabolism: other",2015,26014426,"Sex hormone binding globulin (SHBG)",NA,NA,NA,NA,NA
+"532","SEXH09","Testosterone","","EUR","both","metabolism: other",2015,26014426,"Testosterone",NA,NA,NA,NA,NA
+"533","SEXH10","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"534","SLEE01","Sleep duration in children","European","EUR","both","mental and behavioural",2016,27568811,"Sleep duration in children.",0.1387,0.0429,3.23310023,1.0075,1.011
+"535","SLEE02","Sleep duration in children, BMI-adjusted","European","EUR","both","mental and behavioural",2016,27568811,"Sleep duration in children, BMI-adjusted.",0.1497,0.0437,3.42562929,1.0075,1.0086
+"536","SMOK01","Tobacco: age of smoking initiation","European","EUR","both","mental and behavioural",2010,20418890,"Tobacco: age of smoking initiation",0.0627,0.0185,3.38918919,1.0345,1.0284
+"537","SMOK02","Tobacco: smoking cessation (former versus current smokers)","European","EUR","both","mental and behavioural",2010,20418890,"Tobacco: smoking cessation (former versus current smokers)",0.0625,0.0104,6.00961539,1.0466,1.0506
+"538","SMOK03","Tobacco: CPD (cigarets per day)","European","EUR","both","mental and behavioural",2010,20418890,"Tobacco: CPD (cigarets per day)",0.0577,0.0134,4.30597015,1.0527,1.0491
+"539","SMOK04","Tobacco: smoking initiation (ever versus never been a regular smoker)","European","EUR","both","mental and behavioural",2010,20418890,"Tobacco: smoking initiation (ever versus never been a regular smoker)",0.0753,0.0066,11.4090909,1.0895,1.1034
+"540","SMOK05","Heavy versus never smoker in UKBileve","European","EUR","both","mental and behavioural",2017,28166213,"Heavy versus never smoker in UKBileve",0.2626,0.0167,15.7245509,1.2531,1.2946
+"541","STRK01","Any Stroke","","MIX","both","circulatory",2018,29531354,NA,0.0128,0.0012,10.66666667,NA,NA
+"542","SUBJ01","Subjective well-being: survey questions on life satisfaction, positive affect, or happiness","European","EUR","both","mental and behavioural",2016,27089181,"Subjective well-being: survey questions on life satisfaction, positive affect, or happiness",0.025,0.002,12.5,1.1301,1.1524
+"543","TANN01","Tanner Stage: males and females","European","EUR","both","anthropometric",2014,24770850,"Tanner Stage: males and females",0.091,0.0457,1.99124727,0.9957,1.0005
+"544","TANN01F","Tanner Stage: females","European","EUR","female","anthropometric",2014,24770850,"Tanner Stage: females",0.0903,0.0764,1.18193717,0.9957,0.9981
+"545","TANN01M","Tanner Stage: males","European","EUR","male","anthropometric",2014,24770850,"Tanner Stage: males",0.053,0.1251,0.42366107,1.0016,1.0097
+"546","TEMP01","Harm avoidance (HA)","European","EUR","both","mental and behavioural",2012,22832960,"Harm avoidance (HA)",0.066,0.0537,1.22905028,1.0195,1.0275
+"547","TEMP02","Novelty seeking (NS)","European","EUR","both","mental and behavioural",2012,22832960,"Novelty seeking (NS)",0.1092,0.0531,2.05649718,1.0436,1.0339
+"548","TEMP03","Reward dependence (RD)","European","EUR","both","mental and behavioural",2012,22832960,"Reward dependence (RD)",-0.0058,0.0533,-0.108818,1.0105,1.019
+"549","TEMP04","Persistence (P)","European","EUR","both","mental and behavioural",2012,22832960,"Persistence (P)",-0.0022,0.051,-0.0431373,1.0195,1.0233
+"550","THAL01","Subcortical brain regions: Thalamus","European","EUR","both","nervous system",2015,25607358,"Subcortical brain regions: Thalamus",0.1424,0.0361,3.94459834,1.0075,1.0152
+"551","THIN01","Persistent thin individuals versus controls","","EUR","both","anthropometric",2019,30677029,"Persistent thin individuals versus controls",1.2734,0.1668,7.63429257,1.0802,1.0869
+"552","THIN02","Persistent thin individuals vs severe early onset obesity","","EUR","both","anthropometric",2019,30677029,"Persistent thin individuals vs severe early onset obesity",0.1716,0.0419,4.09546539,1.0315,1.0374
+"553","THYR01","Autoimmune thyroid disorder: Graves' disease (GD) and Hashimoto's thyroiditis (HT)","European","EUR","both","autoimmune",2012,22922229,"Autoimmune thyroid disorder: Graves' disease (GD) and Hashimoto's thyroiditis (HT)",NA,NA,NA,NA,NA
+"554","TIRE01","Self-reported tiredness","European","EUR","both","mental and behavioural",2017,28322280,"Self-reported tiredness",0.0671,0.0058,11.5689655,1.1238,1.1382
+"555","TRGL01","Serum total triglycerides","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Serum total triglycerides",0.1152,0.0303,3.8019802,1.0195,1.0445
+"556","TRGL03","Triglycerides","European","EUR","both","metabolism: lipids",2010,20686565,"Triglycerides",0.0162,0.0411,0.39416058,0.9986,1.0132
+"557","TRGL04","Triglycerides in chylomicrons and largest VLDL particles","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Triglycerides in chylomicrons and largest VLDL particles",0.1355,0.0188,7.20744681,1.0075,1.1502
+"558","TRGL05","Triglycerides in IDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Triglycerides in IDL",0.0861,0.0258,3.3372093,1.0165,1.0285
+"559","TRGL06","Triglycerides in large VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Triglycerides in large VLDL",0.1315,0.0336,3.91369048,1.0225,1.0517
+"560","TRGL07","Triglycerides in medium VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Triglycerides in medium VLDL",0.1052,0.0271,3.88191882,1.0255,1.0347
+"561","TRGL08","Triglycerides in small HDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Triglycerides in small HDL",0.0892,0.0282,3.16312057,1.0195,1.0388
+"562","TRGL09","Triglycerides in small VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Triglycerides in small VLDL",0.07,0.0251,2.78884462,1.0165,1.0265
+"563","TRGL10","Triglycerides in very large HDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Triglycerides in very large HDL",0.1167,0.0323,3.6130031,1.0255,1.045
+"564","TRGL11","Triglycerides in very large VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Triglycerides in very large VLDL",0.1325,0.0562,2.35765125,1.0165,1.0508
+"565","TRGL12","Triglycerides in very small VLDL","European (+ Finnish)","EUR","both","metabolism: lipids",2016,27005778,"Triglycerides in very small VLDL",0.11,0.0267,4.11985019,1.0255,1.0296
+"566","TRGL13","Triglycerides","","MIX","both","metabolism: lipids",2013,24097068,NA,0.2141,0.0353,6.065155807,NA,NA
+"567","ULCC01","Ulcerative Colitis","European","EUR","both","autoimmune",2015,26192919,"Ulcerative Colitis",0.1418,0.0336,4.2202381,1.0225,1.0515
+"568","URAT01","Urate","European","EUR","both","metabolism: other",2013,23263486,"Urate",0.2608,0.0309,8.44012945,1.127,1.1835
+"569","URIN01","Albumin","European (+ Finnish)","EUR","both","genitourinary",2016,27005778,"Albumin",0.1267,0.0304,4.16776316,1.0315,1.2382
+"570","URIN02","Creatinine","European (+ Finnish)","EUR","both","genitourinary",2016,27005778,"Creatinine",0.0608,0.0242,2.51239669,1.0046,1.0115
+"571","URIN03","Urea","European (+ Finnish)","EUR","both","genitourinary",2016,27005778,"Urea",0.1113,0.0223,4.99103139,1.0496,1.0662
+"572","URIN05","MA (microalbuminuria)","European","EUR","both","genitourinary",2016,26631737,"MA (microalbuminuria)",0.0204,0.0216,0.94444444,1.0016,1.0029
+"573","URIN07","eGFRcrea (serum creatinine)","European","EUR","both","genitourinary",2016,26831199,"eGFRcrea (serum creatinine)",0.0144,0.0077,1.87012987,1.0466,1.0228
+"574","URIN08","eGFRcrea_DM (serum creatinine, diabetes mellitus)","European","EUR","both","genitourinary",2016,26831199,"eGFRcrea_DM (serum creatinine, diabetes mellitus)",0.1036,0.0074,14,1.1459,1.2723
+"575","URIN09","eGFRcrea_nonDM (serum creatinine, non diabetes mellitus)","European","EUR","both","genitourinary",2016,26831199,"eGFRcrea_nonDM (serum creatinine, non diabetes mellitus)",0.0752,0.0404,1.86138614,0.9986,1.0164
+"576","URIN11","eGFRcys (serum cystatin)","European","EUR","both","genitourinary",2016,26831199,"eGFRcys (serum cystatin)",0.1103,0.0082,13.4512195,1.1459,1.2601
+"577","URIN13","UACR_DM (urinary albumin-to-creatinine ratio, diabetes mellitus)","European","EUR","both","genitourinary",2016,26631737,"UACR_DM (urinary albumin-to-creatinine ratio, diabetes mellitus)",0.1479,0.0474,3.12025317,1.0466,1.0615
+"578","URIN14","UACR_nonDM (urinary albumin-to-creatinine ratio, non diabetes mellitus)","European","EUR","both","genitourinary",2016,26631737,"UACR_nonDM (urinary albumin-to-creatinine ratio, non diabetes mellitus)",-0.0826,0.0633,-1.3048973,0.9986,1.0091
+"579","URIN15","UACR (urinary albumin-to-creatinine ratio)","European","EUR","both","genitourinary",2016,26631737,"UACR (urinary albumin-to-creatinine ratio)",0.053,0.0109,4.86238532,1.0466,1.0436
+"580","VITD01","25-hydroxyvitamin D levels","European","EUR","both","nervous system",2017,28757204,"25-hydroxyvitamin D levels",0.0455,0.0088,5.17045455,1.0466,1.0457
+"581","WAIS01","Waist circumference European","European","EUR","both","anthropometric",2015,25673412,"Waist circumference EU",0.0728,0.0296,2.45945946,1.0075,1.0433
+"582","WAIS01F","Waist circumference European female","European","EUR","female","anthropometric",2015,25673412,"Waist circumference EU female",0.1329,0.0063,21.0952381,1.0466,1.1494
+"583","WAIS01M","Waist circumference European male","European","EUR","male","anthropometric",2015,25673412,"Waist circumference EU male",0.1531,0.008,19.1375,1.0466,1.0843
+"584","WAIS02","Waist circumference all ancestries","All ancestry","MIX","both","anthropometric",2015,25673412,"Waist circumference all ancestries",0.1679,0.0127,13.2204724,0.9986,1.0694
+"585","WAIS02F","Waist circumference all ancestries female","All ancestry","MIX","female","anthropometric",2015,25673412,"Waist circumference all ancestries female",0.1334,0.0063,21.1746032,1.0466,1.1523
+"586","WAIS02M","Waist circumference all ancestries male","All ancestry","MIX","male","anthropometric",2015,25673412,"Waist circumference all ancestries male",0.1544,0.008,19.3,1.0466,1.0856
+"587","WAIS03","Waist circumference European BMI-adjusted","European","EUR","both","anthropometric",2015,25673412,"Waist circumference EU BMI-adjusted",0.1667,0.0127,13.1259843,0.9986,1.0687
+"588","WAIS03F","Waist circumference European BMI-adjusted female","European","EUR","female","anthropometric",2015,25673412,"Waist circumference EU female BMI-adjusted",0.1045,0.006,17.4166667,1.0466,1.1415
+"589","WAIS03M","Waist circumference European BMI-adjusted male","European","EUR","male","anthropometric",2015,25673412,"Waist circumference EU male BMI-adjusted",0.1096,0.0083,13.2048193,1.0466,1.0855
+"590","WAIS04","Waist circumference all ancestries BMI-adjusted","All ancestry","MIX","both","anthropometric",2015,25673412,"Waist circumference all ancestries BMI-adjusted",0.1699,0.0112,15.1696429,1.0466,1.0876
+"591","WAIS04F","Waist circumference all ancestries BMI-adjusted female","All ancestry","MIX","female","anthropometric",2015,25673412,"Waist circumference all ancestries female BMI-adjusted",0.1048,0.006,17.4666667,1.0466,1.1428
+"592","WAIS04M","Waist circumference all ancestries BMI-adjusted male","All ancestry","MIX","male","anthropometric",2015,25673412,"Waist circumference all ancestries male BMI-adjusted",0.1103,0.0083,13.2891566,1.0466,1.0858
+"593","WEIG01","Birth weight","European","EUR","both","anthropometric",2013,23202124,"Birth weight",0.1668,0.0111,15.027027,1.0466,1.0843
+"594","WEIG02","Birth weight European","European","EUR","both","anthropometric",2016,27680694,"Birth weight EU",0.1134,0.0183,6.19672131,1.0466,1.062
+"595","WEIG03","Birth weight all ancestries","All ancestry","MIX","both","anthropometric",2016,27680694,"Birth weight all ancestries",0.1021,0.0065,15.7076923,1.2005,1.3104
+"596","WEIG04F","Weight EU female","European","EUR","female","anthropometric",2013,23754948,"Weight EU female",0.0973,0.0061,15.9508197,1.2005,1.3056
+"597","WEIG04M","Weight EU male","European","EUR","male","anthropometric",2013,23754948,"Weight EU male",0.1868,0.01,18.68,0.9986,1.072
+"598","WEIG05F","Offspring birth weight","European","EUR","female","anthropometric",2018,29309628,"Offspring birth weight",0.1909,0.0123,15.5203252,0.9986,1.0819
+"599","WHIP01","Extreme Waist-Hip Ratio","European","EUR","both","anthropometric",2013,23563607,"Extreme Waist-Hip Ratio",0.0834,0.0085,9.81176471,1.0957,1.1165
+"600","WHIP02","","","","","",NA,NA,"",NA,NA,NA,NA,NA
+"601","WHIP03","Waist-hip ratio EUR","European","EUR","both","anthropometric",2015,25673412,"Waist-hip ratio EUR",0.0977,0.0053,18.4339623,1.0466,1.0995
+"602","WHIP03F","Waist-hip ratio EUR female","European","EUR","female","anthropometric",2015,25673412,"Waist-hip ratio EUR female",0.1111,0.0085,13.0705882,1.0466,1.0724
+"603","WHIP03M","Waist-hip ratio EUR male","European","EUR","male","anthropometric",2015,25673412,"Waist-hip ratio EUR male",0.1353,0.0102,13.2647059,1.0466,1.0488
+"604","WHIP04","Waist-hip ratio all ancestries","All ancestry","MIX","both","anthropometric",2015,25673412,"Waist-hip ratio all ancestries",0.0981,0.0053,18.509434,1.0466,1.0992
+"605","WHIP04F","Waist-hip ratio all ancestries female","All ancestry","MIX","female","anthropometric",2015,25673412,"Waist-hip ratio all ancestries female",0.1118,0.0084,13.3095238,1.0466,1.0711
+"606","WHIP04M","Waist-hip ratio all ancestries male","All ancestry","MIX","male","anthropometric",2015,25673412,"Waist-hip ratio all ancestries male",0.1356,0.01,13.56,1.0466,1.047
+"607","WHIP05","Waist-hip ratio EUR BMI-adjusted","European","EUR","both","anthropometric",2015,25673412,"Waist-hip ratio EUR BMI-adjusted",0.0881,0.0061,14.442623,1.0466,1.098
+"608","WHIP05F","Waist-hip ratio EUR BMI-adjusted female","European","EUR","female","anthropometric",2015,25673412,"Waist-hip ratio EUR female BMI-adjusted",0.1093,0.0104,10.5096154,0.9986,1.0867
+"609","WHIP05M","Waist-hip ratio EUR BMI-adjusted male","European","EUR","male","anthropometric",2015,25673412,"Waist-hip ratio EUR male BMI-adjusted",0.1237,0.01,12.37,0.9986,1.0498
+"610","WHIP06","Waist-hip ratio all ancestries BMI-adjusted","All ancestry","MIX","both","anthropometric",2015,25673412,"Waist-hip ratio all ancestries BMI-adjusted",0.0885,0.0061,14.5081967,1.0466,1.0976
+"611","WHIP06F","Waist-hip ratio all ancestries BMI-adjusted female","All ancestry","MIX","female","anthropometric",2015,25673412,"Waist-hip ratio all ancestries female BMI-adjusted",0.1099,0.0104,10.5673077,0.9986,1.086
+"612","WHIP06M","Waist-hip ratio all ancestries BMI-adjusted male","All ancestry","MIX","male","anthropometric",2015,25673412,"Waist-hip ratio all ancestries male BMI-adjusted",0.125,0.01,12.5,0.9986,1.0497
+"613","tourettes_syndrome",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"614","bipolar_disorder_type1",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"615","bipolar_disorder_type2",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"616","PTSD_severity MVP",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"617","PTSD case/control MVP",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"618","generalised_anxiety_disorder_symptoms",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"619","age_smoking_initiation",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"620","smoking_initiation",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"621","smoking_cessation",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"622","cigarettes_per_day",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"623","cannabis_initiation",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"624","cannabis_use_disorder",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"625","opioid_dependence_stringent",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"626","change_fasting_glucose_over_time",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"627","fasting_glucose",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"628","fasting_glucose_male",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"629","fasting_glucose_female (MAGIC)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"630","fasting_insulin (MAGIC)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"631","fasting_insulin_male (MAGIC)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"632","fasting_insulin_female (MAGIC)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"633","fasting_glucose_bmi_adjusted (MAGIC)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"634","2hGlu_BMI adjused (MAGIC)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"635","HbA1c (MAGIC)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"636","fasting_insulin_bmi_adjusted (MAGIC)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"637","number_children_ever_born",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"638","childlessness",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"639","lonelieness_meta",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"640","nicotine_dependence",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"641","Treatment resistant depression (*to add to repo*)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"642","AN/OCD (*to add to repo*)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"643","Age at natural menopause (ANM) (*to add to repo*)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"644","Anhedonia (*to add to repo*)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"645","Problematic alcohol use (*to add to repo*)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"646","Externalising behaviour (*to add to repo*)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"647","Coronary artery disease (*to add to repo*)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"648","Adiponectin (*to add to repo*)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"649","Proinsulin (BMI adjusted) (*to add to repo*)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"650","Proinsulin (*to add to repo*)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"651","Insulin-stimulated glucose uptake (*to add to repo*)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA

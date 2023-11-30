@@ -1,0 +1,59 @@
+---
+title: "pheno categories"
+author: "Helena Davies"
+date: "2023-08-11"
+output: html_document
+---
+
+Configure global options for all chunks
+```{r Setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  comment = '',
+  prompt = FALSE,
+  cache = FALSE
+  )
+```
+
+Clear global environment prior to initiation
+```{r Clear global environment}
+remove(list = ls())
+```
+
+```{r load packages}
+library(summarytools)
+library(skimr)
+library(gtsummary)
+library(tidyverse)
+```
+
+# Read in rg pheno categories
+```{r read in data}
+rg_pheno_categories <- read_csv(file = "/Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/data_cleaned/pheno_categories_rg_external_traits.csv")
+
+```
+```{r}
+# Filter out empty rows
+rg_pheno_categories <- rg_pheno_categories %>%
+  filter(!is.na("code"))
+
+# Keep only PGCED traits in one dataset
+PGCED_traits_code <- rg_pheno_categories %>%
+  select(code = "KCL code")
+
+# All other info in another dataset
+rg_pheno_info <- rg_pheno_categories %>%
+  select(-"KCL code")
+
+# Merge by code
+PGCED_traits_rg_info <- dplyr::left_join(PGCED_traits_code,
+                                         rg_pheno_info,
+                                         by = "code")
+```
+
+# Save rg pheno info
+```{r save data}
+PGCED_traits_rg_info %>%
+  write_csv(file = "/Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/data_cleaned/READY_pheno_categories_rg_external_traits.csv")
+```
+

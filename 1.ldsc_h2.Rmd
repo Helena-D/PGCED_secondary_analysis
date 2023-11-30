@@ -1,0 +1,104 @@
+---
+title: "ldsc h2"
+author: "Helena Davies"
+date: "2023-07-18"
+output: html_document
+---
+
+## Heritability observed scale + Liability scale h2
+```{bash heritability ldsc hm3 reference panel}
+conda activate ldsc_env
+cd /scratch/users/k19047584/ldsc/internal_rg_h2/scripts/
+rm /scratch/users/k19047584/ldsc/internal_rg_h2/scripts/PGCED3_LDSC_herit_sumstats_hm3.sh
+
+cat <<'EOT'>> /scratch/users/k19047584/ldsc/internal_rg_h2/scripts/PGCED3_LDSC_herit_sumstats_hm3.sh
+#!/bin/bash -l
+#SBATCH --partition cpu
+#SBATCH --time=0-48:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --mem-per-cpu=19G
+#SBATCH --job-name=herit_ldsc
+#SBATCH --output=/scratch/users/k19047584/ldsc/internal_rg_h2/herit_ldsc_hm3_%j.out
+
+files=("AN")
+
+for f in ${files[@]};
+do
+
+python /scratch/users/k19047584/ldsc/ldsc.py \
+--h2 /scratch/users/k19047584/PGCED3_rg/daner_${f}.meta_munged_hm3.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--samp-prev 0.019 \
+--pop-prev 0.015 \
+--out /scratch/users/k19047584/ldsc/internal_rg_h2/${f}_hm3_herit
+done
+
+files=("ANR")
+
+for f in ${files[@]};
+do
+
+python /scratch/users/k19047584/ldsc/ldsc.py \
+--h2 /scratch/users/k19047584/PGCED3_rg/daner_${f}.meta_munged_hm3.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--samp-prev 0.07 \
+--pop-prev 0.006 \
+--out /scratch/users/k19047584/ldsc/internal_rg_h2/${f}_hm3_herit
+done
+
+
+files=("ANBP")
+
+for f in ${files[@]};
+do
+
+python /scratch/users/k19047584/ldsc/ldsc.py \
+--h2 /scratch/users/k19047584/PGCED3_rg/daner_${f}.meta_munged_hm3.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--samp-prev 0.134 \
+--pop-prev 0.008 \
+--out /scratch/users/k19047584/ldsc/internal_rg_h2/${f}_hm3_herit
+done
+
+files=("BEBROAD")
+
+for f in ${files[@]};
+do
+
+python /scratch/users/k19047584/ldsc/ldsc.py \
+--h2 /scratch/users/k19047584/PGCED3_rg/daner_${f}.meta_munged_hm3.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--samp-prev 0.031 \
+--pop-prev 0.07 \
+--out /scratch/users/k19047584/ldsc/internal_rg_h2/${f}_hm3_herit
+done
+
+files=("BENARROW")
+
+for f in ${files[@]};
+do
+
+python /scratch/users/k19047584/ldsc/ldsc.py \
+--h2 /scratch/users/k19047584/PGCED3_rg/daner_${f}.meta_munged_hm3.sumstats.gz \
+--ref-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--w-ld-chr /scratch/prj/gwas_sumstats/ld_scores/hc1kgp3.b38.eur.l2.jz2023.chr/ \
+--samp-prev 0.012 \
+--pop-prev 0.05 \
+--out /scratch/users/k19047584/ldsc/internal_rg_h2/${f}_hm3_herit
+done
+
+EOT
+
+sbatch -p cpu /scratch/users/k19047584/ldsc/internal_rg_h2/scripts/PGCED3_LDSC_herit_sumstats_hm3.sh
+```
+
+# Download log files
+```{bash}
+rsync create:/scratch/users/k19047584/ldsc/internal_rg_h2/herit_ldsc_hm3_8010440.out /Users/helenadavies/werk/PGC_ED_Freeze3/PGC_ED_F3_github_scripts/secondary_analysis_rg_results/log_files_h2/ldsc_heritability_PGCED3_traits.txt
+```
+
